@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Recuperar contraseña | PASIR Escuela</title>
+<link rel="stylesheet" href="app.css">
+<script src="theme.js" defer></script>
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--stroke:#d8dee8;--text:#0f172a;--muted:#64748b;--blue:#38bdf8;--blue2:#2563eb;--danger:#dc2626;--ok:#16a34a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}.wrap{width:min(460px,92vw);margin:0 auto;padding:34px 0}.brand{text-align:center;font-weight:900;font-size:1.8rem;letter-spacing:.1em;color:#0f1b55;margin:20px 0 26px}.brand span{color:var(--blue)}.card{background:var(--card);border:1px solid rgba(37,99,235,.12);border-radius:22px;padding:24px;box-shadow:0 18px 40px rgba(15,23,42,.08)}h1{margin:0 0 8px;font-size:1.75rem;letter-spacing:-.04em}.muted{color:var(--muted);line-height:1.5}.field{margin:14px 0}.field label{display:block;font-weight:900;margin-bottom:6px}.input{width:100%;border:1px solid var(--stroke);border-radius:14px;background:#fff;padding:14px;font-size:15px;outline:none}.input:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,.16)}.btn{width:100%;border:0;border-radius:14px;padding:14px 16px;font-weight:900;font-size:15px;background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff;cursor:pointer}.btn:disabled{background:#9ca3af;cursor:not-allowed}.msg{display:none;margin-top:12px;border-radius:14px;padding:12px;font-weight:800}.ok{display:block;background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.err{display:block;background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}.links{text-align:center;margin-top:18px}.links a{color:#2563eb;font-weight:800;text-decoration:none}body[data-theme="dark"]{background:#0b1220;color:#f8fafc}body[data-theme="dark"] .card,body[data-theme="dark"] .input{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}body[data-theme="dark"] .brand{color:#e2e8f0}body[data-theme="dark"] .muted{color:#94a3b8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">PASIR<span>🗲</span><div style="font-size:.75rem;letter-spacing:.35em;color:#38bdf8">ESCUELA</div></div>
+  <section class="card" id="requestBox">
+    <h1>Recuperar contraseña</h1>
+    <p class="muted">Escribe tu correo y te enviaremos un enlace para crear una nueva contraseña.</p>
+    <form id="requestForm">
+      <div class="field"><label>Correo</label><input class="input" id="email" type="email" placeholder="tucorreo@gmail.com" required></div>
+      <button class="btn" id="requestBtn" type="submit">Enviar enlace</button>
+      <div id="requestMsg" class="msg"></div>
+    </form>
+  </section>
+  <section class="card" id="resetBox" style="display:none">
+    <h1>Nueva contraseña</h1>
+    <p class="muted">Ingresa tu nueva contraseña. El enlace solo puede usarse una vez.</p>
+    <form id="resetForm">
+      <div class="field"><label>Nueva contraseña</label><input class="input" id="newPass" type="password" minlength="6" required></div>
+      <div class="field"><label>Repetir contraseña</label><input class="input" id="newPass2" type="password" minlength="6" required></div>
+      <button class="btn" id="resetBtn" type="submit">Guardar contraseña</button>
+      <div id="resetMsg" class="msg"></div>
+    </form>
+  </section>
+  <div class="links"><a href="login.html">Volver al login</a></div>
+</div>
+<script>
+const API_URL="https://pasir-proxy.vercel.app/api";
+const $=id=>document.getElementById(id);
+function jsonp(action,payload){return new Promise((resolve,reject)=>{const cb="cb_"+Math.random().toString(36).slice(2);const params=new URLSearchParams();params.set("action",action);Object.entries(payload||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null)params.set(k,String(v))});params.set("callback",cb);const s=document.createElement("script");s.src=API_URL+"?"+params.toString();s.async=true;window[cb]=d=>{clean();resolve(d)};function clean(){try{delete window[cb]}catch(e){window[cb]=undefined} if(s.parentNode)s.parentNode.removeChild(s)}s.onerror=()=>{clean();reject(new Error("Sin conexión a internet."))};document.body.appendChild(s)})}
+function msg(id,type,text){const el=$(id);el.className="msg "+type;el.textContent=text;el.style.display="block"}
+function setBtn(btn,on,normal,loading){btn.disabled=on;btn.textContent=on?loading:normal}
+const params=new URLSearchParams(location.search);const token=params.get("token")||"";
+if(token){$("requestBox").style.display="none";$("resetBox").style.display="block"}
+$("requestForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("requestBtn");setBtn(btn,true,"Enviar enlace","Enviando...");try{const resetUrlBase=new URL("reset.html",location.href).href;const r=await jsonp("requestPasswordReset",{email:$("email").value,resetUrlBase});if(!r.ok)throw new Error(r.error||"No se pudo enviar");msg("requestMsg","ok","Si el correo existe, te enviaremos un enlace de recuperación.")}catch(err){msg("requestMsg","err",err.message||String(err))}finally{setBtn(btn,false,"Enviar enlace","Enviando...")}});
+$("resetForm").addEventListener("submit",async e=>{e.preventDefault();const p1=$("newPass").value,p2=$("newPass2").value;if(p1!==p2)return msg("resetMsg","err","Las contraseñas no coinciden.");const btn=$("resetBtn");setBtn(btn,true,"Guardar contraseña","Guardando...");try{const r=await jsonp("resetPassword",{token,password:p1});if(!r.ok)throw new Error(r.error||"No se pudo cambiar");msg("resetMsg","ok","Contraseña actualizada. Ya puedes iniciar sesión.");setTimeout(()=>location.href="login.html",1800)}catch(err){msg("resetMsg","err",err.message||String(err));setBtn(btn,false,"Guardar contraseña","Guardando...")}});
+</script>
+</body>
+</html>
