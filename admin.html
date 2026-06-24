@@ -11,106 +11,144 @@
   <script src="theme.js" defer></script>
   <style>
     :root{--bg:#f3f5f9;--card:#fff;--stroke:#d8dee8;--text:#0f172a;--muted:#64748b;--blue:#38bdf8;--blue2:#2563eb;--shadow:0 18px 40px rgba(15,23,42,.08);--danger:#dc2626;--ok:#16a34a}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}
-    .container{width:min(1120px,94vw);margin:0 auto}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:900;color:#0f1b55}
-    .dot{width:12px;height:12px;border-radius:999px;background:var(--blue)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;border:0;cursor:pointer;font-weight:900}
-    .primary{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff}
-    .secondary{background:#fff;border:1px solid #d8dee8}
-    .dangerBtn{background:#fee2e2;color:#b91c1c}
-    .hide{display:none!important}
-    .card{background:#fff;border-radius:18px;padding:16px;border:1px solid #e5e7eb;margin-top:12px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-    .span6{grid-column:span 6}
-    .span12{grid-column:span 12}
-    .input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #ccc}
-    .item{padding:10px;border:1px solid #eee;border-radius:10px;margin:6px 0}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}.container{width:min(1120px,94vw);margin:0 auto}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:#0f1b55}.dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 6px rgba(56,189,248,.14)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:900;border:0;cursor:pointer;font-size:15px}.primary{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff}.secondary{background:#fff;border:1px solid rgba(37,99,235,.16);color:#1d4ed8;box-shadow:0 8px 18px rgba(15,23,42,.04)}.dangerBtn{background:#fee2e2;color:#b91c1c}.btn:disabled{background:#9ca3af;color:#fff;cursor:not-allowed}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:22px 0}.title{font-size:2.1rem;line-height:1.05;font-weight:900;letter-spacing:-.04em;margin:0;color:#111827}.muted{color:var(--muted)}.hero,.card{background:var(--card);border:1px solid rgba(37,99,235,.12);border-radius:22px;box-shadow:var(--shadow)}.hero{padding:22px;margin-bottom:18px;background:linear-gradient(135deg,#eef8ff,#fff)}.hero h1{margin:0 0 6px;font-size:1.55rem}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{padding:18px}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12} h2{margin:0 0 14px;font-size:1.15rem}.form{display:grid;gap:10px}.field label{display:block;font-weight:900;margin:0 0 6px;color:#111827;font-size:13px}.input,select{width:100%;border:1px solid var(--stroke);border-radius:14px;background:#fff;padding:13px 14px;font-size:15px;outline:none}.input:focus,select:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,.18)}.inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}.msg{display:none;margin-top:10px;border-radius:14px;padding:12px;font-weight:800}.msg.ok{display:block;background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.msg.err{display:block;background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}.list{display:grid;gap:8px;max-height:360px;overflow:auto}.item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid rgba(37,99,235,.10);border-radius:14px;background:#fff}.item strong{font-size:14px}.item.clickable{cursor:pointer}.item.clickable:hover{border-color:#38bdf8;box-shadow:0 8px 20px rgba(56,189,248,.12)}.pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-weight:900;font-size:12px;background:rgba(56,189,248,.10);color:#1d4ed8;border:1px solid rgba(56,189,248,.20)}.hide{display:none!important}.loginBox{max-width:460px;margin:34px auto}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{padding:8px 10px;border-radius:999px;border:1px solid rgba(37,99,235,.16);background:#fff;color:#1d4ed8;font-weight:900;cursor:pointer}.adminbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.small{font-size:12px;color:var(--muted)}
+    body[data-theme="dark"]{background:#0b1220;color:#f9fafb}body[data-theme="dark"] .brand,body[data-theme="dark"] .title,body[data-theme="dark"] h1,body[data-theme="dark"] h2,body[data-theme="dark"] label{color:#f8fafc}body[data-theme="dark"] .muted,body[data-theme="dark"] .small{color:#94a3b8}body[data-theme="dark"] .hero,body[data-theme="dark"] .card,body[data-theme="dark"] .item,body[data-theme="dark"] .input,body[data-theme="dark"] select,body[data-theme="dark"] .secondary,body[data-theme="dark"] .quick button{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}body[data-theme="dark"] .hero{background:linear-gradient(120deg,rgba(15,23,42,.88),rgba(2,6,23,.96))}
+    @media(max-width:850px){.span4,.span6,.span8{grid-column:span 12}.inline{grid-template-columns:1fr}.title{font-size:1.7rem}.btn{width:100%}.top .adminbar{width:100%}.top .adminbar .btn{width:auto}}
   </style>
 </head>
 <body>
-
-<header class="container row">
-  <div class="brand"><span class="dot"></span>PASIR ESCUELA</div>
-</header>
-
+<header><div class="container"><div class="row"><div class="brand"><span class="dot"></span><span>PASIR<span style="color:#38bdf8"> ESCUELA 🗲</span></span></div><button class="btn secondary" id="theme-toggle" type="button"><span id="theme-icon">☀️</span></button></div></div></header>
 <main class="container">
+  <section id="loginView" class="loginBox card">
+    <h1 class="title" style="margin-bottom:8px">Administrador</h1>
+    <p class="muted" style="margin-top:0">Ingresa con el correo y clave de la pestaña <b>Admins</b>.</p>
+    <form id="adminLoginForm" class="form">
+      <div class="field"><label>Correo admin</label><input class="input" id="adminEmail" type="email" autocomplete="username" required></div>
+      <div class="field"><label>Contraseña</label><input class="input" id="adminPassword" type="password" autocomplete="current-password" required></div>
+      <button class="btn primary" id="adminLoginBtn" type="submit">Ingresar</button>
+      <div id="loginMsg" class="msg"></div>
+    </form>
+  </section>
 
-<!-- LOGIN -->
-<section id="loginView" class="card">
-  <h2>Login Admin</h2>
-  <form id="adminLoginForm">
-    <input id="adminEmail" class="input" placeholder="correo">
-    <input id="adminPassword" class="input" type="password" placeholder="clave">
-    <button class="btn primary">Ingresar</button>
-  </form>
-</section>
-
-<!-- DASH -->
-<section id="dashView" class="hide">
-
-  <div class="grid">
-
-    <div class="card span6">
-      <h3>Dar acceso a recursos (MULTI)</h3>
-
-      <input id="resourceEmail" class="input" placeholder="email alumno">
-
-      <!-- MEJORA: MULTI SELECT -->
-      <select id="resourceId" class="input" multiple size="6"></select>
-
-      <input id="resourceStart" type="date" class="input">
-      <input id="resourceEnd" type="date" class="input">
-
-      <button id="giveResourceBtn" class="btn primary">Guardar accesos</button>
+  <section id="dashView" class="hide">
+    <div class="top">
+      <div><h1 class="title">Panel administrador</h1><div class="muted">Da accesos a cursos, manuales y apps sin abrir Google Sheets.</div></div>
+      <div class="adminbar"><a class="btn secondary" href="account.html">Mi cuenta</a><button class="btn dangerBtn" id="logoutAdmin">Salir admin</button></div>
     </div>
+    <div class="hero"><h1>Gestión rápida</h1><p>Elige alumno, recurso o curso, define vencimiento y guarda.</p></div>
+    <div class="grid">
+      <div class="card span4">
+        <h2>👤 Crear alumno</h2>
+        <form id="createUserForm" class="form">
+          <div class="field"><label>Nombre</label><input class="input" id="newName" placeholder="Nombre del alumno" required></div>
+          <div class="field"><label>Correo</label><input class="input" id="newEmail" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Clave</label><input class="input" id="newPass" placeholder="123456" required></div>
+          <button class="btn primary" id="createUserBtn" type="submit">Crear alumno</button>
+          <div id="createUserMsg" class="msg"></div>
+        </form>
+      </div>
+      <div class="card span8">
+        <h2 id="usersTitle">👥 Alumnos registrados (0)</h2>
+        <div class="inline" style="margin-bottom:10px"><input class="input" id="userSearch" placeholder="Buscar por nombre o correo"><button class="btn secondary" id="refreshUsers">Actualizar</button></div>
+        <div id="usersList" class="list"><div class="muted">Cargando alumnos…</div></div>
+        <div class="small" style="margin-top:8px">Toca un alumno para ver sus cursos, recursos, resetear clave o desactivarlo.</div>
+      </div>
 
-  </div>
+      <div class="card span12" id="userDetailCard" style="display:none">
+        <h2>🔎 Detalle del alumno</h2>
+        <div id="selectedUserBox" class="muted">Selecciona un alumno.</div>
+        <div class="quick" style="margin:12px 0">
+          <button type="button" id="fillSelectedUser">Usar este alumno para dar acceso</button>
+          <button type="button" id="resetSelectedPass">Enviar link de recuperación</button>
+          <button type="button" id="deleteSelectedUser" style="color:#b91c1c;border-color:#fecaca;background:#fee2e2">Desactivar usuario</button>
+        </div>
+        <div class="grid">
+          <div class="span6"><h2>📚 Cursos del alumno</h2><div id="selectedCourses" class="list"><div class="muted">Sin datos.</div></div></div>
+          <div class="span6"><h2>📥 Manuales / Apps del alumno</h2><div id="selectedResources" class="list"><div class="muted">Sin datos.</div></div></div>
+        </div>
+      </div>
 
-</section>
+      <div class="card span6">
+        <h2>📚 Dar acceso a curso</h2>
+        <form id="giveCourseForm" class="form">
+          <div class="field"><label>Correo del alumno</label><input class="input" id="courseEmail" list="usersDatalist" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Curso disponible</label><select id="courseSelect" required><option value="">Cargando cursos…</option></select></div>
+          <input type="hidden" id="courseId"><input type="hidden" id="courseTitle">
+          <div class="inline">
+            <div class="field"><label>Fecha inicio</label><input class="input" id="courseStart" type="date"></div>
+            <div class="field"><label>Fecha vencimiento</label><input class="input" id="courseEnd" type="date"></div>
+          </div>
+          <div class="quick" data-target="courseEnd"><button type="button" data-days="30">30 días</button><button type="button" data-days="180">6 meses</button><button type="button" data-days="365">1 año</button><button type="button" data-days="">Ilimitado</button></div>
+          <button class="btn primary" id="giveCourseBtn" type="submit">Guardar acceso al curso</button>
+          <div id="giveCourseMsg" class="msg"></div>
+        </form>
+      </div>
 
+      <div class="card span6">
+        <h2>📥 Dar acceso a manual/app</h2>
+        <form id="giveResourceForm" class="form">
+          <div class="field"><label>Correo del alumno</label><input class="input" id="resourceEmail" list="usersDatalist" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Recurso</label><select id="resourceId" required><option value="">Cargando recursos…</option></select></div>
+          <div class="inline">
+            <div class="field"><label>Fecha inicio</label><input class="input" id="resourceStart" type="date"></div>
+            <div class="field"><label>Fecha vencimiento</label><input class="input" id="resourceEnd" type="date"></div>
+          </div>
+          <div class="quick" data-target="resourceEnd"><button type="button" data-days="30">30 días</button><button type="button" data-days="180">6 meses</button><button type="button" data-days="365">1 año</button><button type="button" data-days="">Ilimitado</button></div>
+          <button class="btn primary" id="giveResourceBtn" type="submit">Guardar acceso al recurso</button>
+          <div id="giveResourceMsg" class="msg"></div>
+        </form>
+      </div>
+
+      <div class="card span12">
+        <h2>🧩 Recursos disponibles</h2>
+        <div id="resourcesList" class="list"><div class="muted">Cargando recursos…</div></div>
+      </div>
+    </div>
+  </section>
+  <datalist id="usersDatalist"></datalist>
 </main>
-
 <script>
 const API_URL="https://pasir-proxy.vercel.app/api";
-let adminToken="";
-
-// LOGIN (simplificado)
-document.getElementById("adminLoginForm").addEventListener("submit",async(e)=>{
-  e.preventDefault();
-  const r=await fetch(API_URL+"?action=adminLogin&email="+adminEmail.value+"&password="+adminPassword.value);
-  const d=await r.json();
-  if(d.ok){
-    adminToken=d.token;
-    loginView.classList.add("hide");
-    dashView.classList.remove("hide");
-  }
-});
-
-// MULTI-RESOURCE ACCESS FIX
-document.getElementById("giveResourceBtn").addEventListener("click",async()=>{
-  const email=document.getElementById("resourceEmail").value;
-
-  const resourceIds=[...document.getElementById("resourceId").selectedOptions].map(o=>o.value);
-
-  const payload={
-    email,
-    resourceIds,
-    startDate:resourceStart.value,
-    endDate:resourceEnd.value,
-    token:adminToken
-  };
-
-  await fetch(API_URL+"?action=adminGiveResourceMulti",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(payload)
-  });
-
-  alert("Accesos asignados");
-});
+let adminToken=localStorage.getItem("pasir_admin_token")||"";
+let allUsers=[]; let allResources=[]; let allCourses=[]; let selectedUser=null;
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function today(){return new Date().toISOString().slice(0,10)}
+function addDays(days){const d=new Date();d.setDate(d.getDate()+Number(days));return d.toISOString().slice(0,10)}
+function msg(id,type,text){const el=$(id); el.className="msg "+type; el.textContent=text;}
+function setBtn(btn,loading,text,loadingText){btn.disabled=loading;btn.textContent=loading?loadingText:text;}
+function jsonp(action,payload){return new Promise((resolve,reject)=>{const cb="cb_"+Math.random().toString(36).slice(2);const params=new URLSearchParams();params.set("action",action);Object.entries(payload||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null)params.set(k,String(v))});params.set("callback",cb);const s=document.createElement("script");s.src=API_URL+"?"+params.toString();s.async=true;window[cb]=(data)=>{clean();resolve(data)};function clean(){try{delete window[cb]}catch(e){window[cb]=undefined} if(s.parentNode)s.parentNode.removeChild(s)}s.onerror=()=>{clean();reject(new Error("Sin conexión a internet."))};document.body.appendChild(s)})}
+function showDash(){ $("loginView").classList.add("hide"); $("dashView").classList.remove("hide"); }
+function showLogin(){ $("dashView").classList.add("hide"); $("loginView").classList.remove("hide"); }
+async function loadUsers(){const r=await jsonp("adminUsers",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar usuarios"); allUsers=r.users||[]; renderUsers(); renderDatalist();}
+async function loadResources(){const r=await jsonp("adminResources",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar recursos"); allResources=r.resources||[]; renderResources(); renderResourceSelect();}
+async function loadCourses(){const r=await jsonp("adminCourses",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar cursos"); allCourses=r.courses||[]; renderCourseSelect();}
+function renderDatalist(){ $("usersDatalist").innerHTML=allUsers.map(u=>`<option value="${esc(u.email)}">${esc(u.name||u.email)}</option>`).join(""); }
+function renderUsers(){const q=($("userSearch").value||"").toLowerCase(); const list=allUsers.filter(u=>(u.email+" "+u.name).toLowerCase().includes(q)); if($("usersTitle")) $("usersTitle").textContent=`👥 Alumnos registrados (${allUsers.length})`; $("usersList").innerHTML=list.length?list.map(u=>`<div class="item clickable" data-email="${esc(u.email)}"><div><strong>${esc(u.name||"Sin nombre")}</strong><div class="small">${esc(u.email)}</div></div><span class="pill">${esc(u.status||"active")}</span></div>`).join(""):`<div class="muted">No hay alumnos.</div>`;}
+function renderResources(){ $("resourcesList").innerHTML=allResources.length?allResources.map(r=>`<div class="item"><div><strong>${esc(r.title||r.resourceId)}</strong><div class="small">${esc(r.resourceId)} · ${esc(r.type)} · ${esc(r.description)}</div></div><span class="pill">${esc(r.status||"active")}</span></div>`).join(""):`<div class="muted">No hay recursos en Resources.</div>`;}
+function renderResourceSelect(){ $("resourceId").innerHTML='<option value="">Selecciona recurso</option>'+allResources.filter(r=>(r.status||"active")==="active").map(r=>`<option value="${esc(r.resourceId)}">${esc(r.type)} · ${esc(r.title||r.resourceId)}</option>`).join("");}
+function renderCourseSelect(){ $("courseSelect").innerHTML='<option value="">Selecciona curso</option>'+allCourses.map(c=>`<option value="${esc(c.courseId)}" data-title="${esc(c.title||c.courseId)}">${esc(c.title||c.courseId)} · ${esc(c.courseId)}</option>`).join("");}
+function fillFormsWithEmail(email){$("courseEmail").value=email;$("resourceEmail").value=email;window.scrollTo({top:document.getElementById("giveCourseForm").getBoundingClientRect().top+window.scrollY-120,behavior:"smooth"});}
+async function openUser(email){selectedUser=email; $("userDetailCard").style.display="block"; $("selectedUserBox").innerHTML=`Cargando datos de <b>${esc(email)}</b>...`; const r=await jsonp("adminUserDetail",{token:adminToken,email}); if(!r.ok){$("selectedUserBox").innerHTML=`<span style="color:#b91c1c">${esc(r.error||"No se pudo cargar")}</span>`;return;} const u=r.user||{}; $("selectedUserBox").innerHTML=`<b>${esc(u.name||"Sin nombre")}</b><br><span class="small">${esc(email)} · Estado: ${esc(u.status||"active")}</span>`; $("selectedCourses").innerHTML=(r.courses||[]).length?(r.courses||[]).map(c=>{const on=c.enabled!==false;return `<div class="item"><div><strong>${esc(c.title||c.courseId)}</strong><div class="small">${esc(c.courseId)} · ${on?"ACTIVO":"INACTIVO"} · ${esc(c.status||"")} ${c.endDate?"· vence "+esc(c.endDate):"· ilimitado"}</div></div><button class="btn ${on?"dangerBtn":"secondary"}" type="button" onclick="setCourseAccess('${esc(email)}','${esc(c.courseId)}',${!on})">${on?"Desactivar":"Activar"}</button></div>`}).join(""):`<div class="muted">No tiene cursos asignados.</div>`; $("selectedResources").innerHTML=(r.resources||[]).length?(r.resources||[]).map(x=>{const on=x.enabled!==false;return `<div class="item"><div><strong>${esc(x.title||x.resourceId)}</strong><div class="small">${esc(x.type)} · ${esc(x.resourceId)} · ${on?"ACTIVO":"INACTIVO"} · ${esc(x.status||"")} ${x.endDate?"· vence "+esc(x.endDate):"· ilimitado"}</div></div><button class="btn ${on?"dangerBtn":"secondary"}" type="button" onclick="setResourceAccess('${esc(email)}','${esc(x.resourceId)}',${!on})">${on?"Desactivar":"Activar"}</button></div>`}).join(""):`<div class="muted">No tiene manuales/apps asignados.</div>`;}
+async function setCourseAccess(email,courseId,on){const texto=on?"activar":"desactivar"; if(!confirm(`¿Deseas ${texto} este curso?`))return; const r=await jsonp("adminSetCourseAccess",{token:adminToken,email,courseId,enabled:on?"TRUE":"FALSE"}); if(!r.ok)return alert(r.error||"No se pudo actualizar"); await openUser(email);}
+async function setResourceAccess(email,resourceId,on){const texto=on?"activar":"desactivar"; if(!confirm(`¿Deseas ${texto} este recurso?`))return; const r=await jsonp("adminSetResourceAccess",{token:adminToken,email,resourceId,enabled:on?"TRUE":"FALSE"}); if(!r.ok)return alert(r.error||"No se pudo actualizar"); await openUser(email);}
+async function removeCourse(email,courseId){return setCourseAccess(email,courseId,false)}
+async function removeResource(email,resourceId){return setResourceAccess(email,resourceId,false)}
+async function boot(){if(!adminToken)return showLogin();showDash();try{await Promise.all([loadUsers(),loadResources(),loadCourses()]);}catch(e){localStorage.removeItem("pasir_admin_token");adminToken="";showLogin();msg("loginMsg","err","Tu sesión admin venció. Ingresa de nuevo.");}}
+$("adminLoginForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("adminLoginBtn");setBtn(btn,true,"Ingresar","Ingresando...");try{const r=await jsonp("adminLogin",{email:$("adminEmail").value,password:$("adminPassword").value});if(!r.ok)throw new Error(r.error||"No autorizado");adminToken=r.token;localStorage.setItem("pasir_admin_token",adminToken);msg("loginMsg","ok","Ingreso correcto.");showDash();await Promise.all([loadUsers(),loadResources(),loadCourses()]);}catch(err){msg("loginMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Ingresar","Ingresando...");}});
+$("logoutAdmin").addEventListener("click",()=>{localStorage.removeItem("pasir_admin_token");adminToken="";showLogin();});
+$("refreshUsers").addEventListener("click",async()=>{try{await loadUsers()}catch(e){alert(e.message)}}); $("userSearch").addEventListener("input",renderUsers);
+$("usersList").addEventListener("click",e=>{const item=e.target.closest(".item[data-email]"); if(item) openUser(item.dataset.email);});
+$("fillSelectedUser").addEventListener("click",()=>{if(selectedUser)fillFormsWithEmail(selectedUser)});
+$("resetSelectedPass").addEventListener("click",async()=>{if(!selectedUser)return; if(!confirm("¿Enviar enlace de recuperación a "+selectedUser+"?"))return; const resetUrlBase=new URL("reset.html",location.href).href; const r=await jsonp("adminSendPasswordReset",{token:adminToken,email:selectedUser,resetUrlBase}); if(!r.ok)return alert(r.error||"No se pudo enviar"); alert("Enlace de recuperación enviado al correo del alumno.");});
+$("deleteSelectedUser").addEventListener("click",async()=>{if(!selectedUser)return; if(!confirm("Esto desactivará el usuario y sus accesos. ¿Continuar?"))return; const r=await jsonp("adminDeleteUser",{token:adminToken,email:selectedUser}); if(!r.ok)return alert(r.error||"No se pudo desactivar"); await loadUsers(); await openUser(selectedUser);});
+$("createUserForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("createUserBtn");setBtn(btn,true,"Crear alumno","Creando...");try{const r=await jsonp("register",{name:$("newName").value,email:$("newEmail").value,password:$("newPass").value});if(!r.ok)throw new Error(r.error||"No se pudo crear");msg("createUserMsg","ok","Alumno creado correctamente.");$("createUserForm").reset();await loadUsers();}catch(err){msg("createUserMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Crear alumno","Creando...");}});
+$("courseSelect").addEventListener("change",()=>{const opt=$("courseSelect").selectedOptions[0]; $("courseId").value=opt?.value||""; $("courseTitle").value=opt?.dataset.title||"";});
+$("giveCourseForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("giveCourseBtn");setBtn(btn,true,"Guardar acceso al curso","Guardando...");try{const end=$("courseEnd").value;const r=await jsonp("adminGiveCourse",{token:adminToken,email:$("courseEmail").value,courseId:$("courseId").value,courseTitle:$("courseTitle").value,enabled:"TRUE",startDate:$("courseStart").value||today(),endDate:end,accessType:end?"temporal":"ilimitado"});if(!r.ok)throw new Error(r.error||"No se pudo guardar");msg("giveCourseMsg","ok","Acceso al curso guardado."); if(selectedUser===$("courseEmail").value) await openUser(selectedUser);}catch(err){msg("giveCourseMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Guardar acceso al curso","Guardando...");}});
+$("giveResourceForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("giveResourceBtn");setBtn(btn,true,"Guardar acceso al recurso","Guardando...");try{const end=$("resourceEnd").value;const r=await jsonp("adminGiveResource",{token:adminToken,email:$("resourceEmail").value,resourceId:$("resourceId").value,enabled:"TRUE",startDate:$("resourceStart").value||today(),endDate:end,accessType:end?"temporal":"ilimitado"});if(!r.ok)throw new Error(r.error||"No se pudo guardar");msg("giveResourceMsg","ok","Acceso al recurso guardado."); if(selectedUser===$("resourceEmail").value) await openUser(selectedUser);}catch(err){msg("giveResourceMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Guardar acceso al recurso","Guardando...");}});
+document.querySelectorAll(".quick").forEach(box=>box.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const target=$(box.dataset.target);if(!target)return;const days=b.dataset.days;target.value=days?addDays(days):"";}));
+$("courseStart").value=today(); $("resourceStart").value=today();
+boot();
 </script>
-
 </body>
 </html>
