@@ -116,7 +116,25 @@ function card(r){
   </article>`;
 }
 function render(){const q=document.getElementById("searchBox").value.trim().toLowerCase();let items=allResources.filter(r=>currentFilter==="all"||normalizeType(r.type)===currentFilter);if(q)items=items.filter(r=>(String(r.title||"")+" "+String(r.description||"")).toLowerCase().includes(q));document.getElementById("sectionTitle").textContent=currentFilter==="manual"?"Manuales":currentFilter==="app"?"Apps":"Todos los recursos";document.getElementById("resourceCount").textContent=items.length?items.length+" recurso(s)":"";document.getElementById("grid").innerHTML=items.length?items.map(card).join(""):`<div class="empty">No hay recursos para mostrar.</div>`;}
-(async function(){try{const r=await jsonp("myResources",{token});if(!r.ok){localStorage.removeItem("pasir_token");return location.replace("login.html");}setUser({email:r.email||localStorage.getItem("pasir_email")||"",name:r.name||r.fullName||r.displayName||r.nombre||r.nombres||r.studentName||r.usuario||localStorage.getItem("pasir_name")||""});allResources=Array.isArray(r.resources)?r.resources:[];const manuals=allResources.filter(x=>normalizeType(x.type)==="manual");const apps=allResources.filter(x=>normalizeType(x.type)==="app");document.getElementById("manualStat").textContent=manuals.length;document.getElementById("appStat").textContent=apps.length;document.getElementById("status").textContent="";render();}catch(e){document.getElementById("status").innerHTML='<div class="err">'+escapeHtml_(e.message||e)+'</div>';}})();
+const RESOURCES_CACHE_KEY="pasir_cache_resources_v2";
+const CACHE_MAX_AGE=1000*60*10;
+function readCache(key){try{return JSON.parse(localStorage.getItem(key)||"null");}catch(e){return null;}}
+function writeCache(key,data){try{localStorage.setItem(key,JSON.stringify({savedAt:Date.now(),data}));}catch(e){}}
+function renderResourcesPayload(r,fromCache){
+  setUser({email:r.email||localStorage.getItem("pasir_email")||"",name:r.name||r.fullName||r.displayName||r.nombre||r.nombres||r.studentName||r.usuario||localStorage.getItem("pasir_name")||""});
+  allResources=Array.isArray(r.resources)?r.resources:[];
+  const manuals=allResources.filter(x=>normalizeType(x.type)==="manual");
+  const apps=allResources.filter(x=>normalizeType(x.type)==="app");
+  document.getElementById("manualStat").textContent=manuals.length;
+  document.getElementById("appStat").textContent=apps.length;
+  document.getElementById("status").textContent=fromCache?"Actualizando en segundo plano…":"";
+  render();
+}
+function renderResourceSkeleton(){document.getElementById("status").textContent="Cargando…";document.getElementById("grid").innerHTML=Array.from({length:6}).map(()=>`<article class="card"><div class="thumb"></div><div class="body"><h3>Cargando recurso…</h3><p class="desc">Preparando biblioteca</p><div class="meta"><span class="pill">...</span></div></div></article>`).join("");}
+async function refreshResources(silent){
+  try{const r=await jsonp("myResources",{token});if(!r.ok){localStorage.removeItem("pasir_token");return location.replace("login.html");}writeCache(RESOURCES_CACHE_KEY,r);renderResourcesPayload(r,false);}catch(e){if(!silent)document.getElementById("status").innerHTML='<div class="err">'+escapeHtml_(e.message||e)+'</div>';else document.getElementById("status").textContent="";}
+}
+(function(){const cached=readCache(RESOURCES_CACHE_KEY);if(cached&&cached.data){renderResourcesPayload(cached.data,true);refreshResources(true);}else{renderResourceSkeleton();refreshResources(false);}})();
 document.getElementById("searchBox").addEventListener("input",render);document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;render();}));
 (function(){const userTrigger=document.getElementById("userTrigger"),userDropdown=document.getElementById("userDropdown");const storedEmail=localStorage.getItem("pasir_email")||"";const storedName=localStorage.getItem("pasir_name")||"";if(storedEmail||storedName)setUser({email:storedEmail,name:storedName});function closeMenu(){userDropdown&&userDropdown.classList.remove("open");userTrigger&&userTrigger.setAttribute("aria-expanded","false");}if(userTrigger&&userDropdown){userTrigger.addEventListener("click",e=>{e.stopPropagation();userDropdown.classList.toggle("open");userTrigger.setAttribute("aria-expanded",userDropdown.classList.contains("open")?"true":"false");});document.addEventListener("click",closeMenu);document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu();});userDropdown.addEventListener("click",e=>e.stopPropagation());}const logoutBtn=document.getElementById("logout");if(logoutBtn)logoutBtn.addEventListener("click",e=>{e.preventDefault();localStorage.removeItem("pasir_token");localStorage.removeItem("pasir_name");localStorage.removeItem("pasir_email");location.replace("index.html");});})();
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
