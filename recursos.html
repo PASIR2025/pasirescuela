@@ -127,7 +127,7 @@ function renderResourcesPayload(r,fromCache){
   const apps=allResources.filter(x=>normalizeType(x.type)==="app");
   document.getElementById("manualStat").textContent=manuals.length;
   document.getElementById("appStat").textContent=apps.length;
-  document.getElementById("status").textContent=fromCache?"Actualizando en segundo plano…":"";
+  document.getElementById("status").textContent=fromCache?"":"";
   render();
 }
 function renderResourceSkeleton(){document.getElementById("status").textContent="Cargando…";document.getElementById("grid").innerHTML=Array.from({length:6}).map(()=>`<article class="card"><div class="thumb"></div><div class="body"><h3>Cargando recurso…</h3><p class="desc">Preparando biblioteca</p><div class="meta"><span class="pill">...</span></div></div></article>`).join("");}
