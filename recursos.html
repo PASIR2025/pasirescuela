@@ -33,6 +33,16 @@
     body[data-theme="dark"] .card.manual-card .thumb{background:linear-gradient(180deg,#111827,#0b1220)}
     @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr);gap:10px}.container{width:min(1180px,94vw)}.user-trigger{max-width:142px}.user-trigger .name{max-width:72px}.btn{padding:9px 10px;font-size:13px}.hero{padding:18px}.stats{min-width:100%;grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.grid{grid-template-columns:repeat(3,1fr);gap:8px}.card{border-radius:14px}.body{padding:8px}.card h3{font-size:11.5px;min-height:29px}.desc{font-size:10.5px;min-height:27px;margin-bottom:8px}.pill{font-size:9px;padding:4px 6px}.badge{font-size:9px;padding:4px 6px}.card .btn{font-size:10px;padding:8px 5px}.thumb{aspect-ratio:1/1}.card.manual-card .thumb{aspect-ratio:3/4;padding:7px}.toolbar{display:block}.search{width:100%;margin-bottom:10px}.tabs{width:100%;justify-content:space-between}.tab{flex:1;padding:9px 8px;font-size:12px}.actions{gap:7px}.btn.secondary[href="index.html"]{display:none}}
+
+    /* PASIR PRO LIMPIO: biblioteca compacta, sin títulos repetidos */
+    .hero{padding:12px 14px;margin-bottom:12px;align-items:center}
+    .hero .hero-copy{display:none}
+    .stats{min-width:100%;grid-template-columns:repeat(2,1fr)}
+    .stat{text-align:center;padding:10px 12px}
+    .section-head{display:none}
+    .badge{display:none!important}
+    .toolbar{margin:12px 0}
+    @media(max-width:520px){main{padding-top:12px}.hero{border-radius:18px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.stat{border-radius:14px;padding:9px 7px}.stat span{font-size:10px}.user-trigger{max-width:150px}.user-trigger .name{max-width:82px}}
   </style>
 </head>
 <body>
@@ -47,7 +57,7 @@
   </div>
 </div></div></header>
 <main><div class="container">
-  <section class="hero"><div><div class="eyebrow">📥 Biblioteca premium</div><h1>Manuales y Apps</h1><p>Todo lo que tienes habilitado, organizado para descargar rápido.</p></div><div class="stats"><div class="stat"><b id="manualStat">0</b><span>Manuales</span></div><div class="stat"><b id="appStat">0</b><span>Apps</span></div></div></section>
+  <section class="hero"><div class="hero-copy"><div class="eyebrow">📥 Biblioteca premium</div><h1>Manuales y Apps</h1><p>Todo lo que tienes habilitado, organizado para descargar rápido.</p></div><div class="stats"><div class="stat"><b id="manualStat">0</b><span>Manuales</span></div><div class="stat"><b id="appStat">0</b><span>Apps</span></div></div></section>
   <div id="status" class="muted">Cargando…</div>
   <div class="toolbar"><input class="search" id="searchBox" placeholder="Buscar manual o app..." autocomplete="off"><div class="tabs"><button class="tab active" data-filter="all">Todo</button><button class="tab" data-filter="manual">Manuales</button><button class="tab" data-filter="app">Apps</button></div></div>
   <section class="section"><div class="section-head"><h2 id="sectionTitle">Todos los recursos</h2><span class="muted" id="resourceCount"></span></div><div id="grid" class="grid"></div></section>
@@ -58,7 +68,7 @@ function escapeHtml_(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;"
 function jsonp(action,payload){return new Promise((resolve,reject)=>{const cb="cb_"+Math.random().toString(36).slice(2);const params=new URLSearchParams();params.set("action",action);Object.entries(payload||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null)params.set(k,String(v));});params.set("callback",cb);const script=document.createElement("script");script.src=API_URL+"?"+params.toString();script.async=true;window[cb]=data=>{cleanup();resolve(data)};function cleanup(){try{delete window[cb]}catch(e){window[cb]=undefined}if(script.parentNode)script.parentNode.removeChild(script)}script.onerror=()=>{cleanup();reject(new Error("Sin conexión a internet."));};document.body.appendChild(script);});}
 function normalizeType(t){t=String(t||"").trim().toLowerCase();return(t.includes("app")||t.includes("software"))?"app":"manual";}
 function shortEmail(email){email=String(email||"");return email.includes("@")?email.split("@")[0]:email;}
-function titleCaseName(name){return String(name||"").trim().replace(/\s+/g," ").split(" ").filter(Boolean).slice(0,2).map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(" ");}
+function titleCaseName(name){const parts=String(name||"").trim().replace(/\s+/g," ").split(" ").filter(Boolean);if(!parts.length)return "";const cap=w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();return parts.length===1?cap(parts[0]):cap(parts[0])+" "+parts[1].charAt(0).toUpperCase()+".";}
 function getDisplayName(profile){
   const email=typeof profile==="object"?(profile.email||""):String(profile||"");
   const rawName=typeof profile==="object"?(profile.name||profile.fullName||profile.displayName||profile.nombre||profile.nombres||profile.studentName||profile.usuario||""):(!String(profile||"").includes("@")?profile:"");
