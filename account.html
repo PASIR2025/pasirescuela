@@ -140,7 +140,7 @@ function renderAccount(r,fromCache){
   const email=r.email||localStorage.getItem("pasir_email")||"";
   setUser({email,name:r.name||r.fullName||r.displayName||r.nombre||r.nombres||r.studentName||r.usuario||localStorage.getItem("pasir_name")||""});
   const courses=Array.isArray(r.courses)?r.courses:[];
-  document.getElementById("status").textContent=fromCache?"Actualizando en segundo plano…":"";
+  document.getElementById("status").textContent=fromCache?"":"";
   document.getElementById("courseCount").textContent=courses.length;
   document.getElementById("activeCount").textContent=courses.filter(c=>!c.expired).length;
   document.getElementById("courseLabel").textContent=courses.length?courses.length+" curso(s) disponible(s)":"";
