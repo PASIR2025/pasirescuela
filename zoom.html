@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aula en vivo por Zoom | PASIR Escuela</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#111827"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="app.css">
+  <script src="theme.js" defer></script>
+  <style>
+    :root{
+      --bg:#f3f5f9;--card:#ffffff;--stroke:#d8e3f1;--text:#0f172a;--muted:#64748b;
+      --blue:#2563eb;--sky:#38bdf8;--red:#ef4444;--purple:#7c3aed;--ok:#16a34a;
+      --shadow:0 18px 40px rgba(15,23,42,.08)
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}
+    .container{width:min(1100px,92vw);margin:0 auto}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:1000;color:#0f1b55;text-decoration:none}
+    .dot{width:12px;height:12px;border-radius:999px;background:var(--sky);box-shadow:0 0 0 6px rgba(56,189,248,.14)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 13px;border-radius:14px;text-decoration:none;font-weight:900;border:1px solid rgba(37,99,235,.16);cursor:pointer;background:#fff;color:#1d4ed8;line-height:1.1}
+    .btn.primary{background:linear-gradient(135deg,#ef4444,#7c3aed);color:#fff;border:0;box-shadow:0 12px 24px rgba(124,58,237,.22)}
+    .btn.success{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+    .btn:disabled{opacity:.65;cursor:not-allowed}
+    main{padding:4px 0 46px}
+    .hero{background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.36),transparent 26%),linear-gradient(135deg,#111827,#7c3aed 55%,#ef4444);border:0;border-radius:28px;padding:24px;box-shadow:0 24px 60px rgba(124,58,237,.24);display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:center;margin-bottom:18px;color:#fff;overflow:hidden;position:relative}
+    .hero:before{content:"";position:absolute;right:-80px;bottom:-110px;width:260px;height:260px;border-radius:999px;background:rgba(255,255,255,.12)}
+    .hero>*{position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:1000;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 12px;font-size:13px;margin-bottom:10px}
+    h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.03;margin:0;color:#fff;letter-spacing:-.04em}
+    .hero p{margin:10px 0 0;color:rgba(255,255,255,.86);font-size:1rem;max-width:640px}
+    .hero-card{border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.24);background:#0f172a;min-height:205px;position:relative;box-shadow:0 18px 40px rgba(2,6,23,.26)}
+    .hero-card img{width:100%;height:100%;object-fit:cover;display:block;opacity:.82;filter:saturate(1.08)}
+    .live-dot{position:absolute;left:14px;top:14px;background:rgba(239,68,68,.96);color:#fff;border-radius:999px;padding:8px 12px;font-weight:1000;font-size:12px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+    .layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start}
+    .session,.side-card{background:#fff;border:1px solid rgba(37,99,235,.12);border-radius:24px;box-shadow:var(--shadow);padding:18px}
+    .session h2,.side-card h2{margin:0 0 8px;font-size:1.25rem;color:#111827;letter-spacing:-.02em}
+    .course-chip{display:inline-flex;margin-bottom:10px;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(124,58,237,.10);border:1px solid rgba(124,58,237,.18);color:#6d28d9;font-size:12px;font-weight:1000}
+    .meta{display:grid;gap:9px;margin:14px 0}.meta-row{display:flex;gap:10px;color:#334155}.meta-row b{min-width:95px;color:#0f172a}.message{background:#f7f2ff;border:1px solid rgba(124,58,237,.14);border-radius:16px;padding:12px;color:#334155;line-height:1.45}
+    .session-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.note{margin-top:12px;color:var(--muted);font-size:13px;line-height:1.45}.empty,.err,.loading{background:#fff;border:1px solid rgba(37,99,235,.12);border-radius:20px;padding:18px;color:var(--muted);box-shadow:var(--shadow);line-height:1.45}.err{color:#dc2626;background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.16);font-weight:800}
+    .reminder-box{display:grid;gap:10px}.reminder-status{padding:12px;border-radius:16px;background:#f8fafc;border:1px solid rgba(37,99,235,.10);color:#334155;font-weight:800;line-height:1.4}.reminder-status.ok{background:#dcfce7;color:#166534;border-color:#bbf7d0}.reminder-status.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}.countdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.count-box{background:#f8fafc;border:1px solid rgba(37,99,235,.10);border-radius:16px;padding:11px;text-align:center}.count-box b{display:block;font-size:1.3rem;color:#111827}.count-box span{font-size:11px;color:#64748b;font-weight:900}.tips{margin:10px 0 0;padding-left:18px;color:#475569;line-height:1.45;font-size:14px}.tips li{margin:5px 0}.small-muted{font-size:12px;color:#64748b;line-height:1.4}
+    body[data-theme="dark"]{background:#0b1220;color:#f8fafc}body[data-theme="dark"] .brand,body[data-theme="dark"] .session h2,body[data-theme="dark"] .side-card h2,body[data-theme="dark"] .meta-row b,body[data-theme="dark"] .count-box b{color:#f8fafc}body[data-theme="dark"] .session,body[data-theme="dark"] .side-card,body[data-theme="dark"] .empty,body[data-theme="dark"] .loading,body[data-theme="dark"] .btn{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}body[data-theme="dark"] .meta-row,body[data-theme="dark"] .note,body[data-theme="dark"] .tips,body[data-theme="dark"] .small-muted{color:#94a3b8}body[data-theme="dark"] .message,body[data-theme="dark"] .reminder-status,body[data-theme="dark"] .count-box{background:rgba(124,58,237,.09);border-color:rgba(167,139,250,.16);color:#cbd5e1}body[data-theme="dark"] .course-chip{background:rgba(124,58,237,.18);border-color:rgba(167,139,250,.22);color:#ddd6fe}
+    @media(max-width:820px){.container{width:min(1100px,94vw)}.hero,.layout{grid-template-columns:1fr}.hero{padding:19px;border-radius:22px}.actions{width:100%}.actions .btn{flex:1}.session-actions .btn{width:100%}.meta-row{display:block}.meta-row b{display:block;margin-bottom:3px}.countdown{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+<header class="app-header"><div class="container"><div class="topbar">
+  <a class="brand" href="account.html"><span class="dot"></span><span>PASIR<span style="color:#38bdf8"> ESCUELA 🗲</span></span></a>
+  <div class="actions"><a class="btn" href="account.html">← Mis cursos</a><a class="btn" href="recursos.html">Recursos</a></div>
+</div></div></header>
+<main><div class="container">
+  <section class="hero">
+    <div><div class="eyebrow">🔴 Aula mensual en vivo</div><h1>Aula en vivo por Zoom</h1><p>Revisa tu próxima clase mensual, activa el aviso 10 minutos antes y guarda la sesión en tu calendario.</p></div>
+    <div class="hero-card"><span class="live-dot">ZOOM EN VIVO</span><img src="img/curso_en_vivo_electricidad_industrial.jpg" alt="Aula en vivo por Zoom" onerror="this.onerror=null;this.src='icons/icon-512.png';"></div>
+  </section>
+  <div id="status" class="loading">Cargando tu sesión…</div>
+  <section id="content" class="layout" aria-live="polite"></section>
+</div></main>
+<script>
+const API_URL="https://pasir-proxy.vercel.app/api";
+const token=localStorage.getItem("pasir_token");
+if(!token) location.replace("login.html");
+let currentSession=null;
+let reminderInterval=null;
+function escapeHtml_(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+function jsonp(action,payload){return new Promise((resolve,reject)=>{const cb="cb_"+Math.random().toString(36).slice(2);const params=new URLSearchParams();params.set("action",action);Object.entries(payload||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null)params.set(k,String(v));});params.set("callback",cb);const script=document.createElement("script");script.src=API_URL+"?"+params.toString();script.async=true;window[cb]=data=>{cleanup();resolve(data)};function cleanup(){try{delete window[cb]}catch(e){window[cb]=undefined} if(script.parentNode)script.parentNode.removeChild(script)}script.onerror=()=>{cleanup();reject(new Error("Sin conexión a internet."));};document.body.appendChild(script);});}
+function formatDate(fecha){if(!fecha)return "Por confirmar";const d=parseSessionStart({fecha,hora:"00:00"});if(!d)return fecha;return d.toLocaleDateString("es-PE",{weekday:"long",year:"numeric",month:"long",day:"numeric"});}
+function parseSessionStart(s){
+  if(!s||!s.fecha)return null;
+  const fecha=String(s.fecha||"").trim();
+  const hora=String(s.hora||"20:00").trim();
+  if(fecha.includes("T")){const d=new Date(fecha);if(!isNaN(d.getTime()))return d;}
+  const parts=fecha.split(/[-\/]/).map(x=>Number(String(x).trim()));
+  if(parts.length<3||parts.some(n=>Number.isNaN(n)))return null;
+  let y,m,d;
+  if(String(fecha.split(/[-\/]/)[0]).length===4){y=parts[0];m=parts[1]-1;d=parts[2];}
+  else{y=parts[2];m=parts[1]-1;d=parts[0];}
+  const hp=hora.split(":").map(x=>Number(String(x).trim()));
+  const hh=Number.isFinite(hp[0])?hp[0]:20;
+  const mm=Number.isFinite(hp[1])?hp[1]:0;
+  const start=new Date(y,m,d,hh,mm,0);
+  return isNaN(start.getTime())?null:start;
+}
+function calendarUrl(s){const start=parseSessionStart(s);if(!start)return "";const end=new Date(start.getTime()+(Number(s.duracion||120)*60000));const fmt=d=>d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z");const params=new URLSearchParams();params.set("action","TEMPLATE");params.set("text",`PASIR - ${s.titulo||"Clase en vivo"}`);params.set("dates",`${fmt(start)}/${fmt(end)}`);params.set("details",`${s.mensaje||"Clase mensual en vivo."}${s.enlace?"\n\nEnlace Zoom: "+s.enlace:""}\n\nRecomendación: configura aviso 10 minutos antes.`);params.set("location",s.enlace||"Zoom");return "https://calendar.google.com/calendar/render?"+params.toString();}
+function icsEscape(text){return String(text||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");}
+function icsDate(d){return d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z$/,"Z");}
+function icsDataUrl(s){const start=parseSessionStart(s);if(!start)return "";const end=new Date(start.getTime()+(Number(s.duracion||120)*60000));const uid="pasir-zoom-"+start.getTime()+"@pasir-escuela";const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//PASIR Escuela//Aula Zoom//ES","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT","UID:"+uid,"DTSTAMP:"+icsDate(new Date()),"DTSTART:"+icsDate(start),"DTEND:"+icsDate(end),"SUMMARY:"+icsEscape("PASIR - "+(s.titulo||"Clase en vivo por Zoom")),"DESCRIPTION:"+icsEscape((s.mensaje||"Clase mensual en vivo.")+(s.enlace?"\n\nEnlace Zoom: "+s.enlace:"")),"LOCATION:"+icsEscape(s.enlace||"Zoom"),"BEGIN:VALARM","TRIGGER:-PT10M","ACTION:DISPLAY","DESCRIPTION:"+icsEscape("Tu clase por Zoom empieza en 10 minutos"),"END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");return "data:text/calendar;charset=utf-8,"+encodeURIComponent(ics);}
+function reminderKey(s){return "pasir_zoom_notified_"+btoa(unescape(encodeURIComponent([s.fecha,s.hora,s.titulo].join("|")))).replace(/=/g,"");}
+function humanTime(ms){if(ms<=0)return "ahora";const totalMin=Math.ceil(ms/60000);const days=Math.floor(totalMin/1440);const hours=Math.floor((totalMin%1440)/60);const mins=totalMin%60;const parts=[];if(days)parts.push(days+" d");if(hours)parts.push(hours+" h");if(mins||!parts.length)parts.push(mins+" min");return parts.join(" ");}
+function updateCountdown(s){const start=parseSessionStart(s);const el=document.getElementById("countdown");const reminder=document.getElementById("reminderStatus");if(!start||!el)return;const now=new Date();const ms=start.getTime()-now.getTime();const msReminder=ms-10*60000;const total=Math.max(0,Math.floor(ms/1000));const h=Math.floor(total/3600);const m=Math.floor((total%3600)/60);const sec=total%60;el.innerHTML=`<div class="count-box"><b>${String(h).padStart(2,"0")}</b><span>horas</span></div><div class="count-box"><b>${String(m).padStart(2,"0")}</b><span>minutos</span></div><div class="count-box"><b>${String(sec).padStart(2,"0")}</b><span>segundos</span></div>`;if(reminder){if(ms<=0&&ms>-2*60*60000){reminder.className="reminder-status warn";reminder.textContent="La clase ya empezó. Ingresa al Zoom desde el botón principal.";}else if(msReminder>0){reminder.className="reminder-status";reminder.textContent="El aviso se mostrará 10 minutos antes. Falta "+humanTime(msReminder)+" para el recordatorio.";}else if(ms>0){reminder.className="reminder-status warn";reminder.textContent="Estás dentro de los 10 minutos previos. Ya puedes ingresar o prepararte para la clase.";}else{reminder.className="reminder-status";reminder.textContent="Esta sesión ya pasó o está por finalizar.";}}}
+async function showZoomNotification(s){
+  const key=reminderKey(s);if(localStorage.getItem(key)==="yes")return;
+  const title="Tu clase por Zoom empieza en 10 minutos";
+  const body=(s.titulo||"Clase mensual en vivo")+" · "+(s.hora||"")+". Entra desde PASIR Escuela.";
+  const options={body,icon:"icons/icon-192.png",badge:"icons/icon-192.png",tag:key,requireInteraction:true};
+  try{if("serviceWorker" in navigator){const reg=await navigator.serviceWorker.ready;await reg.showNotification(title,options);}else{new Notification(title,options);}localStorage.setItem(key,"yes");}
+  catch(e){try{new Notification(title,options);localStorage.setItem(key,"yes");}catch(err){}}
+}
+function monitorReminder(s){
+  if(reminderInterval)clearInterval(reminderInterval);
+  function check(){const start=parseSessionStart(s);if(!start)return;updateCountdown(s);const ms=start.getTime()-Date.now();if(ms<=10*60000&&ms>0&&Notification.permission==="granted")showZoomNotification(s);}
+  check();reminderInterval=setInterval(check,1000);
+}
+async function enableBrowserReminder(s){
+  const status=document.getElementById("reminderStatus");
+  if(!("Notification" in window)){status.className="reminder-status warn";status.textContent="Tu navegador no permite notificaciones. Usa el botón para descargar el recordatorio o agrega la clase al calendario.";return;}
+  let permission=Notification.permission;
+  if(permission==="default")permission=await Notification.requestPermission();
+  if(permission==="granted"){status.className="reminder-status ok";status.textContent="Aviso activado. Mantén esta página abierta o agrega el recordatorio al calendario para mayor seguridad.";monitorReminder(s);}
+  else{status.className="reminder-status warn";status.textContent="No se activó el aviso porque el navegador no dio permiso. Puedes usar el archivo .ics o Google Calendar.";}
+}
+function sessionCard(s){const cal=calendarUrl(s);const ics=icsDataUrl(s);return `<article class="session"><span class="course-chip">🎓 ${escapeHtml_(s.curso||"Aula en vivo")}</span><h2>${escapeHtml_(s.titulo||"Clase mensual en vivo")}</h2><div class="meta"><div class="meta-row"><b>Fecha:</b><span>${escapeHtml_(formatDate(s.fecha))}</span></div><div class="meta-row"><b>Hora:</b><span>${escapeHtml_(s.hora||"Por confirmar")}</span></div><div class="meta-row"><b>Duración:</b><span>${escapeHtml_(s.duracion||120)} minutos</span></div></div><div class="message">${escapeHtml_(s.mensaje||"Cuando llegue la fecha, entra desde este botón.")}</div><div class="session-actions">${s.enlace?`<a class="btn primary" href="${escapeHtml_(s.enlace)}" target="_blank" rel="noopener">Entrar a Zoom</a>`:`<span class="btn">Enlace por confirmar</span>`}${cal?`<a class="btn" href="${escapeHtml_(cal)}" target="_blank" rel="noopener">Agregar a Google Calendar</a>`:""}</div></article><aside class="side-card"><h2>🔔 Aviso 10 min antes</h2><div class="reminder-box"><div id="reminderStatus" class="reminder-status">Activa la notificación para que esta página te avise 10 minutos antes de la clase.</div><div id="countdown" class="countdown"><div class="count-box"><b>--</b><span>horas</span></div><div class="count-box"><b>--</b><span>minutos</span></div><div class="count-box"><b>--</b><span>segundos</span></div></div><button class="btn success" id="enableReminderBtn" type="button">Activar aviso en este navegador</button>${ics?`<a class="btn" href="${ics}" download="PASIR-clase-zoom.ics">Descargar recordatorio .ics</a>`:""}<p class="small-muted">El aviso del navegador funciona mejor si esta página queda abierta. El archivo .ics crea un recordatorio de calendario 10 minutos antes.</p></div><h2 style="margin-top:18px">✅ Antes de entrar</h2><ul class="tips"><li>Conéctate 10 minutos antes.</li><li>Verifica audio, cámara e internet.</li><li>Ten tus preguntas listas para la clase.</li></ul></aside>`;}
+function setupSessionTools(s){currentSession=s;monitorReminder(s);const btn=document.getElementById("enableReminderBtn");if(btn)btn.addEventListener("click",()=>enableBrowserReminder(s));}
+async function loadZoom(){const status=document.getElementById("status");const content=document.getElementById("content");try{const r=await jsonp("zoomSession",{token});status.textContent="";if(!r.ok){content.className="";content.innerHTML=`<div class="empty">${escapeHtml_(r.error||"No tienes acceso al aula en vivo.")}<p class="note">Si ya compraste, espera a que el administrador te active el acceso.</p></div>`;return;}if(!r.session){content.className="";content.innerHTML='<div class="empty">Todavía no hay una sesión mensual programada. Cuando el administrador agregue la fecha y el enlace de Zoom, aparecerá aquí automáticamente.</div>';return;}content.className="layout";content.innerHTML=sessionCard(r.session);setupSessionTools(r.session);}catch(e){content.className="";status.innerHTML='<div class="err">'+escapeHtml_(e.message||e)+'</div>';}}
+loadZoom();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
+</script>
+</body>
+</html>
