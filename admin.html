@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Administrador | PASIR Escuela</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f3f4f6"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="app.css">
+  <script src="theme.js" defer></script>
+  <style>
+    :root{--bg:#f3f5f9;--card:#fff;--stroke:#d8dee8;--text:#0f172a;--muted:#64748b;--blue:#38bdf8;--blue2:#2563eb;--shadow:0 18px 40px rgba(15,23,42,.08);--danger:#dc2626;--ok:#16a34a}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh}.container{width:min(1120px,94vw);margin:0 auto}.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:#0f1b55}.dot{width:12px;height:12px;border-radius:999px;background:var(--blue);box-shadow:0 0 0 6px rgba(56,189,248,.14)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:900;border:0;cursor:pointer;font-size:15px}.primary{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff}.secondary{background:#fff;border:1px solid rgba(37,99,235,.16);color:#1d4ed8;box-shadow:0 8px 18px rgba(15,23,42,.04)}.dangerBtn{background:#fee2e2;color:#b91c1c}.btn:disabled{background:#9ca3af;color:#fff;cursor:not-allowed}.top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:22px 0}.title{font-size:2.1rem;line-height:1.05;font-weight:900;letter-spacing:-.04em;margin:0;color:#111827}.muted{color:var(--muted)}.hero,.card{background:var(--card);border:1px solid rgba(37,99,235,.12);border-radius:22px;box-shadow:var(--shadow)}.hero{padding:22px;margin-bottom:18px;background:linear-gradient(135deg,#eef8ff,#fff)}.hero h1{margin:0 0 6px;font-size:1.55rem}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{padding:18px}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12} h2{margin:0 0 14px;font-size:1.15rem}.form{display:grid;gap:10px}.field label{display:block;font-weight:900;margin:0 0 6px;color:#111827;font-size:13px}.input,select{width:100%;border:1px solid var(--stroke);border-radius:14px;background:#fff;padding:13px 14px;font-size:15px;outline:none}.input:focus,select:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,.18)}.inline{display:grid;grid-template-columns:1fr 1fr;gap:10px}.msg{display:none;margin-top:10px;border-radius:14px;padding:12px;font-weight:800}.msg.ok{display:block;background:#dcfce7;color:#166534;border:1px solid #bbf7d0}.msg.err{display:block;background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}.list{display:grid;gap:8px;max-height:360px;overflow:auto}.item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid rgba(37,99,235,.10);border-radius:14px;background:#fff}.item strong{font-size:14px}.item.clickable{cursor:pointer}.item.clickable:hover{border-color:#38bdf8;box-shadow:0 8px 20px rgba(56,189,248,.12)}.pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-weight:900;font-size:12px;background:rgba(56,189,248,.10);color:#1d4ed8;border:1px solid rgba(56,189,248,.20)}.hide{display:none!important}.loginBox{max-width:460px;margin:34px auto}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{padding:8px 10px;border-radius:999px;border:1px solid rgba(37,99,235,.16);background:#fff;color:#1d4ed8;font-weight:900;cursor:pointer}.adminbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.small{font-size:12px;color:var(--muted)}
+    body[data-theme="dark"]{background:#0b1220;color:#f9fafb}body[data-theme="dark"] .brand,body[data-theme="dark"] .title,body[data-theme="dark"] h1,body[data-theme="dark"] h2,body[data-theme="dark"] label{color:#f8fafc}body[data-theme="dark"] .muted,body[data-theme="dark"] .small{color:#94a3b8}body[data-theme="dark"] .hero,body[data-theme="dark"] .card,body[data-theme="dark"] .item,body[data-theme="dark"] .input,body[data-theme="dark"] select,body[data-theme="dark"] .secondary,body[data-theme="dark"] .quick button{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}body[data-theme="dark"] .hero{background:linear-gradient(120deg,rgba(15,23,42,.88),rgba(2,6,23,.96))}
+    .bulkPanel{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.bulkBox{border:1px solid rgba(37,99,235,.12);border-radius:18px;padding:12px;background:rgba(255,255,255,.66)}.checkList{display:grid;gap:8px;max-height:290px;overflow:auto}.checkItem{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border:1px solid rgba(37,99,235,.10);border-radius:13px;background:#fff}.checkItem input{margin-top:3px;transform:scale(1.12)}.checkItem b{font-size:13px}.bulkTools{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.bulkTools button{padding:7px 9px;border-radius:999px;border:1px solid rgba(37,99,235,.16);background:#fff;color:#1d4ed8;font-weight:900;cursor:pointer;font-size:12px}.counter{font-weight:900;color:#1d4ed8}body[data-theme="dark"] .bulkBox,body[data-theme="dark"] .checkItem,body[data-theme="dark"] .bulkTools button{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}@media(max-width:850px){.bulkPanel{grid-template-columns:1fr}}
+    @media(max-width:850px){.span4,.span6,.span8{grid-column:span 12}.inline{grid-template-columns:1fr}.title{font-size:1.7rem}.btn{width:100%}.top .adminbar{width:100%}.top .adminbar .btn{width:auto}}
+
+    /* ===== ADMIN PRO VISUAL V2 ===== */
+    .appShell{padding-bottom:34px}
+    .top{background:linear-gradient(135deg,#0f172a,#1d4ed8 58%,#38bdf8);color:#fff;border-radius:28px;padding:22px;margin:18px 0;box-shadow:0 22px 50px rgba(37,99,235,.22)}
+    .top .title,.top .muted{color:#fff}.top .muted{opacity:.86}.top .secondary{background:rgba(255,255,255,.13);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:none}.top .dangerBtn{background:rgba(254,226,226,.95)}
+    .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;align-items:center;overflow:hidden;position:relative;border:0;background:linear-gradient(135deg,#eff6ff,#ffffff 60%,#e0f2fe)}
+    .hero:after{content:"";position:absolute;right:-90px;top:-110px;width:260px;height:260px;border-radius:999px;background:rgba(56,189,248,.20)}
+    .hero h1{font-size:1.8rem}.hero p{margin:0;color:#475569;font-weight:700}
+    .heroStats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;position:relative;z-index:1}
+    .statBox{background:#fff;border:1px solid rgba(37,99,235,.13);border-radius:18px;padding:12px;text-align:center;box-shadow:0 10px 25px rgba(15,23,42,.05)}
+    .statBox b{display:block;font-size:1.35rem;color:#1d4ed8}.statBox span{font-size:12px;font-weight:900;color:#64748b}
+    .adminMenu{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:0 0 18px}
+    .menuBtn{border:1px solid rgba(37,99,235,.12);background:#fff;color:#0f172a;min-height:88px;border-radius:22px;padding:14px;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;box-shadow:0 14px 32px rgba(15,23,42,.06);transition:.18s ease}
+    .menuBtn:hover{transform:translateY(-2px);border-color:rgba(37,99,235,.35);box-shadow:0 18px 38px rgba(37,99,235,.13)}
+    .menuBtn.active{background:linear-gradient(135deg,#38bdf8,#2563eb);color:#fff;box-shadow:0 18px 38px rgba(37,99,235,.22)}
+    .menuIcon{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;font-size:23px;background:rgba(56,189,248,.12);flex:0 0 auto}.menuBtn.active .menuIcon{background:rgba(255,255,255,.20)}
+    .menuText b{display:block;font-size:15px}.menuText span{display:block;font-size:12px;opacity:.76;font-weight:800;margin-top:2px}
+    .panelSection{display:none}.panelSection.activePanel{display:block;animation:fadeUp .18s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .panelGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .sectionHeader{grid-column:span 12;background:#fff;border:1px solid rgba(37,99,235,.10);border-radius:22px;padding:16px 18px;box-shadow:0 12px 28px rgba(15,23,42,.04);display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:0}
+    .sectionHeader h2{margin:0;font-size:1.25rem}.sectionHeader p{margin:3px 0 0;color:#64748b;font-weight:700}
+    .card{border-radius:24px}.card h2{display:flex;align-items:center;gap:7px}
+    .btn.primary{box-shadow:0 12px 26px rgba(37,99,235,.22)}.btn{transition:.18s ease}.btn:hover{transform:translateY(-1px)}
+    .list{border-radius:16px}.item{transition:.16s ease}.item:hover{background:#f8fbff}
+    .bulkPanel{grid-template-columns:1fr 1fr 1fr}.bulkBox{background:linear-gradient(180deg,#fff,#f8fbff);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}.checkList{max-height:360px}.checkItem{transition:.16s ease}.checkItem:hover{border-color:#38bdf8;background:#f8fbff}
+    .mobileHint{display:none}
+    body[data-theme="dark"] .top{background:linear-gradient(135deg,#020617,#0f172a 55%,#1d4ed8)}
+    body[data-theme="dark"] .hero{background:linear-gradient(135deg,#0f172a,#020617)}
+    body[data-theme="dark"] .hero p{color:#cbd5e1}
+    body[data-theme="dark"] .statBox,body[data-theme="dark"] .menuBtn,body[data-theme="dark"] .sectionHeader{background:#0f172a;color:#f8fafc;border-color:rgba(148,163,184,.22)}
+    body[data-theme="dark"] .statBox b{color:#38bdf8}body[data-theme="dark"] .statBox span,body[data-theme="dark"] .sectionHeader p{color:#94a3b8}
+    @media(max-width:950px){.adminMenu{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.heroStats{grid-template-columns:repeat(3,1fr)}.bulkPanel{grid-template-columns:1fr}.mobileHint{display:block}}
+    @media(max-width:560px){.adminMenu{grid-template-columns:1fr}.menuBtn{min-height:74px}.heroStats{grid-template-columns:1fr}.sectionHeader{display:block}.top{border-radius:22px;margin-top:10px}.hero h1{font-size:1.45rem}}
+
+  </style>
+</head>
+<body>
+<header><div class="container"><div class="row"><div class="brand"><span class="dot"></span><span>PASIR<span style="color:#38bdf8"> ESCUELA 🗲</span></span></div><button class="btn secondary" id="theme-toggle" type="button"><span id="theme-icon">☀️</span></button></div></div></header>
+<main class="container">
+  <section id="loginView" class="loginBox card">
+    <h1 class="title" style="margin-bottom:8px">Administrador</h1>
+    <p class="muted" style="margin-top:0">Ingresa con el correo y clave de la pestaña <b>Admins</b>.</p>
+    <form id="adminLoginForm" class="form">
+      <div class="field"><label>Correo admin</label><input class="input" id="adminEmail" type="email" autocomplete="username" required></div>
+      <div class="field"><label>Contraseña</label><input class="input" id="adminPassword" type="password" autocomplete="current-password" required></div>
+      <button class="btn primary" id="adminLoginBtn" type="submit">Ingresar</button>
+      <div id="loginMsg" class="msg"></div>
+    </form>
+  </section>
+
+  <section id="dashView" class="hide appShell">
+    <div class="top">
+      <div><h1 class="title">Panel administrador</h1><div class="muted">Da accesos a cursos, manuales y apps sin abrir Google Sheets.</div></div>
+      <div class="adminbar"><a class="btn secondary" href="account.html">Mi cuenta</a><button class="btn dangerBtn" id="logoutAdmin">Salir admin</button></div>
+    </div>
+    <div class="hero">
+      <div>
+        <h1>Gestión rápida y ordenada</h1>
+        <p>Administra alumnos, cursos, manuales, apps y accesos masivos desde un entorno más limpio.</p>
+      </div>
+      <div class="heroStats">
+        <div class="statBox"><b id="statUsers">0</b><span>Alumnos</span></div>
+        <div class="statBox"><b id="statCourses">0</b><span>Cursos</span></div>
+        <div class="statBox"><b id="statResources">0</b><span>Recursos</span></div>
+      </div>
+    </div>
+    <div class="adminMenu" role="tablist" aria-label="Menú administrador">
+      <button class="menuBtn active" type="button" data-panel="crear"><span class="menuIcon">👤</span><span class="menuText"><b>Crear alumno</b><span>Registrar nuevo acceso</span></span></button>
+      <button class="menuBtn" type="button" data-panel="alumnos"><span class="menuIcon">👥</span><span class="menuText"><b>Alumnos registrados</b><span>Buscar, revisar y editar</span></span></button>
+      <button class="menuBtn" type="button" data-panel="individual"><span class="menuIcon">🔑</span><span class="menuText"><b>Acceso individual</b><span>Un alumno por recurso</span></span></button>
+      <button class="menuBtn" type="button" data-panel="masivo"><span class="menuIcon">⚡</span><span class="menuText"><b>Acceso masivo</b><span>Varios alumnos y recursos</span></span></button>
+      <button class="menuBtn" type="button" data-panel="recursos"><span class="menuIcon">🧩</span><span class="menuText"><b>Recursos</b><span>Ver manuales, cursos y apps</span></span></button>
+    </div>
+    <div class="mobileHint small" style="margin:-6px 0 14px">Toca un botón para cambiar de sección.</div>
+    <div class="grid">
+      <div class="card span12 panelSection activePanel" data-panel-section="crear">
+        <div class="sectionHeader"><div><h2>👤 Crear alumno</h2><p>Registra un alumno nuevo con correo y clave.</p></div></div>
+      </div>
+      <div class="card span4 panelSection activePanel" data-panel-section="crear">
+        <h2>👤 Crear alumno</h2>
+        <form id="createUserForm" class="form">
+          <div class="field"><label>Nombre</label><input class="input" id="newName" placeholder="Nombre del alumno" required></div>
+          <div class="field"><label>Correo</label><input class="input" id="newEmail" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Clave</label><input class="input" id="newPass" placeholder="123456" required></div>
+          <button class="btn primary" id="createUserBtn" type="submit">Crear alumno</button>
+          <div id="createUserMsg" class="msg"></div>
+        </form>
+      </div>
+      <div class="card span12 panelSection" data-panel-section="alumnos">
+        <div class="sectionHeader"><div><h2>👥 Alumnos registrados</h2><p>Busca un alumno, revisa sus accesos, activa, desactiva o envía recuperación.</p></div></div>
+      </div>
+      <div class="card span8 panelSection" data-panel-section="alumnos">
+        <h2 id="usersTitle">👥 Alumnos registrados (0)</h2>
+        <div class="inline" style="margin-bottom:10px"><input class="input" id="userSearch" placeholder="Buscar por nombre o correo"><button class="btn secondary" id="refreshUsers">Actualizar</button></div>
+        <div id="usersList" class="list"><div class="muted">Cargando alumnos…</div></div>
+        <div class="small" style="margin-top:8px">Toca un alumno para ver sus cursos, recursos, resetear clave o desactivarlo.</div>
+      </div>
+
+      <div class="card span12 panelSection" data-panel-section="alumnos" id="userDetailCard" style="display:none">
+        <h2>🔎 Detalle del alumno</h2>
+        <div id="selectedUserBox" class="muted">Selecciona un alumno.</div>
+        <div class="quick" style="margin:12px 0">
+          <button type="button" id="fillSelectedUser">Usar este alumno para dar acceso</button>
+          <button type="button" id="resetSelectedPass">Enviar link de recuperación</button>
+          <button type="button" id="deleteSelectedUser" style="color:#b91c1c;border-color:#fecaca;background:#fee2e2">Desactivar usuario</button>
+        </div>
+        <div class="grid">
+          <div class="span6"><h2>📚 Cursos del alumno</h2><div id="selectedCourses" class="list"><div class="muted">Sin datos.</div></div></div>
+          <div class="span6"><h2>📥 Manuales / Apps del alumno</h2><div id="selectedResources" class="list"><div class="muted">Sin datos.</div></div></div>
+        </div>
+      </div>
+
+      <div class="card span12 panelSection" data-panel-section="individual">
+        <div class="sectionHeader"><div><h2>🔑 Acceso individual</h2><p>Úsalo cuando quieras dar acceso a un solo alumno.</p></div></div>
+      </div>
+      <div class="card span6 panelSection" data-panel-section="individual">
+        <h2>📚 Dar acceso a curso</h2>
+        <form id="giveCourseForm" class="form">
+          <div class="field"><label>Correo del alumno</label><input class="input" id="courseEmail" list="usersDatalist" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Curso disponible</label><select id="courseSelect" required><option value="">Cargando cursos…</option></select></div>
+          <input type="hidden" id="courseId"><input type="hidden" id="courseTitle">
+          <div class="inline">
+            <div class="field"><label>Fecha inicio</label><input class="input" id="courseStart" type="date"></div>
+            <div class="field"><label>Fecha vencimiento</label><input class="input" id="courseEnd" type="date"></div>
+          </div>
+          <div class="quick" data-target="courseEnd"><button type="button" data-days="30">30 días</button><button type="button" data-days="180">6 meses</button><button type="button" data-days="365">1 año</button><button type="button" data-days="">Ilimitado</button></div>
+          <button class="btn primary" id="giveCourseBtn" type="submit">Guardar acceso al curso</button>
+          <div id="giveCourseMsg" class="msg"></div>
+        </form>
+      </div>
+
+      <div class="card span6 panelSection" data-panel-section="individual">
+        <h2>📥 Dar acceso a manual/app</h2>
+        <form id="giveResourceForm" class="form">
+          <div class="field"><label>Correo del alumno</label><input class="input" id="resourceEmail" list="usersDatalist" type="email" placeholder="alumno@gmail.com" required></div>
+          <div class="field"><label>Recurso</label><select id="resourceId" required><option value="">Cargando recursos…</option></select></div>
+          <div class="inline">
+            <div class="field"><label>Fecha inicio</label><input class="input" id="resourceStart" type="date"></div>
+            <div class="field"><label>Fecha vencimiento</label><input class="input" id="resourceEnd" type="date"></div>
+          </div>
+          <div class="quick" data-target="resourceEnd"><button type="button" data-days="30">30 días</button><button type="button" data-days="180">6 meses</button><button type="button" data-days="365">1 año</button><button type="button" data-days="">Ilimitado</button></div>
+          <button class="btn primary" id="giveResourceBtn" type="submit">Guardar acceso al recurso</button>
+          <div id="giveResourceMsg" class="msg"></div>
+        </form>
+      </div>
+
+
+      <div class="card span12 panelSection" data-panel-section="masivo">
+        <h2>⚡ Acceso masivo PRO</h2>
+        <p class="muted" style="margin-top:-6px">Selecciona varios alumnos y varios cursos/manuales/apps. Luego guarda todo en una sola acción.</p>
+        <div class="inline" style="margin-bottom:10px">
+          <div class="field"><label>Fecha inicio</label><input class="input" id="bulkStart" type="date"></div>
+          <div class="field"><label>Fecha vencimiento</label><input class="input" id="bulkEnd" type="date"></div>
+        </div>
+        <div class="quick" data-target="bulkEnd" style="margin-bottom:12px"><button type="button" data-days="30">30 días</button><button type="button" data-days="180">6 meses</button><button type="button" data-days="365">1 año</button><button type="button" data-days="">Ilimitado</button></div>
+        <div class="bulkPanel">
+          <div class="bulkBox">
+            <h2>👥 Alumnos <span class="counter" id="bulkUsersCount">(0)</span></h2>
+            <input class="input" id="bulkUserSearch" placeholder="Buscar alumno">
+            <div class="bulkTools"><button type="button" id="bulkSelectUsers">Seleccionar visibles</button><button type="button" id="bulkClearUsers">Limpiar alumnos</button></div>
+            <div id="bulkUsersList" class="checkList"><div class="muted">Cargando alumnos…</div></div>
+          </div>
+          <div class="bulkBox">
+            <h2>📚 Cursos <span class="counter" id="bulkCoursesCount">(0)</span></h2>
+            <div class="bulkTools"><button type="button" id="bulkSelectCourses">Todos los cursos</button><button type="button" id="bulkClearCourses">Limpiar cursos</button></div>
+            <div id="bulkCoursesList" class="checkList"><div class="muted">Cargando cursos…</div></div>
+          </div>
+          <div class="bulkBox">
+            <h2>📥 Manuales / Apps <span class="counter" id="bulkResourcesCount">(0)</span></h2>
+            <div class="bulkTools"><button type="button" id="bulkSelectResources">Todos los recursos</button><button type="button" id="bulkClearResources">Limpiar recursos</button></div>
+            <div id="bulkResourcesList" class="checkList"><div class="muted">Cargando recursos…</div></div>
+          </div>
+        </div>
+        <button class="btn primary" id="bulkGiveBtn" type="button" style="margin-top:14px">Dar acceso masivo</button>
+        <div id="bulkGiveMsg" class="msg"></div>
+      </div>
+
+      <div class="card span12 panelSection" data-panel-section="recursos">
+        <div class="sectionHeader"><div><h2>🧩 Recursos disponibles</h2><p>Visualiza todos los manuales, cursos y apps cargados en tu hoja Resources.</p></div></div>
+      </div>
+      <div class="card span12 panelSection" data-panel-section="recursos">
+        <h2>🧩 Recursos disponibles</h2>
+        <div id="resourcesList" class="list"><div class="muted">Cargando recursos…</div></div>
+      </div>
+    </div>
+  </section>
+  <datalist id="usersDatalist"></datalist>
+</main>
+<script>
+const API_URL="https://pasir-proxy.vercel.app/api";
+let adminToken=localStorage.getItem("pasir_admin_token")||"";
+let allUsers=[]; let allResources=[]; let allCourses=[]; let selectedUser=null;
+let bulkSelectedUsers=new Set(); let bulkSelectedCourses=new Set(); let bulkSelectedResources=new Set();
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function today(){return new Date().toISOString().slice(0,10)}
+function addDays(days){const d=new Date();d.setDate(d.getDate()+Number(days));return d.toISOString().slice(0,10)}
+function msg(id,type,text){const el=$(id); el.className="msg "+type; el.textContent=text;}
+function setBtn(btn,loading,text,loadingText){btn.disabled=loading;btn.textContent=loading?loadingText:text;}
+function jsonp(action,payload){return new Promise((resolve,reject)=>{const cb="cb_"+Math.random().toString(36).slice(2);const params=new URLSearchParams();params.set("action",action);Object.entries(payload||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null)params.set(k,String(v))});params.set("callback",cb);const s=document.createElement("script");s.src=API_URL+"?"+params.toString();s.async=true;window[cb]=(data)=>{clean();resolve(data)};function clean(){try{delete window[cb]}catch(e){window[cb]=undefined} if(s.parentNode)s.parentNode.removeChild(s)}s.onerror=()=>{clean();reject(new Error("Sin conexión a internet."))};document.body.appendChild(s)})}
+function showDash(){ $("loginView").classList.add("hide"); $("dashView").classList.remove("hide"); }
+function showLogin(){ $("dashView").classList.add("hide"); $("loginView").classList.remove("hide"); }
+async function loadUsers(){const r=await jsonp("adminUsers",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar usuarios"); allUsers=r.users||[]; renderUsers(); renderDatalist(); renderBulkUsers(); updateStats();}
+async function loadResources(){const r=await jsonp("adminResources",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar recursos"); allResources=r.resources||[]; renderResources(); renderResourceSelect(); renderBulkResources(); updateStats();}
+async function loadCourses(){const r=await jsonp("adminCourses",{token:adminToken}); if(!r.ok) throw new Error(r.error||"No se pudo cargar cursos"); allCourses=r.courses||[]; renderCourseSelect(); renderBulkCourses(); updateStats();}
+function renderDatalist(){ $("usersDatalist").innerHTML=allUsers.map(u=>`<option value="${esc(u.email)}">${esc(u.name||u.email)}</option>`).join(""); }
+function renderUsers(){const q=($("userSearch").value||"").toLowerCase(); const list=allUsers.filter(u=>(u.email+" "+u.name).toLowerCase().includes(q)); if($("usersTitle")) $("usersTitle").textContent=`👥 Alumnos registrados (${allUsers.length})`; $("usersList").innerHTML=list.length?list.map(u=>`<div class="item clickable" data-email="${esc(u.email)}"><div><strong>${esc(u.name||"Sin nombre")}</strong><div class="small">${esc(u.email)}</div></div><span class="pill">${esc(u.status||"active")}</span></div>`).join(""):`<div class="muted">No hay alumnos.</div>`;}
+function renderResources(){ $("resourcesList").innerHTML=allResources.length?allResources.map(r=>`<div class="item"><div><strong>${esc(r.title||r.resourceId)}</strong><div class="small">${esc(r.resourceId)} · ${esc(r.type)} · ${esc(r.description)}</div></div><span class="pill">${esc(r.status||"active")}</span></div>`).join(""):`<div class="muted">No hay recursos en Resources.</div>`;}
+function renderResourceSelect(){ $("resourceId").innerHTML='<option value="">Selecciona recurso</option>'+allResources.filter(r=>(r.status||"active")==="active").map(r=>`<option value="${esc(r.resourceId)}">${esc(r.type)} · ${esc(r.title||r.resourceId)}</option>`).join("");}
+function renderCourseSelect(){ $("courseSelect").innerHTML='<option value="">Selecciona curso</option>'+allCourses.map(c=>`<option value="${esc(c.courseId)}" data-title="${esc(c.title||c.courseId)}">${esc(c.title||c.courseId)} · ${esc(c.courseId)}</option>`).join("");}
+
+function updateBulkCounters(){
+  if($("bulkUsersCount")) $("bulkUsersCount").textContent=`(${bulkSelectedUsers.size})`;
+  if($("bulkCoursesCount")) $("bulkCoursesCount").textContent=`(${bulkSelectedCourses.size})`;
+  if($("bulkResourcesCount")) $("bulkResourcesCount").textContent=`(${bulkSelectedResources.size})`;
+}
+function renderBulkUsers(){
+  if(!$("bulkUsersList")) return;
+  const q=($("bulkUserSearch")?.value||"").toLowerCase();
+  const list=allUsers.filter(u=>(u.email+" "+u.name).toLowerCase().includes(q) && (u.status||"active")==="active");
+  $("bulkUsersList").innerHTML=list.length?list.map(u=>`<label class="checkItem"><input type="checkbox" class="bulkUserChk" value="${esc(u.email)}" ${bulkSelectedUsers.has(u.email)?"checked":""}><span><b>${esc(u.name||"Sin nombre")}</b><div class="small">${esc(u.email)}</div></span></label>`).join(""):`<div class="muted">No hay alumnos activos.</div>`;
+  updateBulkCounters();
+}
+function renderBulkCourses(){
+  if(!$("bulkCoursesList")) return;
+  $("bulkCoursesList").innerHTML=allCourses.length?allCourses.map(c=>`<label class="checkItem"><input type="checkbox" class="bulkCourseChk" value="${esc(c.courseId)}" ${bulkSelectedCourses.has(c.courseId)?"checked":""}><span><b>${esc(c.title||c.courseId)}</b><div class="small">${esc(c.courseId)}</div></span></label>`).join(""):`<div class="muted">No hay cursos.</div>`;
+  updateBulkCounters();
+}
+function renderBulkResources(){
+  if(!$("bulkResourcesList")) return;
+  const list=allResources.filter(r=>(r.status||"active")==="active");
+  $("bulkResourcesList").innerHTML=list.length?list.map(r=>`<label class="checkItem"><input type="checkbox" class="bulkResourceChk" value="${esc(r.resourceId)}" ${bulkSelectedResources.has(r.resourceId)?"checked":""}><span><b>${esc(r.title||r.resourceId)}</b><div class="small">${esc(r.type)} · ${esc(r.resourceId)}</div></span></label>`).join(""):`<div class="muted">No hay recursos activos.</div>`;
+  updateBulkCounters();
+}
+
+function fillFormsWithEmail(email){$("courseEmail").value=email;$("resourceEmail").value=email;window.scrollTo({top:document.getElementById("giveCourseForm").getBoundingClientRect().top+window.scrollY-120,behavior:"smooth"});}
+async function openUser(email){selectedUser=email; $("userDetailCard").style.display="block"; $("selectedUserBox").innerHTML=`Cargando datos de <b>${esc(email)}</b>...`; const r=await jsonp("adminUserDetail",{token:adminToken,email}); if(!r.ok){$("selectedUserBox").innerHTML=`<span style="color:#b91c1c">${esc(r.error||"No se pudo cargar")}</span>`;return;} const u=r.user||{}; $("selectedUserBox").innerHTML=`<b>${esc(u.name||"Sin nombre")}</b><br><span class="small">${esc(email)} · Estado: ${esc(u.status||"active")}</span>`; $("selectedCourses").innerHTML=(r.courses||[]).length?(r.courses||[]).map(c=>{const on=c.enabled!==false;return `<div class="item"><div><strong>${esc(c.title||c.courseId)}</strong><div class="small">${esc(c.courseId)} · ${on?"ACTIVO":"INACTIVO"} · ${esc(c.status||"")} ${c.endDate?"· vence "+esc(c.endDate):"· ilimitado"}</div></div><button class="btn ${on?"dangerBtn":"secondary"}" type="button" onclick="setCourseAccess('${esc(email)}','${esc(c.courseId)}',${!on})">${on?"Desactivar":"Activar"}</button></div>`}).join(""):`<div class="muted">No tiene cursos asignados.</div>`; $("selectedResources").innerHTML=(r.resources||[]).length?(r.resources||[]).map(x=>{const on=x.enabled!==false;return `<div class="item"><div><strong>${esc(x.title||x.resourceId)}</strong><div class="small">${esc(x.type)} · ${esc(x.resourceId)} · ${on?"ACTIVO":"INACTIVO"} · ${esc(x.status||"")} ${x.endDate?"· vence "+esc(x.endDate):"· ilimitado"}</div></div><button class="btn ${on?"dangerBtn":"secondary"}" type="button" onclick="setResourceAccess('${esc(email)}','${esc(x.resourceId)}',${!on})">${on?"Desactivar":"Activar"}</button></div>`}).join(""):`<div class="muted">No tiene manuales/apps asignados.</div>`;}
+async function setCourseAccess(email,courseId,on){const texto=on?"activar":"desactivar"; if(!confirm(`¿Deseas ${texto} este curso?`))return; const r=await jsonp("adminSetCourseAccess",{token:adminToken,email,courseId,enabled:on?"TRUE":"FALSE"}); if(!r.ok)return alert(r.error||"No se pudo actualizar"); await openUser(email);}
+async function setResourceAccess(email,resourceId,on){const texto=on?"activar":"desactivar"; if(!confirm(`¿Deseas ${texto} este recurso?`))return; const r=await jsonp("adminSetResourceAccess",{token:adminToken,email,resourceId,enabled:on?"TRUE":"FALSE"}); if(!r.ok)return alert(r.error||"No se pudo actualizar"); await openUser(email);}
+async function removeCourse(email,courseId){return setCourseAccess(email,courseId,false)}
+async function removeResource(email,resourceId){return setResourceAccess(email,resourceId,false)}
+async function boot(){if(!adminToken)return showLogin();showDash();try{await Promise.all([loadUsers(),loadResources(),loadCourses()]);}catch(e){localStorage.removeItem("pasir_admin_token");adminToken="";showLogin();msg("loginMsg","err","Tu sesión admin venció. Ingresa de nuevo.");}}
+$("adminLoginForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("adminLoginBtn");setBtn(btn,true,"Ingresar","Ingresando...");try{const r=await jsonp("adminLogin",{email:$("adminEmail").value,password:$("adminPassword").value});if(!r.ok)throw new Error(r.error||"No autorizado");adminToken=r.token;localStorage.setItem("pasir_admin_token",adminToken);msg("loginMsg","ok","Ingreso correcto.");showDash();await Promise.all([loadUsers(),loadResources(),loadCourses()]);}catch(err){msg("loginMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Ingresar","Ingresando...");}});
+$("logoutAdmin").addEventListener("click",()=>{localStorage.removeItem("pasir_admin_token");adminToken="";showLogin();});
+$("refreshUsers").addEventListener("click",async()=>{try{await loadUsers()}catch(e){alert(e.message)}}); $("userSearch").addEventListener("input",renderUsers);
+
+if($("bulkUserSearch")) $("bulkUserSearch").addEventListener("input",renderBulkUsers);
+if($("bulkUsersList")) $("bulkUsersList").addEventListener("change",e=>{const c=e.target.closest(".bulkUserChk");if(!c)return;c.checked?bulkSelectedUsers.add(c.value):bulkSelectedUsers.delete(c.value);updateBulkCounters();});
+if($("bulkCoursesList")) $("bulkCoursesList").addEventListener("change",e=>{const c=e.target.closest(".bulkCourseChk");if(!c)return;c.checked?bulkSelectedCourses.add(c.value):bulkSelectedCourses.delete(c.value);updateBulkCounters();});
+if($("bulkResourcesList")) $("bulkResourcesList").addEventListener("change",e=>{const c=e.target.closest(".bulkResourceChk");if(!c)return;c.checked?bulkSelectedResources.add(c.value):bulkSelectedResources.delete(c.value);updateBulkCounters();});
+if($("bulkSelectUsers")) $("bulkSelectUsers").addEventListener("click",()=>{document.querySelectorAll(".bulkUserChk").forEach(c=>{c.checked=true;bulkSelectedUsers.add(c.value)});updateBulkCounters();});
+if($("bulkClearUsers")) $("bulkClearUsers").addEventListener("click",()=>{bulkSelectedUsers.clear();renderBulkUsers();});
+if($("bulkSelectCourses")) $("bulkSelectCourses").addEventListener("click",()=>{allCourses.forEach(c=>bulkSelectedCourses.add(c.courseId));renderBulkCourses();});
+if($("bulkClearCourses")) $("bulkClearCourses").addEventListener("click",()=>{bulkSelectedCourses.clear();renderBulkCourses();});
+if($("bulkSelectResources")) $("bulkSelectResources").addEventListener("click",()=>{allResources.filter(r=>(r.status||"active")==="active").forEach(r=>bulkSelectedResources.add(r.resourceId));renderBulkResources();});
+if($("bulkClearResources")) $("bulkClearResources").addEventListener("click",()=>{bulkSelectedResources.clear();renderBulkResources();});
+if($("bulkGiveBtn")) $("bulkGiveBtn").addEventListener("click",async()=>{const emails=[...bulkSelectedUsers];const courseData=[...bulkSelectedCourses].map(id=>{const c=allCourses.find(x=>x.courseId===id)||{};return {courseId:id,courseTitle:c.title||id};});const resourceIds=[...bulkSelectedResources];if(!emails.length)return msg("bulkGiveMsg","err","Selecciona al menos 1 alumno.");if(!courseData.length&&!resourceIds.length)return msg("bulkGiveMsg","err","Selecciona al menos 1 curso, manual o app.");const btn=$("bulkGiveBtn");setBtn(btn,true,"Dar acceso masivo","Guardando accesos...");try{const end=$("bulkEnd").value;const r=await jsonp("adminBulkGiveAccess",{token:adminToken,emails:JSON.stringify(emails),courses:JSON.stringify(courseData),resourceIds:JSON.stringify(resourceIds),enabled:"TRUE",startDate:$("bulkStart").value||today(),endDate:end,accessType:end?"temporal":"ilimitado"});if(!r.ok)throw new Error(r.error||"No se pudo guardar");msg("bulkGiveMsg","ok",`Listo: ${r.total||0} accesos guardados. Cursos: ${r.courses||0}, recursos: ${r.resources||0}.`);if(selectedUser&&bulkSelectedUsers.has(selectedUser)) await openUser(selectedUser);}catch(err){msg("bulkGiveMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Dar acceso masivo","Guardando accesos...");}});
+
+$("usersList").addEventListener("click",e=>{const item=e.target.closest(".item[data-email]"); if(item) openUser(item.dataset.email);});
+$("fillSelectedUser").addEventListener("click",()=>{if(selectedUser)fillFormsWithEmail(selectedUser)});
+$("resetSelectedPass").addEventListener("click",async()=>{if(!selectedUser)return; if(!confirm("¿Enviar enlace de recuperación a "+selectedUser+"?"))return; const resetUrlBase=new URL("reset.html",location.href).href; const r=await jsonp("adminSendPasswordReset",{token:adminToken,email:selectedUser,resetUrlBase}); if(!r.ok)return alert(r.error||"No se pudo enviar"); alert("Enlace de recuperación enviado al correo del alumno.");});
+$("deleteSelectedUser").addEventListener("click",async()=>{if(!selectedUser)return; if(!confirm("Esto desactivará el usuario y sus accesos. ¿Continuar?"))return; const r=await jsonp("adminDeleteUser",{token:adminToken,email:selectedUser}); if(!r.ok)return alert(r.error||"No se pudo desactivar"); await loadUsers(); await openUser(selectedUser);});
+$("createUserForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("createUserBtn");setBtn(btn,true,"Crear alumno","Creando...");try{const r=await jsonp("register",{name:$("newName").value,email:$("newEmail").value,password:$("newPass").value});if(!r.ok)throw new Error(r.error||"No se pudo crear");msg("createUserMsg","ok","Alumno creado correctamente.");$("createUserForm").reset();await loadUsers();}catch(err){msg("createUserMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Crear alumno","Creando...");}});
+$("courseSelect").addEventListener("change",()=>{const opt=$("courseSelect").selectedOptions[0]; $("courseId").value=opt?.value||""; $("courseTitle").value=opt?.dataset.title||"";});
+$("giveCourseForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("giveCourseBtn");setBtn(btn,true,"Guardar acceso al curso","Guardando...");try{const end=$("courseEnd").value;const r=await jsonp("adminGiveCourse",{token:adminToken,email:$("courseEmail").value,courseId:$("courseId").value,courseTitle:$("courseTitle").value,enabled:"TRUE",startDate:$("courseStart").value||today(),endDate:end,accessType:end?"temporal":"ilimitado"});if(!r.ok)throw new Error(r.error||"No se pudo guardar");msg("giveCourseMsg","ok","Acceso al curso guardado."); if(selectedUser===$("courseEmail").value) await openUser(selectedUser);}catch(err){msg("giveCourseMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Guardar acceso al curso","Guardando...");}});
+$("giveResourceForm").addEventListener("submit",async e=>{e.preventDefault();const btn=$("giveResourceBtn");setBtn(btn,true,"Guardar acceso al recurso","Guardando...");try{const end=$("resourceEnd").value;const r=await jsonp("adminGiveResource",{token:adminToken,email:$("resourceEmail").value,resourceId:$("resourceId").value,enabled:"TRUE",startDate:$("resourceStart").value||today(),endDate:end,accessType:end?"temporal":"ilimitado"});if(!r.ok)throw new Error(r.error||"No se pudo guardar");msg("giveResourceMsg","ok","Acceso al recurso guardado."); if(selectedUser===$("resourceEmail").value) await openUser(selectedUser);}catch(err){msg("giveResourceMsg","err",err.message||String(err));}finally{setBtn(btn,false,"Guardar acceso al recurso","Guardando...");}});
+document.querySelectorAll(".quick").forEach(box=>box.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const target=$(box.dataset.target);if(!target)return;const days=b.dataset.days;target.value=days?addDays(days):"";}));
+$("courseStart").value=today(); $("resourceStart").value=today(); if($("bulkStart")) $("bulkStart").value=today();
+
+function updateStats(){
+  if($("statUsers")) $("statUsers").textContent=allUsers.length;
+  if($("statCourses")) $("statCourses").textContent=allCourses.length;
+  if($("statResources")) $("statResources").textContent=allResources.length;
+}
+function switchAdminPanel(panel){
+  document.querySelectorAll(".menuBtn").forEach(b=>b.classList.toggle("active",b.dataset.panel===panel));
+  document.querySelectorAll(".panelSection").forEach(s=>s.classList.toggle("activePanel",s.dataset.panelSection===panel));
+  window.scrollTo({top:document.querySelector(".adminMenu")?.getBoundingClientRect().top+window.scrollY-10||0,behavior:"smooth"});
+}
+document.querySelectorAll(".menuBtn").forEach(btn=>btn.addEventListener("click",()=>switchAdminPanel(btn.dataset.panel)));
+
+boot();
+</script>
+</body>
+</html>
