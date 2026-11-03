@@ -297,7 +297,7 @@ html[data-theme="dark"] .country-payment-card .payment-notice{background:#1e3553
           <p><strong>Destinatario:</strong> ESPINOZA TAPIA JULIO CESAR</p>
           <p><strong>Cuenta destino:</strong> <span class="payment-data">6051674446</span></p>
           <button class="payment-copy" type="button" onclick="copyPaymentData('6051674446',this)">Copiar cuenta</button>
-          <p class="payment-notice">El QR bancario se incorporará cuando su imagen esté alojada en el sitio. Por ahora, confirma con el titular que esta cuenta admite la transferencia antes de pagar.</p>
+          <div class="qr-container" style="margin:14px auto;max-width:330px"><img src="./Pasarela/qr-ecofuturo-bolivia.png" alt="QR de pago Banco PyME Ecofuturo Bolivia" style="display:block;width:100%;height:auto;border-radius:10px" onerror="this.closest('.qr-container').style.display='none';document.getElementById('bolivia-qr-pending').hidden=false"></div><p id="bolivia-qr-pending" class="payment-notice" hidden>QR pendiente de subir al sitio. Solicita los datos de transferencia antes de pagar.</p><p class="payment-muted">Escanea el QR desde tu aplicación bancaria y verifica el destinatario y el importe antes de confirmar.</p>
         </div>
         <div id="method-spei" class="method-details payment-details hidden country-payment-card">
           <h3>🇲🇽 Transferencia SPEI — México</h3><p><strong>CLABE interbancaria:</strong></p>
