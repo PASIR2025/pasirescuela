@@ -3310,6 +3310,104 @@ body[data-theme="dark"] .card.pasir-coming-soon .pasir-soon-badge{
   #detailOverlay.simuplc-mode .detail-media-wrap{max-height:240px}
 }
 </style>
+<style id="simuplc-modern-ui-v2">
+/* Identidad visual exclusiva de SimuPLC: no modifica los cursos ni la pasarela. */
+#detailOverlay.simuplc-mode .detail-sheet{background:#f3f6fb;color:#15243b}
+#detailOverlay.simuplc-mode .detail-hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(115deg,#0b1730 0%,#152b53 58%,#173e6c 100%);
+  border-bottom:1px solid rgba(255,255,255,.12)
+}
+#detailOverlay.simuplc-mode .detail-hero::after{
+  content:"";position:absolute;right:-90px;top:-170px;width:450px;height:450px;
+  border:1px solid rgba(125,211,252,.18);border-radius:50%;pointer-events:none;
+  box-shadow:0 0 0 80px rgba(125,211,252,.035),0 0 0 165px rgba(125,211,252,.025)
+}
+#detailOverlay.simuplc-mode .detail-hero .topbar,
+#detailOverlay.simuplc-mode .detail-hero h1,
+#detailOverlay.simuplc-mode .detail-hero p{position:relative;z-index:1}
+#detailOverlay.simuplc-mode .detail-kicker{font-size:.7rem;letter-spacing:.16em;color:#a5d8ff}
+#detailOverlay.simuplc-mode .detail-hero h1{font-weight:850;letter-spacing:-.045em;color:#fff}
+#detailOverlay.simuplc-mode .detail-hero p{color:#d4e4f7;opacity:1}
+#detailOverlay.simuplc-mode .detail-hero .close{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);transition:background .2s}
+#detailOverlay.simuplc-mode .detail-hero .close:hover{background:rgba(255,255,255,.22)}
+#detailOverlay.simuplc-mode .detail-media-card,
+#detailOverlay.simuplc-mode .detail-section,
+#detailOverlay.simuplc-mode .detail-sidebar-card{
+  border:1px solid #dfe7f2;border-radius:20px;background:#fff;
+  box-shadow:0 10px 32px rgba(19,45,80,.065)
+}
+#detailOverlay.simuplc-mode .detail-media-card{padding:12px;background:#fff}
+#detailOverlay.simuplc-mode .detail-media-wrap{border-radius:13px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#f7faff,#e7eef8)}
+#detailOverlay.simuplc-mode #detailMedia{object-fit:contain}
+#detailOverlay.simuplc-mode .detail-price-card{border:1px solid #cbdcf3;background:linear-gradient(180deg,#fff,#f8fbff)}
+#detailOverlay.simuplc-mode .detail-mini-item{padding:10px 11px;border-radius:12px;background:#f2f6fc}
+#detailOverlay.simuplc-mode .detail-mini-item strong{font-size:.77rem;color:#516782;letter-spacing:.02em}
+#detailOverlay.simuplc-mode .detail-mini-item span{font-size:.88rem;font-weight:750;color:#172f50}
+#detailOverlay.simuplc-mode #detailBuy{
+  border:0!important;border-radius:13px!important;
+  background:linear-gradient(115deg,#145be9,#4338ca)!important;
+  box-shadow:0 9px 19px rgba(36,80,210,.20);font-weight:850;letter-spacing:-.01em
+}
+#detailOverlay.simuplc-mode #detailSecondaryActions .btn{
+  border-radius:11px!important;background:#eef5ff!important;
+  color:#174d91!important;border:1px solid #cfe1f8!important;
+  font-weight:750;box-shadow:none!important
+}
+#detailOverlay.simuplc-mode #detailSecondaryActions .btn:hover{background:#deedff!important}
+#detailOverlay.simuplc-mode #detailBack{border-radius:11px}
+#detailOverlay.simuplc-mode .detail-section h2{font-size:1.23rem;color:#142c4a}
+#detailOverlay.simuplc-mode .simu-license-note{background:#eef6ff;border-color:#c7defa;color:#17365b}
+#detailOverlay.simuplc-mode .simu-version-card{border-radius:14px}
+#detailOverlay.simuplc-mode .simu-version-card.pro{background:#eef5ff}
+/* Modal de compra: tarjetas de precios limpias, jerarquía y contraste. */
+#logicsoftPlanModal{background:rgba(7,19,43,.7);backdrop-filter:blur(7px)}
+#logicsoftPlanModal .plan-box{
+  background:#fff;color:#15243b;border:1px solid rgba(210,225,244,.9);
+  border-radius:22px;box-shadow:0 28px 85px rgba(5,19,45,.32);
+  padding:20px
+}
+#logicsoftPlanModal .plan-box h3{font-size:1.32rem;font-weight:900;letter-spacing:-.035em;color:#122a4b}
+#logicsoftPlanModal .plan-box>p{color:#546985;font-size:.83rem;line-height:1.5}
+#logicsoftPlanModal .plan-option{
+  border:1px solid #e0e7f0;border-radius:16px;padding:13px;
+  background:#fff;box-shadow:0 4px 14px rgba(20,47,82,.04)
+}
+#logicsoftPlanModal .plan-option.recommended{
+  border:1.5px solid #4f8af6;background:linear-gradient(180deg,#f0f6ff 0%,#fff 70%);
+  box-shadow:0 7px 22px rgba(35,100,210,.10)
+}
+#logicsoftPlanModal .plan-option .name{font-size:1rem;color:#142c4d;letter-spacing:-.025em}
+#logicsoftPlanModal .plan-badge{border-radius:7px;font-size:.68rem;letter-spacing:0;background:#f0f4fa;color:#536784;border-color:#dfe7f0}
+#logicsoftPlanModal .plan-badge.recommended{background:#dceaff;border-color:#bad5ff;color:#1553ac}
+#logicsoftPlanModal .logicsoft-plan-price{
+  background:transparent!important;border:0!important;border-top:1px solid #e6edf6!important;
+  border-radius:0!important;padding:10px 2px 6px!important;
+  grid-template-columns:minmax(0,1fr) auto;align-items:end
+}
+#logicsoftPlanModal .logicsoft-plan-price .offer-label,
+#logicsoftPlanModal .logicsoft-plan-price .normal-label{font-size:.68rem!important;font-weight:700!important;color:#71839c!important}
+#logicsoftPlanModal .logicsoft-plan-price .now{
+  font-size:1.85rem!important;font-weight:900!important;color:#142e57!important;
+  line-height:1.1!important;letter-spacing:-.045em
+}
+#logicsoftPlanModal .logicsoft-plan-price .was{font-size:.87rem!important;color:#8491a5!important}
+#logicsoftPlanModal .plan-option .mini{color:#5a6c85;font-size:.78rem;line-height:1.45}
+#logicsoftPlanModal .plan-option .go{
+  background:linear-gradient(110deg,#155fe8,#3154d5)!important;color:#fff!important;
+  border:0!important;border-radius:11px!important;box-shadow:0 6px 14px rgba(38,88,200,.17);
+  font-weight:800;font-size:.85rem;letter-spacing:-.01em
+}
+#logicsoftPlanModal .plan-option .go:hover{filter:brightness(1.06)}
+#logicsoftPlanModal .plan-modal-actions .btn{background:#f0f4fa;color:#35506f;border:1px solid #dbe5f0;border-radius:10px}
+@media(max-width:560px){
+  #logicsoftPlanModal .plan-box{padding:14px;border-radius:17px}
+  #logicsoftPlanModal .plan-option{padding:11px}
+  #logicsoftPlanModal .logicsoft-plan-price .now{font-size:1.55rem!important}
+  #detailOverlay.simuplc-mode .detail-media-card{padding:7px}
+  #detailOverlay.simuplc-mode .detail-mini-item{padding:8px}
+}
+</style>
 <style id="simuplc-direct-install-style">
 .simuplc-free-install{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:4px}
 .simuplc-free-title{font-weight:800;font-size:.9rem;text-align:center}
