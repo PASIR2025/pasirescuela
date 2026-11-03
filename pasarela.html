@@ -191,6 +191,27 @@ html[data-theme="dark"] .price-current{
 </style>
 <script src="theme.js" defer></script>
 
+<style id="pasir-country-payments-v1">
+.country-payment-picker{margin:22px 0 18px;padding:18px;border:1px solid #dce6f3;border-radius:17px;background:#f7faff}
+.country-payment-picker label{display:block;font-weight:850;color:#193352;margin-bottom:9px}
+#payment-country{display:block;width:100%;padding:13px 14px;border:1px solid #b9cbe1;border-radius:11px;background:#fff;color:#162b49;font:inherit;font-weight:650}
+.country-payment-hint{margin:9px 0 0;font-size:.82rem;color:#58708d;line-height:1.45}
+#country-payment-details .method-details{margin-top:12px}
+.country-payment-card{padding:19px;border:1px solid #dbe5f2;border-radius:16px;background:#fff;color:#172b48;box-shadow:0 8px 23px rgba(21,46,79,.055)}
+.country-payment-card h3{margin:0 0 12px;font-size:1.18rem;color:#16385f}
+.country-payment-card p{margin:9px 0;line-height:1.5}
+.country-payment-card .payment-data{font-size:1.13rem;font-weight:850;overflow-wrap:anywhere}
+.country-payment-card .payment-muted{font-size:.83rem;color:#60738d}
+.country-payment-card .payment-copy{border:1px solid #bad2f5;background:#edf5ff;color:#164a92;border-radius:9px;padding:9px 13px;cursor:pointer;font-weight:800}
+.country-payment-card .payment-copy:hover{background:#dfedff}
+.country-payment-card .payment-notice{padding:11px 12px;border-radius:10px;background:#eff6ff;color:#234c7b;font-size:.85rem}
+html[data-theme="dark"] .country-payment-picker,html[data-theme="dark"] .country-payment-card{background:#15243a!important;border-color:#344863!important;color:#f8fafc!important}
+html[data-theme="dark"] .country-payment-picker label,html[data-theme="dark"] .country-payment-card h3{color:#f8fafc!important}
+html[data-theme="dark"] #payment-country{background:#0f172a;color:#fff;border-color:#52647b}
+html[data-theme="dark"] .country-payment-hint,html[data-theme="dark"] .country-payment-card .payment-muted{color:#c4d3e5}
+html[data-theme="dark"] .country-payment-card .payment-notice{background:#1e3553;color:#d8eaff}
+@media(max-width:560px){.country-payment-picker{padding:13px}.country-payment-card{padding:14px}}
+</style>
 </head>
 <body>
   <div class="payment-shell">
@@ -207,8 +228,22 @@ html[data-theme="dark"] .price-current{
           <div class="product-price" id="product-price"><div class="price-stack"><span class="price-badge">Oferta !</span><span class="price-current">$16 USD</span><span class="price-normal-label">Precio normal</span><span class="price-normal">$22 USD</span></div></div>
         </div>
 
+        <div class="country-payment-picker">
+          <label for="payment-country">🌎 ¿Desde qué país realizas tu pago?</label>
+          <select id="payment-country" onchange="selectPaymentCountry(this.value)">
+            <option value="PE">🇵🇪 Perú</option>
+            <option value="CO">🇨🇴 Colombia</option>
+            <option value="ES">🇪🇸 España</option>
+            <option value="GT">🇬🇹 Guatemala</option>
+            <option value="BO">🇧🇴 Bolivia</option>
+            <option value="MX">🇲🇽 México</option>
+            <option value="EC">🇪🇨 Ecuador</option>
+            <option value="OTHER">🌎 Otro país / Internacional</option>
+          </select>
+          <p class="country-payment-hint" id="payment-country-hint">Elige tu país para ver los datos de pago correspondientes.</p>
+        </div>
         <p class="section-label">Elige tu método de pago:</p>
-        <div class="payment-methods">
+        <div class="payment-methods" id="payment-method-buttons">
           <button class="method-btn active" type="button" onclick="showMethod('yape', this)">Yape</button>
           <button class="method-btn" type="button" onclick="showMethod('binance', this)">Binance</button>
           <button class="method-btn" type="button" onclick="showMethod('paypal', this)">PayPal</button>
@@ -240,6 +275,39 @@ html[data-theme="dark"] .price-current{
             <a href="https://www.paypal.com/paypalme/educacionPASIR/16" id="paypal-link" class="pay-link">Pagar con PayPal</a>
           </div>
           <p class="method-caption">Serás redirigido a PayPal. El cobro se realizará en USD usando el precio en dólares asignado a este producto.</p>
+        </div>
+
+        <div id="method-nequi" class="method-details payment-details hidden country-payment-card">
+          <h3>🇨🇴 Nequi — Colombia</h3><p>Envía tu pago a este número:</p>
+          <p class="payment-data">+57 315 3874388</p><button class="payment-copy" type="button" onclick="copyPaymentData('3153874388',this)">Copiar número</button>
+          <p><strong>Titular:</strong> Eliécer Potosí</p>
+        </div>
+        <div id="method-bizum" class="method-details payment-details hidden country-payment-card">
+          <h3>🇪🇸 Bizum — España</h3><p>Envía tu pago mediante Bizum:</p>
+          <p class="payment-data">+34 634 61 71 04</p><button class="payment-copy" type="button" onclick="copyPaymentData('634617104',this)">Copiar número</button>
+          <p><strong>Titular:</strong> Maiky Joel Siguas Rengifo</p>
+        </div>
+        <div id="method-banrural" class="method-details payment-details hidden country-payment-card">
+          <h3>🇬🇹 Banrural — Guatemala</h3><p><strong>Cuenta de ahorro en quetzales (GTQ)</strong></p>
+          <p class="payment-data">0410 0000 4750 05</p><button class="payment-copy" type="button" onclick="copyPaymentData('04100000475005',this)">Copiar cuenta</button>
+          <p><strong>Titular:</strong> KEVIN OSWALDO RAMOS GALDAMEZ</p>
+        </div>
+        <div id="method-ecofuturo" class="method-details payment-details hidden country-payment-card">
+          <h3>🇧🇴 Banco PyME Ecofuturo — Bolivia</h3>
+          <p><strong>Destinatario:</strong> ESPINOZA TAPIA JULIO CESAR</p>
+          <p><strong>Cuenta destino:</strong> <span class="payment-data">6051674446</span></p>
+          <button class="payment-copy" type="button" onclick="copyPaymentData('6051674446',this)">Copiar cuenta</button>
+          <p class="payment-notice">El QR bancario se incorporará cuando su imagen esté alojada en el sitio. Por ahora, confirma con el titular que esta cuenta admite la transferencia antes de pagar.</p>
+        </div>
+        <div id="method-spei" class="method-details payment-details hidden country-payment-card">
+          <h3>🇲🇽 Transferencia SPEI — México</h3><p><strong>CLABE interbancaria:</strong></p>
+          <p class="payment-data">1271 8001 3931 9092 06</p><button class="payment-copy" type="button" onclick="copyPaymentData('127180013931909206',this)">Copiar CLABE</button>
+          <p><strong>Titular:</strong> Jovani Gutierrez Vázquez</p>
+        </div>
+        <div id="method-pichincha" class="method-details payment-details hidden country-payment-card">
+          <h3>🇪🇨 Banco Pichincha — Ecuador</h3><p><strong>Pichincha Mi Vecino · Cuenta de ahorros</strong></p>
+          <p class="payment-data">2206099253</p><button class="payment-copy" type="button" onclick="copyPaymentData('2206099253',this)">Copiar cuenta</button>
+          <p><strong>Titular:</strong> Diego Pedraza</p><p><strong>Cédula:</strong> 1750369041</p>
         </div>
 
         <button id="btn-show-form" class="btn-submit" style="margin-top: 28px;" type="button" onclick="toggleForm()">Ya realicé mi pago</button>
@@ -288,6 +356,45 @@ html[data-theme="dark"] .price-current{
     const WHATSAPP_NUMBER = '51926299585';
     let currentProduct = null;
     let currentOrderId = '';
+
+    const PAYMENT_COUNTRIES = {
+      PE: { label:'Perú', methods:[['yape','Yape']] },
+      CO: { label:'Colombia', methods:[['nequi','Nequi']] },
+      ES: { label:'España', methods:[['bizum','Bizum']] },
+      GT: { label:'Guatemala', methods:[['banrural','Banrural']] },
+      BO: { label:'Bolivia', methods:[['ecofuturo','Ecofuturo']] },
+      MX: { label:'México', methods:[['spei','Transferencia SPEI']] },
+      EC: { label:'Ecuador', methods:[['pichincha','Banco Pichincha']] },
+      OTHER: { label:'Internacional', methods:[['paypal','PayPal'],['binance','Binance Pay']] }
+    };
+    let selectedPaymentCountry = 'PE';
+    let selectedPaymentMethod = 'yape';
+    function selectPaymentCountry(country) {
+      const config = PAYMENT_COUNTRIES[country] || PAYMENT_COUNTRIES.OTHER;
+      selectedPaymentCountry = PAYMENT_COUNTRIES[country] ? country : 'OTHER';
+      const buttons = document.getElementById('payment-method-buttons');
+      buttons.replaceChildren();
+      config.methods.forEach(([id,label]) => {
+        const button=document.createElement('button');
+        button.type='button';button.className='method-btn';
+        button.textContent=label;
+        button.addEventListener('click',()=>showMethod(id,button));
+        buttons.appendChild(button);
+      });
+      const hint=document.getElementById('payment-country-hint');
+      hint.textContent=selectedPaymentCountry==='OTHER'
+        ? 'Puedes pagar con PayPal o Binance Pay. Hotmart no está disponible por ahora.'
+        : 'Método de pago disponible para '+config.label+'. Verifica el titular antes de transferir.';
+      const first=buttons.querySelector('button');
+      if(first) showMethod(config.methods[0][0],first);
+    }
+    function copyPaymentData(value,button) {
+      if(!navigator.clipboard?.writeText){window.prompt('Copia este dato:',value);return;}
+      navigator.clipboard.writeText(value).then(()=>{
+        const label=button.textContent;button.textContent='¡Copiado!';
+        setTimeout(()=>{button.textContent=label;},1700);
+      }).catch(()=>window.prompt('Copia este dato:',value));
+    }
 
     function generateOrderId() {
       return `#${Math.floor(100000 + Math.random() * 900000)}`;
@@ -470,6 +577,7 @@ html[data-theme="dark"] .price-current{
     }
 
     function showMethod(method, button) {
+      selectedPaymentMethod = method;
       document.querySelectorAll('.method-details').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.method-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(`method-${method}`).classList.remove('hidden');
@@ -500,7 +608,9 @@ html[data-theme="dark"] .price-current{
 Pedido: ${currentOrderId}
 Nombre: ${name}
 Correo: ${email}
-Monto pagado: ${amountText}
+Monto indicado: ${amountText}
+País de pago: ${PAYMENT_COUNTRIES[selectedPaymentCountry].label}
+Método de pago: ${selectedPaymentMethod}
 ID de Transacción / Operación: ${txnId}
 
 Adjunto comprobante.`;
@@ -517,6 +627,7 @@ Adjunto comprobante.`;
       btn.textContent = 'Enviar para verificación';
     });
 
+    selectPaymentCountry('PE');
     init();
   </script>
 </body>
