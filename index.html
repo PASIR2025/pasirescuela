@@ -3247,6 +3247,69 @@ body[data-theme="dark"] .card.pasir-coming-soon .pasir-soon-badge{
 @media(prefers-reduced-motion:reduce){.simuplc-carousel .simuplc-slide-img,#detailOverlay.simuplc-mode #detailMedia{transition:none}}
 </style>
 
+<style id="simuplc-compact-experience-v1">
+/* Selector de planes: compacto, centrado y desplazable en cualquier pantalla. */
+#logicsoftPlanModal{padding:12px;overflow-y:auto;overscroll-behavior:contain;align-items:center}
+#logicsoftPlanModal .plan-box{width:min(540px,100%);max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;padding:18px;border-radius:18px}
+#logicsoftPlanModal .plan-box h3{font-size:1.22rem;line-height:1.2;margin:0 0 6px}
+#logicsoftPlanModal .plan-box>p{font-size:.84rem;line-height:1.42;margin:0 0 12px}
+#logicsoftPlanModal .plan-options{gap:10px}
+#logicsoftPlanModal .plan-option{padding:11px 12px;border-radius:14px}
+#logicsoftPlanModal .plan-option .top{align-items:center;margin-bottom:6px}
+#logicsoftPlanModal .plan-option .name{font-size:.96rem}
+#logicsoftPlanModal .logicsoft-plan-price{padding:9px 11px;gap:2px 8px}
+#logicsoftPlanModal .logicsoft-plan-price .plan-name{display:none}
+#logicsoftPlanModal .logicsoft-plan-price .now{font-size:1.35rem!important}
+#logicsoftPlanModal .plan-option .mini{font-size:.78rem;line-height:1.4;margin:7px 0}
+#logicsoftPlanModal .plan-option .go{padding:10px 12px;font-size:.88rem;min-height:42px}
+#logicsoftPlanModal .plan-modal-actions{margin-top:9px}
+#logicsoftPlanModal .plan-modal-actions .btn{padding:8px 15px}
+@media(max-height:760px){
+  #logicsoftPlanModal{align-items:flex-start}
+  #logicsoftPlanModal .plan-box{margin:auto 0}
+}
+@media(max-width:560px){
+  #logicsoftPlanModal{padding:8px}
+  #logicsoftPlanModal .plan-box{max-height:calc(100dvh - 16px);padding:13px}
+  #logicsoftPlanModal .plan-option{padding:10px}
+  #logicsoftPlanModal .plan-badge{font-size:.65rem;padding:3px 6px}
+  #logicsoftPlanModal .plan-option .go{font-size:.82rem}
+}
+/* Vista de SimuPLC: cabecera corta, galería proporcionada y compra visible. */
+#detailOverlay.simuplc-mode .detail-hero{padding:18px clamp(16px,3vw,36px) 17px}
+#detailOverlay.simuplc-mode .detail-hero h1{font-size:clamp(2rem,3vw,2.7rem);max-width:none;margin:8px 0}
+#detailOverlay.simuplc-mode .detail-hero p{font-size:.94rem;line-height:1.5;max-width:900px;margin:0}
+#detailOverlay.simuplc-mode .detail-body{padding:18px clamp(12px,2.5vw,30px) 32px}
+#detailOverlay.simuplc-mode .detail-layout{width:min(1260px,100%);grid-template-columns:minmax(0,1.15fr) minmax(340px,.85fr);gap:18px}
+#detailOverlay.simuplc-mode .detail-maincol{gap:14px}
+#detailOverlay.simuplc-mode .detail-media-card{background:#e9eff8}
+#detailOverlay.simuplc-mode .detail-media-wrap{aspect-ratio:16/9;max-height:390px;background:linear-gradient(135deg,#e8eef8,#f8fafc)}
+#detailOverlay.simuplc-mode #detailMedia{object-fit:contain}
+#detailOverlay.simuplc-mode .detail-sidebar{top:12px;gap:12px}
+#detailOverlay.simuplc-mode .detail-price-card{padding:16px}
+#detailOverlay.simuplc-mode .detail-quick-meta{grid-template-columns:1fr 1fr;gap:10px;margin:0;padding:0;border:0}
+#detailOverlay.simuplc-mode .detail-actions{gap:8px;margin-top:12px}
+#detailOverlay.simuplc-mode .detail-secondary-actions{gap:8px}
+#detailOverlay.simuplc-mode .detail-actions .btn{min-height:44px;padding:11px 9px;white-space:normal;line-height:1.3}
+@media(max-width:980px){
+  #detailOverlay.simuplc-mode .detail-layout{grid-template-columns:1fr}
+  #detailOverlay.simuplc-mode .detail-sidebar{position:static;order:-1}
+  #detailOverlay.simuplc-mode .detail-media-wrap{max-height:300px}
+  #detailOverlay.simuplc-mode .detail-price-card{position:static;background:#fff}
+  #detailOverlay.simuplc-mode .detail-actions{display:flex;flex-direction:column}
+  #detailOverlay.simuplc-mode .detail-secondary-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  #detailOverlay.simuplc-mode #detailBack{width:100%}
+}
+@media(max-width:560px){
+  #detailOverlay.simuplc-mode .detail-hero{padding:14px 14px 16px}
+  #detailOverlay.simuplc-mode .detail-hero h1{font-size:2rem}
+  #detailOverlay.simuplc-mode .detail-hero p{font-size:.85rem}
+  #detailOverlay.simuplc-mode .detail-body{padding:12px 10px 24px}
+  #detailOverlay.simuplc-mode .detail-price-card{padding:12px}
+  #detailOverlay.simuplc-mode .detail-secondary-actions{grid-template-columns:1fr}
+  #detailOverlay.simuplc-mode .detail-media-wrap{max-height:240px}
+}
+</style>
 <style id="simuplc-direct-install-style">
 .simuplc-free-install{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:4px}
 .simuplc-free-title{font-weight:800;font-size:.9rem;text-align:center}
