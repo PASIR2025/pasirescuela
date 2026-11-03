@@ -5054,9 +5054,10 @@ localStorage.setItem("pasir-currency", currencySelect.value);
         })
       : trigger.closest('.card');
 
-    const triggerText = (trigger.textContent || '').toLowerCase();
+    // Identificar SimuPLC por el estado del detalle, no por el texto del botón.
+    // El nombre visible puede cambiar sin romper la apertura del selector.
     const isLogicsoft = inDetail
-      ? (triggerText.includes('licencia') || triggerText.includes('suscripción') || triggerText.includes('simuplc'))
+      ? !!(document.getElementById('detailOverlay')?.classList.contains('simuplc-mode'))
       : trigger.classList.contains('logicsoft-subscribe');
 
     if (!isLogicsoft) return;
