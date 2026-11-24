@@ -304,7 +304,7 @@ body{padding:12px!important}
             <img src="./Pasarela/yape-pasir-400x400.png" alt="QR Yape" id="yape-qr">
           </div>
           <p class="method-caption">Escanea el código QR yapeando el monto exacto.</p>
-          <p class="method-strong">Número: <span id="yape-number">925698650</span></p>
+          <p class="method-strong">Número: <span id="yape-number">926299585</span></p>
           <p class="method-strong">A nombre de: ELWIN PACHAS</p>
           <div class="copy-row">
             <button type="button" class="btn-copy" onclick="copyYapeNumber()">Copiar número Yape</button>
@@ -457,7 +457,7 @@ body{padding:12px!important}
     }
 
     function copyYapeNumber() {
-      const number = document.getElementById('yape-number')?.textContent?.trim() || '925698650';
+      const number = document.getElementById('yape-number')?.textContent?.trim() || '926299585';
       navigator.clipboard.writeText(number).then(() => {
         const btn = document.querySelector('.btn-copy');
         if (!btn) return;
