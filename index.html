@@ -3551,6 +3551,25 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 .pasir-welcome-benefits .benefit-icon svg{width:20px!important;height:20px!important;}
 @media(max-width:760px){#siteHeaderInner{display:flex!important;flex-wrap:nowrap!important;justify-content:space-between!important;padding:10px!important;}#siteHeaderInner .brand .pasir-logo-web{width:94px!important;}#siteHeaderInner .nav-mobile-actions{margin-left:auto!important;gap:6px!important;}#siteHeaderInner :is(#mobileAccountChip,#mobileLoginChip){font-size:13px!important;padding:9px 12px!important;min-width:0!important;} .pasir-welcome{grid-template-columns:1fr;margin:12px 0;} .pasir-welcome-photo{grid-row:1;height:auto;min-height:0;aspect-ratio:16/9;} .pasir-welcome-copy{padding:20px;gap:12px;} .pasir-welcome-benefits{grid-template-columns:repeat(2,minmax(0,1fr));}}
 </style>
+<style id="pasir-welcome-light">
+#siteHeaderInner :is(#installBtn,#pasirDesktopInstall,.top-left-controls){display:none!important;}
+#siteHeaderInner .pasir-wordmark{display:flex!important;flex-direction:column;line-height:1;gap:4px;color:var(--text,#0f172a);}
+#siteHeaderInner .pasir-wordmark strong{font-size:28px;font-weight:900;letter-spacing:-.04em;}
+#siteHeaderInner .pasir-wordmark span{font-size:10px;letter-spacing:.32em;color:#075e51;font-weight:800;}
+#siteHeaderInner :is(#loginChip,#mobileLoginChip,#accountChip,#mobileAccountChip){background:#075e51!important;color:white!important;border-radius:8px!important;box-shadow:none!important;}
+.pasir-welcome{background:#f8fafb!important;color:#0f172a!important;border:1px solid #e2e8f0;gap:20px;padding:clamp(16px,3vw,36px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+.pasir-welcome-copy{padding:0!important;gap:14px;}
+.pasir-welcome-kicker{color:#075e51!important;}
+.pasir-welcome .pasir-welcome-copy h2{color:#0f172a!important;font-size:clamp(30px,3.6vw,48px)!important;}
+.pasir-welcome-copy h2 span{color:#075e51;}
+.pasir-welcome .pasir-welcome-copy p{color:#475569!important;}
+.pasir-welcome-photo{border-radius:12px;height:100%;min-height:0;aspect-ratio:4/3;}
+.pasir-welcome-primary{display:flex;justify-content:center;align-items:center;background:#075e51;color:#fff!important;border-radius:8px;padding:13px 18px;text-decoration:none;font-weight:800;align-self:flex-start;}
+.pasir-welcome-links{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.pasir-welcome-links a{display:flex;flex-direction:column;gap:5px;padding:16px;border:1px solid #dce5e1;background:white;border-radius:10px;text-decoration:none;color:#075e51!important;}
+.pasir-welcome-links span{font-size:12px;color:#475569;}
+@media(max-width:760px){.pasir-welcome{grid-template-columns:1fr;gap:16px;}.pasir-welcome-photo{grid-row:auto;aspect-ratio:16/9;height:auto;}.pasir-welcome-primary{align-self:stretch;}.pasir-welcome-links a{padding:12px;}.pasir-welcome-links strong{font-size:14px;}#siteHeaderInner .pasir-wordmark strong{font-size:24px;}}
+</style>
 </head>
 <body data-theme="light" id="top">
 <header class="app-header">
@@ -3569,16 +3588,13 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 <header>
 <div class="header-inner" id="siteHeaderInner">
   <a class="brand brand-compact" href="#top" aria-label="Pasir Academy inicio">
-    <img src="logo-pasir.svg" alt="PASIR Escuela Técnica" class="pasir-logo-web">
-    <div class="txt">
-      <h1>PASIR 🗲</h1>
-      <p>Escuela</p>
-    </div>
+    
+    <div class="pasir-wordmark"><strong>PASIR</strong><span>ESCUELA</span></div>
   </a>
 
   <nav class="header-nav nav-links desktop-nav" aria-label="Navegación principal"><button type="button" id="pasirDesktopInstall" class="chip" hidden>Instalar app</button>
     <a class="chip" href="#clases">Cursos</a>
-    <a class="chip simuplc-highlight" href="#simuplc">SimuPLC</a>
+    
     <a class="chip" href="#manuales">Manuales</a>
     <a class="chip" href="login.html" id="loginChip">Iniciar sesión</a>
     <a class="chip" href="account.html" id="accountChip">Mis cursos</a>
@@ -3602,7 +3618,7 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 
   <div class="mobile-menu-panel" id="mobileMenu" aria-label="Menú móvil"><button id="installBtn" class="install-btn" type="button" aria-label="Instalar aplicación">⬇️ Instalar app</button>
     <a class="chip" href="#clases">Cursos</a>
-    <a class="chip simuplc-highlight" href="#simuplc">SimuPLC</a>
+    
     <a class="chip" href="#manuales">Manuales</a>
     <a class="chip" href="account.html" id="mobileMenuAccountChip">Mis cursos</a>
     <div class="top-left-controls mobile-currency-wrap mobile-menu-currency">
@@ -3620,10 +3636,11 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 
 
 <section class="pasir-welcome" aria-label="Bienvenida a Escuela PASIR">
-<div class="pasir-welcome-copy"><span class="pasir-welcome-kicker">ESCUELA TÉCNICA ESPECIALIZADA</span><h2>Electricidad y automatización industrial</h2><p>Aprende desde cero y desarrolla habilidades técnicas para la industria.</p><div class="pasir-welcome-actions"><a href="#clases" class="pasir-welcome-primary">Explorar cursos <span aria-hidden="true">→</span></a><a href="#manuales">Manuales</a><a href="#simuplc">SimuPLC</a></div></div>
+<div class="pasir-welcome-copy"><span class="pasir-welcome-kicker">FORMACIÓN TÉCNICA ESPECIALIZADA</span><h2>Aprende electricidad.<br><span>Domina la automatización.</span></h2><p>Desarrolla tus habilidades desde cero con cursos prácticos, manuales técnicos y herramientas de simulación industrial.</p><a href="#clases" class="pasir-welcome-primary">Explorar cursos →</a></div>
 <img class="pasir-welcome-photo" src="imgdt/fondo.jpg" alt="Técnico trabajando en un tablero de automatización industrial" fetchpriority="high">
+<div class="pasir-welcome-links"><a href="#manuales"><strong>Manuales técnicos →</strong><span>Material digital PDF</span></a><a href="#simuplc"><strong>SimuPLC →</strong><span>Simulación y programación</span></a></div>
 </section>
-<div class="pasir-welcome-stats"><div><strong>1.8K</strong><span>Alumnos en la plataforma</span></div><div><strong>10K</strong><span>Profesionales alcanzados</span></div><div><strong>100K</strong><span>Seguidores en redes sociales</span></div></div>
+<div class="pasir-welcome-stats"><div><strong>1.8K</strong><span>Alumnos en la plataforma</span></div><div><strong>10K</strong><span>Profesionales alcanzados</span></div><div><strong>+100K</strong><span>Seguidores en redes sociales</span></div></div>
 <section id="beneficios" class="pasir-welcome-benefits" aria-label="Beneficios"><div class="benefit-item"><span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4-7 4-7-4 7-4zm-7 8l7 4 7-4M5 15l7 4 7-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Contenido actualizado</span></div>
 <div class="benefit-item"><span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Acceso 24/7 · A tu ritmo</span></div>
 <div class="benefit-item"><span class="benefit-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7l-8.5 8.5L8 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg></span><span>Certificado al finalizar</span></div>
