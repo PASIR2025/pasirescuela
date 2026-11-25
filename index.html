@@ -3509,7 +3509,20 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 .pasir-future-card h3{font-size:17px;}
 @media(max-width:520px){:is(#clases,#manuales,#apps) .grid > article.card > .card-body > h3{min-height:0!important;}}
 </style>
-<style id="pasir-ebook-cover">#manuales #ebook-plc-arduino > img.thumb{object-fit:contain!important;background:#eef2f6!important;}</style>
+<style id="pasir-ebook-cover">
+/* Portadas adaptables 16:9, sin afectar las imágenes de detalle. */
+:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card > img.thumb,
+:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card:not(#simuplc) > img.thumb {
+ width:100%!important;height:auto!important;aspect-ratio:16 / 9!important;
+ min-height:0!important;max-height:none!important;flex-shrink:0!important;
+ object-fit:cover!important;object-position:center!important;
+}
+#manuales .grid > article.card > img.thumb,
+#manuales .grid > article.card:not(#simuplc) > img.thumb,
+#manuales #ebook-plc-arduino > img.thumb {
+ object-fit:contain!important;background:#fff!important;
+}
+</style>
 </head>
 <body data-theme="light" id="top">
 <header class="app-header">
