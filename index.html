@@ -3491,19 +3491,9 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
   background:#64748b!important;border:1px solid #64748b!important;color:#fff!important;
 }
 
-/* Precios compactos solo en el catálogo: conservar importes y tachado. */
-:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card > :is(.card-actions,.card-body) > .price {
-  display:flex!important;
-  align-items:baseline!important;
-  justify-content:flex-start!important;
-  flex-wrap:wrap;
-  gap:10px!important;
-}
-:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card > :is(.card-actions,.card-body) > .price > :is(.offer-label,.normal-label) {
+/* Mantener Oferta y ambos importes; ocultar solo la etiqueta Precio normal en el catálogo. */
+:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card > :is(.card-actions,.card-body) > .price > .normal-label {
   display:none!important;
-}
-:is(#clases,#manuales,#en-vivo,#apps) .grid > article.card > :is(.card-actions,.card-body) > .price > .was {
-  text-decoration:line-through!important;
 }
 </style>
 </head>
