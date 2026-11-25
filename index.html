@@ -3496,6 +3496,21 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
   display:none!important;
 }
 </style>
+<style id="pasir-catalog-refinements">
+:is(#clases,#manuales,#apps) .grid > article.card > .card-body > h3 {min-height:2.6em!important;}
+.pasir-catalog-type{font-size:.75rem;font-weight:700;color:#64748b;line-height:1.25;}
+:is(#clases,#manuales,#apps) .grid > article.card > :is(.card-actions,.card-body) > .price {grid-template-columns:max-content max-content!important;justify-content:start!important;column-gap:12px!important;}
+.float-wa{width:48px!important;height:48px!important;min-width:0!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;top:auto!important;bottom:16px!important;right:16px!important;transform:none!important;}
+.float-wa:hover{transform:none!important;}
+.float-wa span{display:none!important;}
+.float-wa .wa-svg{width:25px!important;height:25px!important;}
+.pasir-future-card{border:1px dashed #cbd5e1;border-radius:17px;background:#f8fafc;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;gap:10px;color:#475569;}
+.pasir-future-icon{font-size:32px;color:#075e51;}
+.pasir-future-card h3{font-size:17px;}
+.pasir-section-indicator{position:fixed;left:0;right:0;z-index:29;background:#075e51;color:white;padding:8px 16px;text-align:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px #0002;pointer-events:none;}
+.pasir-section-indicator[hidden]{display:none!important;}
+@media(max-width:520px){:is(#clases,#manuales,#apps) .grid > article.card > .card-body > h3{min-height:0!important;}}
+</style>
 </head>
 <body data-theme="light" id="top">
 <header class="app-header">
@@ -3626,9 +3641,8 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 
 
 <h3>PLC Educativo con Arduino: Arranque de Motores y Automatización</h3>
-<p class="desc">
-Aprende a convertir Arduino en un PLC educativo, simular lógica Ladder y FBD en SimuPLC, generar código y realizar arranques de motores con proyectos reales.
-</p>
+<span class="pasir-catalog-type">Curso grabado</span>
+<p class="desc">Programa Arduino como PLC y simula arranques de motores con Ladder y FBD.</p>
 <p class="desc"><b>Incluye:</b> Acceso al curso + material de apoyo + certificado</p>
 <p class="desc-full" hidden="">Curso práctico de PLC educativo con Arduino para aprender automatización desde cero, diseñar lógica Ladder y FBD, usar SimuPLC, generar código Arduino y controlar arranques reales de motores.</p>
 <div class="detail-outline" hidden>
@@ -3707,6 +3721,7 @@ Aprende a convertir Arduino en un PLC educativo, simular lógica Ladder y FBD en
 <div class="card-body">
 
 <h3>Electricidad Industrial</h3>
+<span class="pasir-catalog-type">Curso grabado</span>
 <p class="desc">
 </b> Domina la Electricidad Industrial desde cero hasta nivel práctico real. Aprenderás a diseñar, simular y conectar circuitos eléctricos como en la industria.<br/>
 
@@ -3813,198 +3828,10 @@ Aprende a convertir Arduino en un PLC educativo, simular lógica Ladder y FBD en
         </a><a class="btn ghost details" data-action="details" href="#detalle">Ver detalle completo</a>
 </div>
 </article>
-<article data-detail-img="imgdt/logica.jpg" aria-label="Abrir detalle de Lógica cableada" class="card" role="button" tabindex="0">
-<img alt="Lógica cableada" class="thumb" src="img/curso_industrial_logica.jpg"/>
-<div class="card-body">
 
-<h3>Lógica cableada</h3>
-<p class="desc">
-Dominarás el diseño de circuitos de control y fuerza, así como el uso de dispositivos eléctricos aplicados en la industria.
 
-</ul>
-<p class="desc"><b>Incluye:</b> Manual PDF + Certificado</p>
-<p class="actualizacion">🚧 Disponible próximamente</p>
-<p class="desc-full" hidden="">Aprende a diseñar y cablear mandos eléctricos reales: control, fuerza y arranques de motores.</p>
-<div class="detail-outline" hidden>
-  <p class="desc">Aprende a diseñar y cablear mandos eléctricos reales: control, fuerza y arranques de motores.</p>
-  <div class="accordion">
-    <details open>
-      <summary>⚡ Módulo 1: Dispositivos y fundamentos</summary>
-      <ul class="temario">
-        <li>Dispositivos empleados para la lógica cableada</li>
-        <li>Contacto NA, NC, bobinas y señalización</li>
-        <li>Lectura de diagramas eléctricos básicos</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 2: Diseño y simulación</summary>
-      <ul class="temario">
-        <li>Herramientas de diseño y simulación</li>
-        <li>Uso de software para pruebas de mando y fuerza</li>
-        <li>Buenas prácticas de orden y numeración</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 3: Funciones lógicas básicas</summary>
-      <ul class="temario">
-        <li>Diseños de circuitos básicos</li>
-        <li>Función AND, OR y enclavamientos</li>
-        <li>Aplicación en mandos eléctricos reales</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 4: Circuitos de control y fuerza</summary>
-      <ul class="temario">
-        <li>Diseño de circuitos de control y fuerza</li>
-        <li>Separación entre mando y potencia</li>
-        <li>Protección y secuencia de trabajo</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 5: Arranque de motores</summary>
-      <ul class="temario">
-        <li>Control y arranque de motor trifásico y monofásico</li>
-        <li>Diagnóstico básico de fallas</li>
-        <li>Aplicaciones prácticas industriales</li>
-      </ul>
-    </details>
-  </div>
-</div>
-</div>
-<div class="card-actions">
-<div class="price" data-price-kind="single" data-price-pen="25" data-price-usd="11"></div>
-<a class="btn whatsapp" data-buy="1" data-category="Clases grabadas" data-orig-href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20Electricidad%20industrial%20%E2%80%93%20L%C3%B3gica%20cableada.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." data-plan="" data-price-pen="25" data-price-usd="11" data-product="Lógica cableada" href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20Electricidad%20industrial%20%E2%80%93%20L%C3%B3gica%20cableada.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." rel="noopener noreferrer" target="_blank"> Comprar ahora
-              </a><a class="btn ghost details" data-action="details" href="#detalle">Ver detalle completo</a>
-</div>
-</article>
-<article data-detail-img="imgdt/curso_electroneumatica.jpg" aria-label="Abrir detalle de Electroneumática" class="card" role="button" tabindex="0">
-<img alt="Electroneumática" class="thumb" src="img/curso_electroneumatica.jpg"/>
-<div class="card-body">
 
-<h3>Electroneumática</h3>
-<p class="desc">
-Domina la electroneumática desde fundamentos hasta secuencias, usando simbología y simulación.
-
-</ul>
-<p class="desc"><b>Incluye:</b> Manual en PDF + Certificado</p>
-<p class="actualizacion">🚧 Disponible próximamente</p>
-<p class="desc-full" hidden="">Domina la electroneumática desde fundamentos hasta secuencias, usando simbología y simulación.</p>
-<div class="detail-outline" hidden>
-  <p class="desc">Domina la electroneumática desde fundamentos hasta secuencias, usando simbología y simulación.</p>
-  <div class="accordion">
-    <details open>
-      <summary>⚡ Módulo 1: Fundamentos de neumática</summary>
-      <ul class="temario">
-        <li>Fundamentos de la neumática</li>
-        <li>Magnitudes básicas y principios de trabajo</li>
-        <li>Aplicaciones en automatización</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 2: Aire comprimido</summary>
-      <ul class="temario">
-        <li>Producción y distribución de aire comprimido</li>
-        <li>Unidad de mantenimiento y preparación del aire</li>
-        <li>Recomendaciones prácticas de instalación</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 3: Componentes del sistema</summary>
-      <ul class="temario">
-        <li>Dispositivos empleados en un sistema electroneumático</li>
-        <li>Válvulas, cilindros y actuadores</li>
-        <li>Simbología principal</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 4: Diseño y simulación</summary>
-      <ul class="temario">
-        <li>Herramientas para el diseño y simulación de circuitos</li>
-        <li>Lectura de esquemas electroneumáticos</li>
-        <li>Armado de secuencias básicas</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 5: Secuencias y método cascada</summary>
-      <ul class="temario">
-        <li>Secuencias de dos cilindros con el método paso a paso y cascada</li>
-        <li>Resolución ordenada de ejercicios</li>
-        <li>Aplicación práctica en automatización industrial</li>
-      </ul>
-    </details>
-  </div>
-</div>
-</div>
-<div class="card-actions">
-<div class="price" data-price-kind="single" data-price-pen="25" data-price-usd="11"></div>
-<a class="btn whatsapp" data-buy="1" data-category="Clases grabadas" data-orig-href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20Electroneum%C3%A1tica.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." data-plan="" data-price-pen="25" data-price-usd="11" data-product="Electroneumática" href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20Electroneum%C3%A1tica.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." rel="noopener noreferrer" target="_blank"> Comprar ahora
-              </a><a class="btn ghost details" data-action="details" href="#detalle">Ver detalle completo</a>
-</div>
-</article>
-<article data-detail-img="imgdt/plc-logo.jpg" aria-label="Abrir detalle de PLC LOGO! 8" class="card" role="button" tabindex="0">
-<img alt="PLC LOGO! 8" class="thumb" src="img/curso_logo8.jpg"/>
-<div class="card-body">
-
-<h3>PLC LOGO! 8</h3>
-<p class="desc">
-En este curso aprenderás programación en bloques y automatización de arranques básicos, comenzando desde cero en el mundo de la automatización industrial.
-
-</ul>
-<p class="desc"><b>Incluye:</b> Acceso al curso + material de apoyo</p>
-<p class="actualizacion">🚧 Disponible próximamente</p>
-<p class="desc-full" hidden="">Lógica programada con Siemens LOGO!: del primer programa a control de motores con Ladder/FBD.</p>
-<div class="detail-outline" hidden>
-  <p class="desc">Lógica programada con Siemens LOGO!: del primer programa a control de motores con Ladder/FBD.</p>
-  <div class="accordion">
-    <details open>
-      <summary>⚡ Módulo 1: Introducción a LOGO!</summary>
-      <ul class="temario">
-        <li>Introducción a la programación del microautomata LOGO</li>
-        <li>Reconocimiento del entorno y bloques básicos</li>
-        <li>Primer programa paso a paso</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 2: Simulación y funciones lógicas</summary>
-      <ul class="temario">
-        <li>Herramientas de simulación y ejercicios de funciones lógicas</li>
-        <li>Compuertas y temporizadores</li>
-        <li>Verificación de estados y pruebas</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 3: Ladder y FBD básico</summary>
-      <ul class="temario">
-        <li>Diseño de circuitos básicos (Ladder - FBD)</li>
-        <li>Entradas, salidas y marcas internas</li>
-        <li>Buenas prácticas de programación</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 4: Conversión desde lógica cableada</summary>
-      <ul class="temario">
-        <li>Convertir circuitos de lógica cableada a Ladder y FBD</li>
-        <li>Interpretación de esquemas de mando</li>
-        <li>Adaptación al entorno LOGO!</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚡ Módulo 5: Control de motores con LOGO!</summary>
-      <ul class="temario">
-        <li>Control y arranque de motores eléctricos con LOGO</li>
-        <li>Secuencias automáticas básicas</li>
-        <li>Aplicación práctica en proyectos reales</li>
-      </ul>
-    </details>
-  </div>
-</div>
-</div>
-<div class="card-actions">
-<div class="price" data-price-kind="single" data-price-pen="25" data-price-usd="11"></div>
-<a class="btn whatsapp" data-buy="1" data-category="Clases grabadas" data-orig-href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20PLC%20LOGO%21%208.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." data-plan="" data-price-pen="25" data-price-usd="11" data-product="PLC LOGO! 8" href="https://wa.me/51926299585?text=Hola%2C%20buen%20d%C3%ADa.%0AQuiero%20adquirir%3A%20PLC%20LOGO%21%208.%0ACategor%C3%ADa%3A%20Clases%20grabadas.%0APrecio%3A%20S/25%20%C2%B7%20%2411.%0A%C2%BFC%C3%B3mo%20lo%20recibo%20/%20activo%3F%0AGracias." rel="noopener noreferrer" target="_blank"> Comprar ahora
-              </a><a class="btn ghost details" data-action="details" href="#detalle">Ver detalle completo</a>
-</div>
-</article>
+<article class="pasir-future-card" aria-label="Próximamente más cursos"><div aria-hidden="true" class="pasir-future-icon">＋</div><h3>Próximamente más cursos</h3><p>Estamos preparando nuevos contenidos para ti.</p></article>
 </div>
 </section>
 <section class="section" id="manuales">
@@ -4018,6 +3845,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">Manuales</div>
 <h3>Electricidad industrial y automatización</h3>
+<span class="pasir-catalog-type">Manual digital</span>
 <p class="desc">Manual PDF práctico para instalaciones industriales, mando, protecciones y automatización básica.</p>
 <p class="desc-full" hidden="">Manual PDF práctico para instalaciones industriales, mando, protecciones y automatización básica.</p><ul class="temario"><li>Fundamentos de instalaciones eléctricas industriales</li><li>Protecciones, mando y control eléctrico</li><li>Conceptos de automatización básica</li><li>Material en PDF para estudio y consulta</li></ul></div>
 <div class="card-actions">
@@ -4031,6 +3859,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">Manuales</div>
 <h3>Electroneumática e hidráulica</h3>
+<span class="pasir-catalog-type">Manual digital</span>
 <p class="desc">Manual PDF práctico: actuadores, válvulas, simbología y circuitos (paso a paso).</p>
 
 <p class="desc-full" hidden="">Manual PDF práctico: actuadores, válvulas, simbología y circuitos (paso a paso).</p><ul class="temario"><li>Actuadores y válvulas más usadas</li><li>Simbología y lectura de circuitos</li><li>Circuitos electroneumáticos paso a paso</li><li>Fundamentos de sistemas hidráulicos</li></ul></div>
@@ -4045,6 +3874,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">Manuales</div>
 <h3>Electricidad domiciliaria</h3>
+<span class="pasir-catalog-type">Manual digital</span>
 <p class="desc">Manual PDF práctico: circuitos domiciliarios, tableros, protecciones y buenas prácticas.</p>
 <p class="desc-full" hidden="">Manual PDF práctico: circuitos domiciliarios, tableros, protecciones y buenas prácticas.</p><ul class="temario"><li>Circuitos domiciliarios básicos</li><li>Tableros y protecciones</li><li>Buenas prácticas y seguridad</li><li>Guía PDF práctica para reforzar aprendizaje</li></ul></div>
 <div class="card-actions">
@@ -4058,6 +3888,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">Manuales</div>
 <h3>Electrónica básica</h3>
+<span class="pasir-catalog-type">Manual digital</span>
 <p class="desc">Componentes, Principios y fundamentos, Ley de Ohm, diodos, transistores, mediciones y práctica aplicada.</p>
 <p class="desc-full" hidden="">Componentes, Principios y fundamentos, Ley de Ohm, diodos, transistores, mediciones y práctica aplicada.</p><ul class="temario"><li>Principios y fundamentos de electrónica</li><li>Ley de Ohm y magnitudes eléctricas</li><li>Diodos, transistores y componentes básicos</li><li>Mediciones y práctica aplicada</li></ul></div>
 <div class="card-actions">
@@ -4084,6 +3915,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">App de automatización industrial</div>
 <h3>SimuPLC</h3>
+<span class="pasir-catalog-type">Aplicación</span>
 <p class="desc">Aplicación educativa para diseñar, programar y simular automatización industrial desde celular, tablet, laptop o PC.</p>
 <p class="logicsoft-note">⭐ Compra directa SimuPLC PRO MULTIPLATAFORMA: PC, laptop y Android · Hasta 3 dispositivos · Plan anual o de por vida. La compra PRO dentro de Google Play es solo para Android y no incluye PC.</p>
 <div class="logicsoft-hidden-prices" aria-hidden="true">
@@ -4128,6 +3960,7 @@ En este curso aprenderás programación en bloques y automatización de arranque
 <div class="card-body">
 <div class="tag">Apps</div>
 <h3>Calculadora Pasir</h3>
+<span class="pasir-catalog-type">Aplicación</span>
 <p class="desc">Calculadora eléctrica industrial para dimensionamiento y apoyo didáctico. Único pago con acceso permanente.</p>
 <p class="desc-full" hidden="">Aplicación de apoyo para cálculos eléctricos industriales, ideal para dimensionamiento, consulta rápida y estudio. Se adquiere con un único pago y acceso permanente.</p></div>
 <div class="card-actions">
@@ -5368,37 +5201,7 @@ localStorage.setItem("pasir-currency", currencySelect.value);
 })();
 </script>
 
-<script id="pasir-coming-soon-script">
-(function(){
-  const targets = ["lógica cableada","logica cableada","plc logo","logo 8","logo! 8","electroneumática","electroneumatica"];
-  function norm(s){return String(s||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase();}
-  function applyComingSoon(){
-    document.querySelectorAll(".card").forEach(card=>{
-      const t = norm(card.textContent);
-      if(targets.some(x=>t.includes(norm(x)))){
-        card.classList.add("pasir-coming-soon");
-        card.querySelectorAll("*").forEach(el=>{
-          const tx = el.textContent || "";
-          if(tx.includes("Curso en actualización") || tx.includes("Próximamente versión 2026")){
-            el.textContent = "🚧 Disponible próximamente";
-          }
-        });
-        const actions = card.querySelector(".card-actions") || card;
-        if(!card.querySelector(".pasir-soon-badge")){
-          const badge = document.createElement("div");
-          badge.className = "pasir-soon-badge";
-          badge.textContent = "🚧 Disponible próximamente";
-          actions.insertBefore(badge, actions.firstChild);
-        }
-      }
-    });
-  }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", applyComingSoon);
-  else applyComingSoon();
-  setTimeout(applyComingSoon, 500);
-  setTimeout(applyComingSoon, 1500);
-})();
-</script>
+
 
 
 <script>
@@ -5455,6 +5258,16 @@ document.addEventListener('click', function(e){
    function closeLB(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true')}
    lb.querySelector('.lb-close').addEventListener('click',closeLB);lb.querySelector('.lb-prev').addEventListener('click',()=>{lbIndex=(lbIndex-1+images.length)%images.length;renderLB()});lb.querySelector('.lb-next').addEventListener('click',()=>{lbIndex=(lbIndex+1)%images.length;renderLB()});lb.addEventListener('click',e=>{if(e.target===lb)closeLB()});document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft'){lbIndex=(lbIndex-1+images.length)%images.length;renderLB()}if(e.key==='ArrowRight'){lbIndex=(lbIndex+1)%images.length;renderLB()}});
  });
+})();
+</script>
+<script id="pasir-section-indicator-script">
+(function(){
+ const sections=['clases','manuales','apps'].map(id=>document.getElementById(id)).filter(Boolean);
+ const bar=document.createElement('div');bar.className='pasir-section-indicator';bar.hidden=true;bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
+ let pending=false;
+ function update(){pending=false;let top=0;document.querySelectorAll('header').forEach(h=>{const r=h.getBoundingClientRect(),p=getComputedStyle(h).position;if((p==='sticky'||p==='fixed')&&r.top<40&&r.bottom>0)top=Math.max(top,r.bottom);});bar.style.top=Math.round(top)+'px';const active=sections.find(s=>{const r=s.getBoundingClientRect(),heading=s.querySelector('.section-head');return heading&&heading.getBoundingClientRect().bottom<=top&&r.bottom>top+bar.offsetHeight;});bar.hidden=!active;if(active)bar.textContent=active.querySelector('h2').textContent.trim();}
+ function schedule(){if(!pending){pending=true;requestAnimationFrame(update);}}
+ window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);schedule();
 })();
 </script>
 </body>
