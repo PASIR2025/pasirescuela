@@ -3507,8 +3507,6 @@ body[data-theme="dark"] :is(#clases,#manuales,#en-vivo,#apps) .grid > article.ca
 .pasir-future-card{border:1px dashed #cbd5e1;border-radius:17px;background:#f8fafc;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;gap:10px;color:#475569;}
 .pasir-future-icon{font-size:32px;color:#075e51;}
 .pasir-future-card h3{font-size:17px;}
-.pasir-section-indicator{position:fixed;left:0;right:0;z-index:29;background:#075e51;color:white;padding:8px 16px;text-align:center;font-size:14px;font-weight:700;box-shadow:0 2px 6px #0002;pointer-events:none;}
-.pasir-section-indicator[hidden]{display:none!important;}
 @media(max-width:520px){:is(#clases,#manuales,#apps) .grid > article.card > .card-body > h3{min-height:0!important;}}
 </style>
 </head>
@@ -5258,16 +5256,6 @@ document.addEventListener('click', function(e){
    function closeLB(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true')}
    lb.querySelector('.lb-close').addEventListener('click',closeLB);lb.querySelector('.lb-prev').addEventListener('click',()=>{lbIndex=(lbIndex-1+images.length)%images.length;renderLB()});lb.querySelector('.lb-next').addEventListener('click',()=>{lbIndex=(lbIndex+1)%images.length;renderLB()});lb.addEventListener('click',e=>{if(e.target===lb)closeLB()});document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft'){lbIndex=(lbIndex-1+images.length)%images.length;renderLB()}if(e.key==='ArrowRight'){lbIndex=(lbIndex+1)%images.length;renderLB()}});
  });
-})();
-</script>
-<script id="pasir-section-indicator-script">
-(function(){
- const sections=['clases','manuales','apps'].map(id=>document.getElementById(id)).filter(Boolean);
- const bar=document.createElement('div');bar.className='pasir-section-indicator';bar.hidden=true;bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
- let pending=false;
- function update(){pending=false;let top=0;document.querySelectorAll('header').forEach(h=>{const r=h.getBoundingClientRect(),p=getComputedStyle(h).position;if((p==='sticky'||p==='fixed')&&r.top<40&&r.bottom>0)top=Math.max(top,r.bottom);});bar.style.top=Math.round(top)+'px';const active=sections.find(s=>{const r=s.getBoundingClientRect(),heading=s.querySelector('.section-head');return heading&&heading.getBoundingClientRect().bottom<=top&&r.bottom>top+bar.offsetHeight;});bar.hidden=!active;if(active)bar.textContent=active.querySelector('h2').textContent.trim();}
- function schedule(){if(!pending){pending=true;requestAnimationFrame(update);}}
- window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);schedule();
 })();
 </script>
 </body>
