@@ -2723,7 +2723,7 @@ body[data-theme="light"] .player-fast-play .play-circle{background:#16a34a;color
 }
 </style>
 
-</head>
+<style>.pasir-academic-group{border:1px solid #94a3b855;border-radius:12px;padding:8px;margin:8px 0;min-width:0}.pasir-academic-group>summary{cursor:pointer;font-weight:700;padding:10px}.pasir-academic-group>.mod{width:100%;margin:5px 0}</style></head>
 <body>
   
 <header class="app-header">
@@ -3610,13 +3610,28 @@ function escapeHtml_(s){
     return total ? Math.round((done / total) * 100) : 0;
   }
 
+
+  // PASIR academic layout: original indexes remain the progress identity.
+  function applyAcademicLayout(box){
+    const buttons=Array.from(box.querySelectorAll('.mod'));
+    const key=(m)=>JSON.stringify([String(m.order??''),String(m.title??'')]);
+    const keys=courseModules.map(key);
+    fetch('academic-layout.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(all=>{
+      const groups=all?.[courseId];if(!Array.isArray(groups)||!groups.length)return;
+      const used=new Set(),frag=document.createDocumentFragment();
+      function group(title,indices){if(!indices.length)return;const d=document.createElement('details');d.className='pasir-academic-group';d.open=true;const h=document.createElement('summary');h.textContent=title+' · '+indices.length+' clases';d.append(h);for(const i of indices)d.append(buttons[i]);frag.append(d)}
+      for(const g of groups){const indices=[];for(const k of g.items||[]){const i=keys.indexOf(k);if(i>=0&&keys.lastIndexOf(k)===i&&!used.has(i)){used.add(i);indices.push(i)}}group(g.title,indices)}
+      group('Sesiones sin asignar',keys.map((_,i)=>i).filter(i=>!used.has(i)));box.append(frag);
+    }).catch(()=>{});
+  }
+
   function renderProgressUI(){
     const p = loadCourseProgress();
     const completed = Array.isArray(p.completed) ? p.completed : [];
     const badge = document.getElementById("courseProgressBadge");
     if (badge) badge.textContent = completedPercent() + "%";
 
-    document.querySelectorAll("#modules .mod").forEach((btn, idx) => {
+    document.querySelectorAll("#modules .mod").forEach((btn) => { const idx=Number(btn.dataset.index);
       btn.classList.remove("done","current");
       const s = btn.querySelector(".s");
       if (completed.includes(idx)) {
@@ -3639,7 +3654,7 @@ function escapeHtml_(s){
   }
 
   function openModuleByIndex(idx, shouldResume, autoStart){
-    const btn = document.querySelectorAll("#modules .mod")[idx];
+    const btn = document.querySelector("#modules .mod[data-index=\""+Number(idx)+"\"]");
     if (!btn) return;
     resumePending = !!shouldResume;
     btn.click();
@@ -3821,6 +3836,7 @@ function escapeHtml_(s){
       box.appendChild(b);
     });
 
+    applyAcademicLayout(box);
     renderProgressUI();
     renderAllCourseMaterials();
     // Carga la API de YouTube en segundo plano cuando el curso ya está visible.
