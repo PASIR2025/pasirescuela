@@ -1,0 +1,51 @@
+{
+  "Arduino PLC": [
+    {
+      "title": " Introducción a PLC y Arduino",
+      "items": [
+        "[\"1\",\"0 Bienvenido !\"]",
+        "[\"1\",\"¿Qué es un PLC?\"]",
+        "[\"2\",\"¿Qué es Arduino?\"]",
+        "[\"3\",\"PLC VS Arduino\"]"
+      ]
+    },
+    {
+      "title": "Armado del PLC Arduino",
+      "items": [
+        "[\"4\",\"Materiales para Arduino PLC\"]",
+        "[\"5\",\"Materiales principales para Arduino PLC\"]",
+        "[\"6\",\"Esquema de conexión del Arduino PLC\"]",
+        "[\"7\",\"Armado del PLC Arduino\"]",
+        "[\"8\",\"Tipos de señal Digital y Analógico - Entradas\"]",
+        "[\"9\",\"Tipos de señal Digital y Analógico - Salidas\"]"
+      ]
+    },
+    {
+      "title": "Lenguaje Ladder y FBD",
+      "items": [
+        "[\"10\",\"¿Que es Ladder y FBD?\"]",
+        "[\"11\",\"Lenguaje de programacion Ladder\"]",
+        "[\"12\",\"Circuito básico en Ladder\"]",
+        "[\"13\",\"Lenguaje FBD | compuertas lógicas\"]",
+        "[\"14\",\"Módulo didáctico para desarrollar las prácticas\"]",
+        "[\"15\",\"Uso de SimuPLC editor CONTROL\"]",
+        "[\"16\",\"Uso de SimuPLC editor LADDER\"]",
+        "[\"17\",\"Uso de SimuPLC editor FBD\"]",
+        "[\"18\",\"Uso de SimuPLC editor HMI\"]"
+      ]
+    },
+    {
+      "title": " Uso de la app SimuPLC",
+      "items": []
+    },
+    {
+      "title": "Programación Arduino y proyectos reales",
+      "items": [
+        "[\"19\",\"Materiales para el arranque directo de un motor trifásico\"]",
+        "[\"20\",\"Diseño del circuito de Control y potencia - Arranque DOL\"]",
+        "[\"21\",\"programación en LADDER - Arranque DOL\"]",
+        "[\"22\",\"programación en FBD - Arranque DOL\"]"
+      ]
+    }
+  ]
+}
