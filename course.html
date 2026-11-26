@@ -2769,6 +2769,35 @@ body main.page #msg:empty{display:none!important}
 body main.page > .container > .course-desktop-layout > .player-wrap:fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important}
 }
 </style>
+<style id="pasir-player-v4">
+.player-wrap .player-meta .left{display:none!important}
+.player-wrap,.player-wrap .player,.course-tabs,.curriculum,.course-materials-panel,.mod{border-radius:12px!important}
+.player-wrap #ccWrap{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+.player-wrap #ccSeek{grid-column:1/5!important}
+.player-wrap #ccTime{grid-column:5/7!important}
+.player-wrap #playerSettingsBtn{grid-column:5!important;grid-row:2!important;position:static!important;inset:auto!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
+.player-wrap #ccFs{grid-column:6!important}
+.player-wrap #playerSettingsBtn svg{width:20px!important;height:20px!important}
+.player-wrap #playerSettingsPanel{position:absolute!important;top:auto!important;bottom:8px!important;right:8px!important;left:auto!important;width:min(280px,calc(100% - 16px))!important;max-height:calc(100% - 16px)!important;overflow:auto!important;box-sizing:border-box!important;z-index:100!important;padding:12px!important;font-size:13px!important;border-radius:10px!important}
+.player-wrap #playerSettingsPanel select{max-width:100%!important;width:100%!important}
+@media(min-width:951px){
+body main.page > .container > header{margin-bottom:8px!important;gap:8px!important}
+body main.page #courseTitle{font-size:clamp(18px,1.6vw,25px)!important;margin:0 0 4px!important}
+body main.page #nowPlaying{margin:0!important;padding:5px 10px!important;min-height:0!important}
+body main.page > .container > .course-desktop-layout > .player-wrap:not(:fullscreen):not(.pasir-expanded) .player{padding-top:0!important;height:min(calc((100vw - 80px)*.375),max(180px,calc(100dvh - 285px)))!important;background:#000!important}
+body main.page .player-wrap #ccWrap{grid-template-columns:repeat(6,40px) minmax(0,1fr)!important}
+body main.page .player-wrap #ccSeek{grid-column:1/-1!important}
+body main.page .player-wrap #ccTime{grid-column:7!important;grid-row:2!important}
+body main.page .player-wrap #playerSettingsBtn{grid-column:5!important}
+body main.page .player-wrap #ccFs{grid-column:6!important}
+body main.page .player-wrap #ccWrap .cc-btn{height:36px!important}
+body main.page > .container > .course-desktop-layout > .course-side-panel{max-height:calc(100dvh - 205px)!important}
+}
+body.pasir-expanded-body{overflow:hidden!important}
+body main.page .player-wrap.pasir-expanded{position:fixed!important;inset:0!important;z-index:2147483000!important;width:100vw!important;height:100dvh!important;max-width:none!important;margin:0!important;display:flex!important;flex-direction:column!important;background:#101827!important;border-radius:0!important}
+body main.page .player-wrap.pasir-expanded .player{flex:1 1 0!important;min-height:0!important;height:0!important;padding:0!important}
+body main.page .player-wrap.pasir-expanded .player-meta{flex:0 0 auto!important;padding:6px 8px max(6px,env(safe-area-inset-bottom))!important}
+</style>
 </head>
 <body>
   
@@ -2819,12 +2848,7 @@ body main.page > .container > .course-desktop-layout > .player-wrap:fullscreen{p
         <div id="playerZoomSurface" class="player-zoom-surface">
         <div id="player" class="yt-player"></div>
 
-        <button id="playerSettingsBtn" class="player-settings-trigger" type="button" aria-label="Más ajustes">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 8.8A3.2 3.2 0 1 0 12 15.2A3.2 3.2 0 1 0 12 8.8Z" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M19.4 13.5c.06-.49.06-1.01 0-1.5l1.62-1.26a.74.74 0 0 0 .18-.94l-1.54-2.67a.75.75 0 0 0-.9-.33l-1.9.76a7.72 7.72 0 0 0-1.3-.76l-.28-2.02a.74.74 0 0 0-.74-.63h-3.08a.74.74 0 0 0-.74.63l-.28 2.02c-.46.18-.9.43-1.3.76l-1.9-.76a.75.75 0 0 0-.9.33L2.8 9.85a.74.74 0 0 0 .18.94L4.6 12c-.06.49-.06 1.01 0 1.5L2.98 14.76a.74.74 0 0 0-.18.94l1.54 2.67c.18.3.55.44.9.33l1.9-.76c.4.33.84.58 1.3.76l.28 2.02c.06.36.37.63.74.63h3.08c.37 0 .68-.27.74-.63l.28-2.02c.46-.18.9-.43 1.3-.76l1.9.76c.35.11.72-.03.9-.33l1.54-2.67a.74.74 0 0 0-.18-.94L19.4 13.5Z" stroke="currentColor" stroke-width="1.2"/>
-          </svg>
-        </button>
+        
 
         <button id="playerRotateBtn" class="player-rotate-trigger" type="button" aria-label="Rotar pantalla">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -2834,7 +2858,7 @@ body main.page > .container > .course-desktop-layout > .player-wrap:fullscreen{p
         </button>
 
         <div id="playerSettingsPanel" class="player-settings-panel" aria-label="Ajustes del reproductor">
-          <h4>Más ajustes</h4>
+          <h4>Ajustes del video</h4><p style="font-size:12px">Calidad automática según YouTube.</p><button type="button" id="captionToggle" class="ps-toggle">Subtítulos</button><p id="captionStatus" style="font-size:12px" aria-live="polite">Disponibilidad según el video.</p><p style="font-size:12px">Pistas de audio: selección disponible en YouTube.</p><a id="nativeVideoSettings" target="_blank" rel="noopener" style="font-size:12px">Abrir video en YouTube</a>
           <div class="ps-row">
             <div>
               <div class="ps-label">Calidad</div>
@@ -2917,7 +2941,10 @@ body main.page > .container > .course-desktop-layout > .player-wrap:fullscreen{p
       <text class="skip-num" x="12" y="16.2" text-anchor="middle">10</text>
     </svg>
   </button>
-  <button class="cc-btn" id="ccFs" type="button" aria-label="Pantalla completa">⛶</button>
+  <button id="playerSettingsBtn" class="cc-btn" type="button" aria-label="Más ajustes">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M10 3h4l.6 2.5 2 .9 2.3-1.2 2 3.5-1.8 1.8v2.9l1.8 1.8-2 3.5-2.3-1.2-2 .9L14 21h-4l-.6-2.6-2-.9-2.3 1.2-2-3.5 1.8-1.8v-2.9L3.1 8.7l2-3.5 2.3 1.2 2-.9z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+<button class="cc-btn" id="ccFs" type="button" aria-label="Pantalla completa">⛶</button>
 </div>
 
 
@@ -3195,7 +3222,9 @@ function setupControls_(){
     wrap.style.setProperty('--fit-screen-scale', String(computeFitScreenScale()));
     if (fitScreenMode) wrap.classList.add('fit-screen-mode');
     else wrap.classList.remove('fit-screen-mode');
-    if (fitScreenToggle){
+    let captionsOn=false;
+  document.getElementById('captionToggle')?.addEventListener('click',()=>{const status=document.getElementById('captionStatus');try{if(!YTPlayer||!YTPlayer.loadModule||!YTPlayer.unloadModule)throw Error();if(captionsOn){YTPlayer.unloadModule('captions');captionsOn=false;status.textContent='Se solicitó desactivar subtítulos.'}else{YTPlayer.loadModule('captions');captionsOn=true;status.textContent='Se solicitó activar subtítulos, si están disponibles.'}}catch(e){status.textContent='No disponible en este video. Usa YouTube.'}});
+  if (fitScreenToggle){
       fitScreenToggle.textContent = fitScreenMode ? 'On' : 'Off';
       fitScreenToggle.setAttribute('aria-pressed', fitScreenMode ? 'true' : 'false');
     }
@@ -3267,7 +3296,7 @@ function setupControls_(){
       e.preventDefault();
       e.stopPropagation();
       settingsPanel.classList.toggle('open');
-      if (settingsPanel.classList.contains('open')) hydrateQualityOptions();
+      if (settingsPanel.classList.contains('open')) {hydrateQualityOptions(); const link=document.getElementById('nativeVideoSettings');try{const url=YTPlayer.getVideoUrl();if(url)link.href=url}catch(e){link.removeAttribute('href')}}
       if (window.__showCustomControls) window.__showCustomControls();
       if (window.syncFloatingButtons) window.syncFloatingButtons();
     });
@@ -3379,18 +3408,15 @@ function setupControls_(){
 
   // Fullscreen propio (funciona en móvil, depende del navegador)
   async function toggleFs(){
-    if (!wrap) return;
-    try{
-      const isFs = document.fullscreenElement || document.webkitFullscreenElement;
-      if (isFs){
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
-      } else {
-        if (wrap.requestFullscreen) await wrap.requestFullscreen();
-        else if (wrap.webkitRequestFullscreen) await wrap.webkitRequestFullscreen();
-      }
-    }catch(e){}
+    if(!wrap)return;
+    const pseudo=wrap.classList.contains('pasir-expanded');
+    function fallback(on){wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);fs?.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa')}
+    if(pseudo){fallback(false);return}
+    try{if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();return}
+    if(wrap.requestFullscreen)await wrap.requestFullscreen();else if(wrap.webkitRequestFullscreen)await wrap.webkitRequestFullscreen();else fallback(true);
+    }catch(e){fallback(true)}
   }
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap?.classList.contains('pasir-expanded')){wrap.classList.remove('pasir-expanded');document.body.classList.remove('pasir-expanded-body');fs?.setAttribute('aria-label','Pantalla completa')}});
   if (fs) fs.addEventListener("click", toggleFs);
 
   // Actualiza UI
