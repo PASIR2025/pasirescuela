@@ -2807,6 +2807,20 @@ body main.page .player-wrap.pasir-landscape-fallback #ccWrap .cc-btn{height:32px
 body main.page .player-wrap.pasir-landscape-fallback #ccWrap{padding:4px!important;gap:4px!important}
 body main.page .player-wrap.pasir-landscape-fallback #playerRotateBtn{display:none!important}
 </style>
+<style id="pasir-player-v6">
+body.pasir-expanded-body main.page,body.pasir-expanded-body main.page>.container,body.pasir-expanded-body .course-desktop-layout{transform:none!important;filter:none!important;perspective:none!important;contain:none!important;overflow:visible!important;will-change:auto!important}
+body.pasir-expanded-body{overflow:hidden!important}
+body main.page .player-wrap.pasir-expanded{position:fixed!important;inset:auto!important;top:0!important;left:0!important;right:auto!important;bottom:auto!important;width:var(--pasir-vw,100vw)!important;height:var(--pasir-vh,100dvh)!important;max-width:none!important;max-height:none!important;min-width:0!important;min-height:0!important;transform:none!important;margin:0!important;display:flex!important;flex-direction:column!important;z-index:2147483647!important;box-sizing:border-box!important;overflow:hidden!important;border-radius:0!important}
+body main.page .player-wrap.pasir-expanded.pasir-landscape-fallback{top:0!important;left:0!important;width:var(--pasir-vh,100dvh)!important;height:var(--pasir-vw,100vw)!important;transform-origin:0 0!important;transform:translateX(var(--pasir-vw,100vw)) rotate(90deg)!important}
+body main.page .player-wrap.pasir-expanded .player{flex:1 1 0!important;width:100%!important;height:0!important;min-height:0!important;max-height:none!important;padding:0!important;aspect-ratio:auto!important}
+body main.page .player-wrap.pasir-expanded .player-meta{flex:0 0 auto!important;width:100%!important;padding:4px 8px!important;box-sizing:border-box!important}
+body main.page .player-wrap.pasir-expanded #ccWrap{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:4px!important;padding:4px!important}
+body main.page .player-wrap.pasir-expanded #ccSeek{grid-column:1/5!important;grid-row:1!important}
+body main.page .player-wrap.pasir-expanded #ccTime{grid-column:5/7!important;grid-row:1!important}
+body main.page .player-wrap.pasir-expanded #ccWrap .cc-btn{height:32px!important;grid-row:2!important}
+body main.page .player-wrap.pasir-expanded #ccBack10{grid-column:1!important}body main.page .player-wrap.pasir-expanded #ccPlay{grid-column:2!important}body main.page .player-wrap.pasir-expanded #ccFwd10{grid-column:3!important}body main.page .player-wrap.pasir-expanded #ccSpeedBtn{grid-column:4!important}body main.page .player-wrap.pasir-expanded #playerSettingsBtn{grid-column:5!important}body main.page .player-wrap.pasir-expanded #ccFs{grid-column:6!important}
+body main.page .player-wrap.pasir-expanded #playerRotateBtn{display:none!important}
+</style>
 </head>
 <body>
   
@@ -3408,36 +3422,48 @@ function setupControls_(){
   }
 
   // Fullscreen propio (funciona en móvil, depende del navegador)
-  let expandedHistory=false, orientationOwned=false;
-  const mobilePlayer=()=>matchMedia('(pointer:coarse)').matches && Math.min(innerWidth,innerHeight)<=1024;
+  let expandedHistory=false, wasLandscape=innerWidth>innerHeight, seenLandscape=false, suppressAuto=false;
+  const mobilePlayer=()=>navigator.maxTouchPoints>0 && Math.min(screen.width,screen.height)<=1024;
+  const landscape=()=>innerWidth>innerHeight;
   function updateExpanded(){
     const on=wrap.classList.contains('pasir-expanded')||document.fullscreenElement===wrap||document.webkitFullscreenElement===wrap;
     fs.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');
     fs.textContent=on?'↙':'⛶';
-    wrap.classList.toggle('pasir-landscape-fallback',on&&mobilePlayer()&&matchMedia('(orientation:portrait)').matches);
-    if(!on&&orientationOwned){try{screen.orientation.unlock()}catch(e){}orientationOwned=false}
+    const vv=window.visualViewport;
+    wrap.style.setProperty('--pasir-vw',(vv?.width||innerWidth)+'px');
+    wrap.style.setProperty('--pasir-vh',(vv?.height||innerHeight)+'px');
+    wrap.classList.toggle('pasir-landscape-fallback',on&&mobilePlayer()&&!landscape());
   }
   function fallback(on,fromBack=false){
     wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
-    if(on&&!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}
+    if(on){seenLandscape=landscape();if(!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}}
     if(!on&&expandedHistory){expandedHistory=false;if(!fromBack&&history.state?.pasirExpanded)history.back()}
     updateExpanded();
   }
   async function toggleFs(){
     if(!wrap)return;
-    if(wrap.classList.contains('pasir-expanded')){fallback(false);return}
-    try{
-      if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();updateExpanded();return}
-      if(wrap.requestFullscreen)await wrap.requestFullscreen();else if(wrap.webkitRequestFullscreen)await wrap.webkitRequestFullscreen();else fallback(true);
-    }catch(e){fallback(true)}
-    if(mobilePlayer()&&screen.orientation?.lock){try{await screen.orientation.lock('landscape');orientationOwned=true}catch(e){}}
+    if(wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false);return}
+    if(mobilePlayer()){suppressAuto=false;fallback(true);return}
+    try{if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();return}
+    if(wrap.requestFullscreen)await wrap.requestFullscreen();else fallback(true)}catch(e){fallback(true)}
+    updateExpanded();
+  }
+  function orientationUpdate(){
+    const now=landscape();
+    if(mobilePlayer()&&now!==wasLandscape){
+      wasLandscape=now;
+      if(now){if(wrap.classList.contains('pasir-expanded'))seenLandscape=true;else if(!suppressAuto&&currentModuleIndex>=0)fallback(true)}
+      else {suppressAuto=false;if(wrap.classList.contains('pasir-expanded')&&seenLandscape)fallback(false)}
+    }
     updateExpanded();
   }
   document.addEventListener('fullscreenchange',updateExpanded);
   document.addEventListener('webkitfullscreenchange',updateExpanded);
-  window.addEventListener('resize',updateExpanded);
-  window.addEventListener('popstate',()=>{if(wrap.classList.contains('pasir-expanded'))fallback(false,true)});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap.classList.contains('pasir-expanded'))fallback(false)});
+  window.addEventListener('resize',orientationUpdate);
+  window.visualViewport?.addEventListener('resize',orientationUpdate);
+  window.addEventListener('orientationchange',()=>setTimeout(orientationUpdate,250));
+  window.addEventListener('popstate',()=>{if(wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false,true)}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false)}});
   if (fs) fs.addEventListener("click", toggleFs);
 
   // Actualiza UI
