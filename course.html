@@ -2723,7 +2723,29 @@ body[data-theme="light"] .player-fast-play .play-circle{background:#16a34a;color
 }
 </style>
 
-<style>.pasir-academic-group{border:1px solid #94a3b855;border-radius:12px;padding:8px;margin:8px 0;min-width:0}.pasir-academic-group>summary{cursor:pointer;font-weight:700;padding:10px}.pasir-academic-group>.mod{width:100%;margin:5px 0}</style></head>
+<style>.pasir-academic-group{border:1px solid #94a3b855;border-radius:12px;padding:8px;margin:8px 0;min-width:0}.pasir-academic-group>summary{cursor:pointer;font-weight:700;padding:10px}.pasir-academic-group>.mod{width:100%;margin:5px 0}</style><style id="pasir-player-layout-v2">
+/* Persistent external controls, independent of video surface. */
+.player-wrap .player-meta{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important;padding:10px!important;min-width:0!important}
+.player-wrap .player-meta .left{order:2;margin:0!important;min-width:0!important}
+.player-wrap .player-meta .right{order:1;width:100%!important;min-width:0!important;display:block!important}
+.player-wrap #ccWrap{position:relative!important;inset:auto!important;opacity:1!important;transform:none!important;pointer-events:auto!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;overflow:visible!important;padding:8px!important;box-shadow:none!important}
+.player-wrap #ccSeek{grid-column:1/5;grid-row:1;width:100%!important;min-width:0!important;margin:0!important;align-self:center;accent-color:#2563eb}
+.player-wrap #ccTime{grid-column:5;grid-row:1;justify-self:end;font-size:10px!important;white-space:nowrap}
+.player-wrap #ccWrap .cc-btn{grid-row:2;width:100%!important;min-width:0!important;max-width:none!important;height:40px!important;padding:0!important;border-radius:10px!important;display:flex!important;align-items:center;justify-content:center}
+.player-wrap #ccBack10{grid-column:1}.player-wrap #ccPlay{grid-column:2}.player-wrap #ccFwd10{grid-column:3}.player-wrap #ccSpeedBtn{grid-column:4}.player-wrap #ccFs{grid-column:5}
+body .player-wrap #ccPlay{background:#2563eb!important;color:#fff!important;border-color:#2563eb!important}
+.player-wrap #ccWrap .cc-btn:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+.player-wrap #playerSettingsBtn{opacity:1!important;transform:none!important;pointer-events:auto!important}
+@media(min-width:901px){main.page > .container > .container.course-desktop-layout{grid-template-columns:minmax(0,1fr) minmax(280px,36%)!important}}
+@media(max-width:900px) and (orientation:portrait){main.page > .container > header{display:flex!important;flex-wrap:wrap!important;gap:8px!important}main.page > .container > header>div:first-child{flex:1 1 100%;min-width:0!important}#courseTitle{font-size:clamp(20px,5vw,30px)!important;overflow-wrap:anywhere}main.page > .container > .container.course-desktop-layout > .player-wrap .player{padding-top:56.25%!important;height:auto!important}}
+@media(orientation:landscape) and (max-height:520px){main.page > .container > .container.course-desktop-layout > .player-wrap .player{padding-top:0!important;height:max(100px,calc(100dvh - 205px))!important}}
+body main.page .player-wrap:fullscreen,body main.page .player-wrap:-webkit-full-screen{display:flex!important;flex-direction:column!important;width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;overflow:hidden!important;top:0!important}
+body main.page .player-wrap:fullscreen .player,body main.page .player-wrap:-webkit-full-screen .player{flex:1 1 0!important;min-height:0!important;height:0!important;padding-top:0!important}
+body main.page .player-wrap:fullscreen .player-meta,body main.page .player-wrap:-webkit-full-screen .player-meta{flex:0 0 auto!important;padding:4px 8px max(4px,env(safe-area-inset-bottom))!important}
+body main.page .player-wrap:fullscreen .player-meta .left,body main.page .player-wrap:-webkit-full-screen .player-meta .left{display:none!important}
+@media(orientation:landscape) and (max-height:520px){.player-wrap #ccWrap .cc-btn{height:34px!important}.player-wrap #ccWrap{padding:4px!important;gap:4px!important}}
+</style>
+</head>
 <body>
   
 <header class="app-header">
