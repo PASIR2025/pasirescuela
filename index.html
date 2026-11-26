@@ -4803,7 +4803,7 @@ document.querySelectorAll('article.card[data-card-video]').forEach(card=>{const 
 function fillDetail(card){
     currentCard = card;
     const title = card.querySelector('h3')?.textContent.trim() || 'Detalle';
-    const desc = card.querySelector('.desc-full')?.textContent.trim() || card.querySelector('.desc')?.textContent.trim() || '';
+    /* PASIR_DESCRIPTIONS_V1 */ const desc = card.querySelector('.desc-full')?.textContent.trim() || '';
     const tag = (card.querySelector('.tag')?.textContent || '').trim().toLowerCase();
     const mainBuy = card.querySelector('a[data-buy="1"]');
     const isLogicsoft = title.toLowerCase() === 'logicsoft' || title.toLowerCase() === 'simuplc';
@@ -4816,7 +4816,7 @@ function fillDetail(card){
     const meta2Value = document.getElementById('detailMeta2Value');
 
     titleEl.textContent = title;
-    descEl.textContent = desc;
+    descEl.textContent = desc; descEl.hidden = !desc; descEl.style.display = desc ? '' : 'none';
     priceEl.innerHTML = card.querySelector('.price')?.innerHTML || '';
     secondaryEl.innerHTML = '';
     noteEl.hidden = true;
@@ -4863,7 +4863,7 @@ function fillDetail(card){
     }
 
     const items = renderLearn(card);
-    renderContent(items, card);pasirDetailMedia(card);
+    renderContent(items, card); const legacyIntro = card.querySelector('.detail-outline > p.desc')?.textContent.trim() || ''; const shortDesc = card.querySelector('.card-body > p.desc')?.textContent.trim() || ''; const intro = card.querySelector('.pasir-content-intro')?.textContent.trim() ?? ((legacyIntro === (desc || shortDesc)) ? '' : legacyIntro); contEl.querySelectorAll(':scope > p.desc').forEach(n=>n.remove()); if(intro){const p=document.createElement('p');p.className='desc';p.textContent=intro;contEl.prepend(p);}pasirDetailMedia(card);
 
     if (mainBuy) {
       buyEl.hidden = false;
