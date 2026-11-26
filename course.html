@@ -2798,6 +2798,15 @@ body main.page .player-wrap.pasir-expanded{position:fixed!important;inset:0!impo
 body main.page .player-wrap.pasir-expanded .player{flex:1 1 0!important;min-height:0!important;height:0!important;padding:0!important}
 body main.page .player-wrap.pasir-expanded .player-meta{flex:0 0 auto!important;padding:6px 8px max(6px,env(safe-area-inset-bottom))!important}
 </style>
+<style id="pasir-player-v5">
+#playerSettingsPanel{width:min(240px,calc(100% - 16px))!important}
+body main.page .player-wrap.pasir-landscape-fallback{position:fixed!important;inset:auto!important;top:50%!important;left:50%!important;width:100dvh!important;height:100vw!important;max-width:none!important;max-height:none!important;transform:translate(-50%,-50%) rotate(90deg)!important;transform-origin:center!important;display:flex!important;flex-direction:column!important;border-radius:0!important}
+body main.page .player-wrap.pasir-landscape-fallback .player{flex:1 1 0!important;min-height:0!important;height:0!important;padding:0!important}
+body main.page .player-wrap.pasir-landscape-fallback .player-meta{flex:0 0 auto!important;padding:4px 8px!important}
+body main.page .player-wrap.pasir-landscape-fallback #ccWrap .cc-btn{height:32px!important}
+body main.page .player-wrap.pasir-landscape-fallback #ccWrap{padding:4px!important;gap:4px!important}
+body main.page .player-wrap.pasir-landscape-fallback #playerRotateBtn{display:none!important}
+</style>
 </head>
 <body>
   
@@ -2858,8 +2867,7 @@ body main.page .player-wrap.pasir-expanded .player-meta{flex:0 0 auto!important;
         </button>
 
         <div id="playerSettingsPanel" class="player-settings-panel" aria-label="Ajustes del reproductor">
-          <h4>Ajustes del video</h4><p style="font-size:12px">Calidad automática según YouTube.</p><button type="button" id="captionToggle" class="ps-toggle">Subtítulos</button><p id="captionStatus" style="font-size:12px" aria-live="polite">Disponibilidad según el video.</p><p style="font-size:12px">Pistas de audio: selección disponible en YouTube.</p><a id="nativeVideoSettings" target="_blank" rel="noopener" style="font-size:12px">Abrir video en YouTube</a>
-          <div class="ps-row">
+          <h4>Calidad de video</h4><div class="ps-row">
             <div>
               <div class="ps-label">Calidad</div>
               <div class="ps-sub">Selecciona la calidad disponible</div>
@@ -2869,13 +2877,7 @@ body main.page .player-wrap.pasir-expanded .player-meta{flex:0 0 auto!important;
           <select id="qualitySelect" class="ps-select" aria-label="Calidad">
             <option value="auto">Auto</option>
           </select>
-          <div class="ps-row" style="margin-top:10px">
-            <div>
-              <div class="ps-label">Ajustar a pantalla</div>
-              <div class="ps-sub">Llena mejor la pantalla en fullscreen</div>
-            </div>
-            <button id="fitScreenToggle" class="ps-toggle" type="button" aria-pressed="false">Off</button>
-          </div>
+          
         </div>
 
 
@@ -3222,8 +3224,7 @@ function setupControls_(){
     wrap.style.setProperty('--fit-screen-scale', String(computeFitScreenScale()));
     if (fitScreenMode) wrap.classList.add('fit-screen-mode');
     else wrap.classList.remove('fit-screen-mode');
-    let captionsOn=false;
-  document.getElementById('captionToggle')?.addEventListener('click',()=>{const status=document.getElementById('captionStatus');try{if(!YTPlayer||!YTPlayer.loadModule||!YTPlayer.unloadModule)throw Error();if(captionsOn){YTPlayer.unloadModule('captions');captionsOn=false;status.textContent='Se solicitó desactivar subtítulos.'}else{YTPlayer.loadModule('captions');captionsOn=true;status.textContent='Se solicitó activar subtítulos, si están disponibles.'}}catch(e){status.textContent='No disponible en este video. Usa YouTube.'}});
+
   if (fitScreenToggle){
       fitScreenToggle.textContent = fitScreenMode ? 'On' : 'Off';
       fitScreenToggle.setAttribute('aria-pressed', fitScreenMode ? 'true' : 'false');
@@ -3296,7 +3297,7 @@ function setupControls_(){
       e.preventDefault();
       e.stopPropagation();
       settingsPanel.classList.toggle('open');
-      if (settingsPanel.classList.contains('open')) {hydrateQualityOptions(); const link=document.getElementById('nativeVideoSettings');try{const url=YTPlayer.getVideoUrl();if(url)link.href=url}catch(e){link.removeAttribute('href')}}
+      if (settingsPanel.classList.contains('open')) hydrateQualityOptions();
       if (window.__showCustomControls) window.__showCustomControls();
       if (window.syncFloatingButtons) window.syncFloatingButtons();
     });
@@ -3407,16 +3408,36 @@ function setupControls_(){
   }
 
   // Fullscreen propio (funciona en móvil, depende del navegador)
+  let expandedHistory=false, orientationOwned=false;
+  const mobilePlayer=()=>matchMedia('(pointer:coarse)').matches && Math.min(innerWidth,innerHeight)<=1024;
+  function updateExpanded(){
+    const on=wrap.classList.contains('pasir-expanded')||document.fullscreenElement===wrap||document.webkitFullscreenElement===wrap;
+    fs.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');
+    fs.textContent=on?'↙':'⛶';
+    wrap.classList.toggle('pasir-landscape-fallback',on&&mobilePlayer()&&matchMedia('(orientation:portrait)').matches);
+    if(!on&&orientationOwned){try{screen.orientation.unlock()}catch(e){}orientationOwned=false}
+  }
+  function fallback(on,fromBack=false){
+    wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
+    if(on&&!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}
+    if(!on&&expandedHistory){expandedHistory=false;if(!fromBack&&history.state?.pasirExpanded)history.back()}
+    updateExpanded();
+  }
   async function toggleFs(){
     if(!wrap)return;
-    const pseudo=wrap.classList.contains('pasir-expanded');
-    function fallback(on){wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);fs?.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa')}
-    if(pseudo){fallback(false);return}
-    try{if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();return}
-    if(wrap.requestFullscreen)await wrap.requestFullscreen();else if(wrap.webkitRequestFullscreen)await wrap.webkitRequestFullscreen();else fallback(true);
+    if(wrap.classList.contains('pasir-expanded')){fallback(false);return}
+    try{
+      if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();updateExpanded();return}
+      if(wrap.requestFullscreen)await wrap.requestFullscreen();else if(wrap.webkitRequestFullscreen)await wrap.webkitRequestFullscreen();else fallback(true);
     }catch(e){fallback(true)}
+    if(mobilePlayer()&&screen.orientation?.lock){try{await screen.orientation.lock('landscape');orientationOwned=true}catch(e){}}
+    updateExpanded();
   }
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap?.classList.contains('pasir-expanded')){wrap.classList.remove('pasir-expanded');document.body.classList.remove('pasir-expanded-body');fs?.setAttribute('aria-label','Pantalla completa')}});
+  document.addEventListener('fullscreenchange',updateExpanded);
+  document.addEventListener('webkitfullscreenchange',updateExpanded);
+  window.addEventListener('resize',updateExpanded);
+  window.addEventListener('popstate',()=>{if(wrap.classList.contains('pasir-expanded'))fallback(false,true)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap.classList.contains('pasir-expanded'))fallback(false)});
   if (fs) fs.addEventListener("click", toggleFs);
 
   // Actualiza UI
