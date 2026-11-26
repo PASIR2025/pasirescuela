@@ -2745,6 +2745,30 @@ body main.page .player-wrap:fullscreen .player-meta,body main.page .player-wrap:
 body main.page .player-wrap:fullscreen .player-meta .left,body main.page .player-wrap:-webkit-full-screen .player-meta .left{display:none!important}
 @media(orientation:landscape) and (max-height:520px){.player-wrap #ccWrap .cc-btn{height:34px!important}.player-wrap #ccWrap{padding:4px!important;gap:4px!important}}
 </style>
+<style id="pasir-desktop-room-v3">
+@media(min-width:951px){
+body main.page{display:block!important;width:100%!important;max-width:none!important;padding:0!important}
+body main.page > .container{display:block!important;grid-template-columns:none!important;width:calc(100% - 40px)!important;max-width:1680px!important;min-width:0!important;margin:0 auto!important;padding:16px 0 24px!important;box-sizing:border-box!important}
+body main.page > .container > header{position:relative!important;inset:auto!important;display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important;max-width:none!important;margin:0 0 14px!important;padding:0!important;box-sizing:border-box!important}
+body main.page > .container > header > div:first-child{flex:1 1 auto!important;min-width:0!important}
+body main.page > .container > header .top-actions{flex:0 0 auto!important;width:auto!important}
+body main.page #courseTitle{font-size:clamp(20px,2vw,30px)!important;line-height:1.2!important;overflow-wrap:anywhere}
+body main.page > .container > .container.course-desktop-layout{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(300px,32%)!important;grid-template-rows:auto!important;gap:18px!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;align-items:start!important;box-sizing:border-box!important}
+body main.page > .container > .course-desktop-layout > .player-wrap{grid-area:1 / 1!important;position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;border-radius:14px!important;background:#101827!important}
+body main.page > .container > .course-desktop-layout > .player-wrap:not(:fullscreen) .player{height:auto!important;min-height:0!important;padding-top:56.25%!important}
+body main.page > .container > .course-desktop-layout > .course-side-panel{grid-area:1 / 2!important;position:relative!important;inset:auto!important;width:100%!important;min-width:0!important;margin:0!important;max-height:calc(100dvh - 165px)!important}
+body main.page .player-wrap .player-meta{background:#101827!important;color:#fff!important;border:0!important;padding:10px 12px!important}
+body main.page .player-wrap .player-meta .now{color:#fff!important}
+body main.page .player-wrap #ccWrap{background:transparent!important;border:0!important;grid-template-columns:repeat(5,44px) minmax(0,1fr)!important;gap:8px!important;padding:0!important}
+body main.page .player-wrap #ccSeek{grid-column:1/-1!important;grid-row:1!important}
+body main.page .player-wrap #ccTime{grid-column:6!important;grid-row:2!important;justify-self:start!important;align-self:center!important;color:#fff!important;font-size:13px!important}
+body main.page .player-wrap #ccWrap .cc-btn{background:#334155!important;color:#fff!important;border:0!important;height:40px!important;border-radius:8px!important}
+body main.page .player-wrap #ccWrap #ccPlay{background:#2563eb!important}
+body main.page .player-wrap #ccPlay{grid-column:1!important}body main.page .player-wrap #ccBack10{grid-column:2!important}body main.page .player-wrap #ccFwd10{grid-column:3!important}body main.page .player-wrap #ccSpeedBtn{grid-column:4!important}body main.page .player-wrap #ccFs{grid-column:5!important}
+body main.page #msg:empty{display:none!important}
+body main.page > .container > .course-desktop-layout > .player-wrap:fullscreen{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important}
+}
+</style>
 </head>
 <body>
   
