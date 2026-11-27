@@ -2831,6 +2831,19 @@ html body.pasir-expanded-body .player-wrap.pasir-expanded.pasir-landscape-fallba
 html body.pasir-expanded-body .player-wrap.pasir-expanded .player{position:relative!important;flex:1 1 0!important;min-height:0!important;height:0!important;width:100%!important;padding:0!important;aspect-ratio:auto!important}
 html body.pasir-expanded-body .player-wrap.pasir-expanded .player-meta{position:relative!important;flex:0 0 auto!important;width:100%!important;background:#101827!important;color:#fff!important}
 </style>
+<style id="pasir-player-v8">
+html body.pasir-expanded-body .player-wrap.pasir-expanded{display:block!important;background:#000!important;overflow:hidden!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded .player{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;min-height:0!important;padding:0!important;margin:0!important;border-radius:0!important;aspect-ratio:auto!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #playerZoomSurface{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #player{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded .player-meta{position:absolute!important;inset:auto 0 0!important;width:100%!important;margin:0!important;padding:6px 10px!important;background:transparent!important;z-index:120!important;pointer-events:none!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #ccWrap{background:#101827e8!important;color:#fff!important;border:0!important;border-radius:8px!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .2s!important;grid-template-columns:repeat(6, minmax(0,1fr))!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #ccWrap.is-visible{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #ccWrap .cc-btn{background:#334155!important;color:white!important;border:0!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #ccWrap #ccPlay{background:#2563eb!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #ccTime{color:white!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #playerSettingsPanel{bottom:92px!important;max-height:calc(100% - 100px)!important}
+</style>
 </head>
 <body>
   
@@ -3439,10 +3452,14 @@ function setupControls_(){
     const on=wrap.classList.contains('pasir-expanded')||document.fullscreenElement===wrap||document.webkitFullscreenElement===wrap;
     fs.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');
     fs.textContent=on?'↙':'⛶';
-    const vv=window.visualViewport;
-    wrap.style.setProperty('--pasir-vw',(vv?.width||innerWidth)+'px');
-    wrap.style.setProperty('--pasir-vh',(vv?.height||innerHeight)+'px');
-    wrap.classList.toggle('pasir-landscape-fallback',on&&mobilePlayer()&&!landscape());
+    const vv=window.visualViewport,w=vv?.width||innerWidth,h=vv?.height||innerHeight;
+    const rotated=on&&mobilePlayer()&&!landscape();
+    wrap.style.setProperty('--pasir-vw',w+'px');
+    wrap.style.setProperty('--pasir-vh',h+'px');
+    wrap.classList.toggle('pasir-landscape-fallback',rotated);
+    if(wrap.classList.contains('pasir-expanded')){
+      for(const [k,v] of Object.entries({width:(rotated?h:w)+'px',height:(rotated?w:h)+'px',top:(vv?.offsetTop||0)+'px',left:(vv?.offsetLeft||0)+'px',transform:rotated?'translateX('+w+'px) rotate(90deg)':'none','transform-origin':'0 0'}))wrap.style.setProperty(k,v,'important');
+    }else for(const k of ['width','height','top','left','transform','transform-origin'])wrap.style.removeProperty(k);
   }
   function fallback(on,fromBack=false){
     wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
@@ -3451,6 +3468,7 @@ function setupControls_(){
     if(on){seenLandscape=landscape();if(!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}}
     if(!on&&expandedHistory){expandedHistory=false;if(!fromBack&&history.state?.pasirExpanded)history.back()}
     updateExpanded();
+    if(on)window.__showCustomControls?.();
   }
   async function toggleFs(){
     if(!wrap)return;
@@ -4064,11 +4082,12 @@ function escapeHtml_(s){
   let hideTimer = null;
 
   function showControls(){
-    if (!wrap || !videoLoadedFlag) return;
+    if (!wrap || (!videoLoadedFlag && !wrap.closest(".pasir-expanded"))) return;
     wrap.classList.add("is-visible");
     if (window.syncFloatingButtons) window.syncFloatingButtons();
     if (hideTimer) clearTimeout(hideTimer);
     hideTimer = setTimeout(() => {
+      if(document.getElementById("playerSettingsPanel")?.classList.contains("open")||wrap.contains(document.activeElement)&&document.activeElement?.matches("input")){showControls();return}
       wrap.classList.remove("is-visible");
       const panel = document.getElementById("playerSettingsPanel");
       if (panel) panel.classList.remove("open");
