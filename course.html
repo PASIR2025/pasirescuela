@@ -2844,6 +2844,11 @@ html body.pasir-expanded-body .player-wrap.pasir-expanded #ccWrap #ccPlay{backgr
 html body.pasir-expanded-body .player-wrap.pasir-expanded #ccTime{color:white!important}
 html body.pasir-expanded-body .player-wrap.pasir-expanded #playerSettingsPanel{bottom:92px!important;max-height:calc(100% - 100px)!important}
 </style>
+<style id="pasir-player-v9">
+html body.pasir-expanded-body .player-wrap.pasir-expanded .player{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:100%!important;max-height:none!important;padding:0!important;box-sizing:border-box!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #playerZoomSurface{position:absolute!important;inset:0!important;min-width:100%!important;min-height:100%!important;transform:none!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded #player{position:absolute!important;inset:0!important;min-width:100%!important;min-height:100%!important;max-width:none!important;max-height:none!important;transform:none!important;border:0!important}
+</style>
 </head>
 <body>
   
@@ -3447,19 +3452,31 @@ function setupControls_(){
   // Fullscreen propio (funciona en móvil, depende del navegador)
   let expandedHistory=false, wasLandscape=innerWidth>innerHeight, seenLandscape=false, suppressAuto=false;
   const mobilePlayer=()=>navigator.maxTouchPoints>0 && Math.min(screen.width,screen.height)<=1024;
-  const landscape=()=>innerWidth>innerHeight;
+  const landscape=()=>matchMedia('(orientation: landscape)').matches;
   function updateExpanded(){
     const on=wrap.classList.contains('pasir-expanded')||document.fullscreenElement===wrap||document.webkitFullscreenElement===wrap;
     fs.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');
     fs.textContent=on?'↙':'⛶';
-    const vv=window.visualViewport,w=vv?.width||innerWidth,h=vv?.height||innerHeight;
+    const vv=window.visualViewport;
+    const physicalLandscape=landscape();
+    const rawW=vv?.width||innerWidth,rawH=vv?.height||innerHeight;
+    const consistent=(rawW>rawH)===physicalLandscape;
+    const w=consistent?rawW:innerWidth,h=consistent?rawH:innerHeight;
     const rotated=on&&mobilePlayer()&&!landscape();
     wrap.style.setProperty('--pasir-vw',w+'px');
     wrap.style.setProperty('--pasir-vh',h+'px');
     wrap.classList.toggle('pasir-landscape-fallback',rotated);
     if(wrap.classList.contains('pasir-expanded')){
       for(const [k,v] of Object.entries({width:(rotated?h:w)+'px',height:(rotated?w:h)+'px',top:(vv?.offsetTop||0)+'px',left:(vv?.offsetLeft||0)+'px',transform:rotated?'translateX('+w+'px) rotate(90deg)':'none','transform-origin':'0 0'}))wrap.style.setProperty(k,v,'important');
-    }else for(const k of ['width','height','top','left','transform','transform-origin'])wrap.style.removeProperty(k);
+      const surface=document.getElementById('playerZoomSurface');
+      const frame=document.getElementById('player');
+      const pw=rotated?h:w,ph=rotated?w:h;
+      if(surface){surface.style.setProperty('width',pw+'px','important');surface.style.setProperty('height',ph+'px','important');}
+      if(frame){frame.style.setProperty('width',pw+'px','important');frame.style.setProperty('height',ph+'px','important');}
+    }else{
+      for(const k of ['width','height','top','left','transform','transform-origin'])wrap.style.removeProperty(k);
+      for(const id of ['playerZoomSurface','player']){const el=document.getElementById(id);el?.style.removeProperty('width');el?.style.removeProperty('height');}
+    }
   }
   function fallback(on,fromBack=false){
     wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
@@ -3491,7 +3508,13 @@ function setupControls_(){
   document.addEventListener('webkitfullscreenchange',updateExpanded);
   window.addEventListener('resize',orientationUpdate);
   window.visualViewport?.addEventListener('resize',orientationUpdate);
-  window.addEventListener('orientationchange',()=>setTimeout(orientationUpdate,250));
+  let rotationTimers=[];
+  function settleOrientation(){
+    rotationTimers.forEach(clearTimeout);
+    rotationTimers=[80,250,500,900,1400].map(ms=>setTimeout(orientationUpdate,ms));
+  }
+  window.addEventListener('orientationchange',settleOrientation);
+  matchMedia('(orientation: landscape)').addEventListener?.('change',settleOrientation);
   window.addEventListener('popstate',()=>{if(wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false,true)}});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false)}});
   if (fs) fs.addEventListener("click", toggleFs);
