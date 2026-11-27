@@ -2821,6 +2821,16 @@ body main.page .player-wrap.pasir-expanded #ccWrap .cc-btn{height:32px!important
 body main.page .player-wrap.pasir-expanded #ccBack10{grid-column:1!important}body main.page .player-wrap.pasir-expanded #ccPlay{grid-column:2!important}body main.page .player-wrap.pasir-expanded #ccFwd10{grid-column:3!important}body main.page .player-wrap.pasir-expanded #ccSpeedBtn{grid-column:4!important}body main.page .player-wrap.pasir-expanded #playerSettingsBtn{grid-column:5!important}body main.page .player-wrap.pasir-expanded #ccFs{grid-column:6!important}
 body main.page .player-wrap.pasir-expanded #playerRotateBtn{display:none!important}
 </style>
+<style id="pasir-player-v7">
+/* Top layer keeps the existing iframe in place, outside ancestor clipping. */
+html:has(.pasir-expanded-body){overflow:hidden!important}
+body.pasir-expanded-body :is(main.page,main.page>.container,.course-desktop-layout){transform:none!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;perspective:none!important;contain:none!important;content-visibility:visible!important;overflow:visible!important;will-change:auto!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded{position:fixed!important;inset:0 auto auto 0!important;grid-area:auto!important;align-self:auto!important;justify-self:auto!important;float:none!important;width:var(--pasir-vw,100vw)!important;height:var(--pasir-vh,100dvh)!important;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;transform:none!important;background:#101827!important;overflow:hidden!important;z-index:2147483647!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded.pasir-landscape-fallback{width:var(--pasir-vh,100dvh)!important;height:var(--pasir-vw,100vw)!important;transform-origin:0 0!important;transform:translateX(var(--pasir-vw,100vw)) rotate(90deg)!important}
+.player-wrap.pasir-expanded::backdrop{background:#000}
+html body.pasir-expanded-body .player-wrap.pasir-expanded .player{position:relative!important;flex:1 1 0!important;min-height:0!important;height:0!important;width:100%!important;padding:0!important;aspect-ratio:auto!important}
+html body.pasir-expanded-body .player-wrap.pasir-expanded .player-meta{position:relative!important;flex:0 0 auto!important;width:100%!important;background:#101827!important;color:#fff!important}
+</style>
 </head>
 <body>
   
@@ -3436,6 +3446,8 @@ function setupControls_(){
   }
   function fallback(on,fromBack=false){
     wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
+    if(on){try{if(typeof wrap.showPopover==='function'){wrap.setAttribute('popover','manual');wrap.showPopover()}}catch(e){wrap.removeAttribute('popover')}}
+    else{try{if(wrap.matches(':popover-open'))wrap.hidePopover()}catch(e){}wrap.removeAttribute('popover')}
     if(on){seenLandscape=landscape();if(!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}}
     if(!on&&expandedHistory){expandedHistory=false;if(!fromBack&&history.state?.pasirExpanded)history.back()}
     updateExpanded();
