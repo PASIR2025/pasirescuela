@@ -2849,6 +2849,17 @@ html body.pasir-expanded-body .player-wrap.pasir-expanded .player{position:absol
 html body.pasir-expanded-body .player-wrap.pasir-expanded #playerZoomSurface{position:absolute!important;inset:0!important;min-width:100%!important;min-height:100%!important;transform:none!important}
 html body.pasir-expanded-body .player-wrap.pasir-expanded #player{position:absolute!important;inset:0!important;min-width:100%!important;min-height:100%!important;max-width:none!important;max-height:none!important;transform:none!important;border:0!important}
 </style>
+<style id="pasir-player-v10">
+html:has(body.pasir-expanded-body),body.pasir-expanded-body{background:#000!important}
+.player-wrap:fullscreen{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#000!important;display:block!important}
+.player-wrap:fullscreen .player{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;padding:0!important;max-height:none!important;aspect-ratio:auto!important}
+.player-wrap:fullscreen #playerZoomSurface,.player-wrap:fullscreen #player{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important}
+.player-wrap:fullscreen .player-meta{position:absolute!important;inset:auto 0 0!important;z-index:120!important;background:transparent!important}
+.player-wrap:fullscreen #ccWrap:not(.is-visible){opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+.player-wrap:fullscreen #ccWrap.is-visible{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+.pasir-install-hint{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:150;display:flex;align-items:center;gap:10px;width:max-content;max-width:80%;padding:8px 12px;background:#101827e8;color:#fff;border-radius:8px;font:12px/1.4 system-ui;box-sizing:border-box}
+.pasir-install-hint button{border:0;background:transparent;color:white;font-size:22px;cursor:pointer;padding:0 4px}
+</style>
 </head>
 <body>
   
@@ -3453,6 +3464,18 @@ function setupControls_(){
   let expandedHistory=false, wasLandscape=innerWidth>innerHeight, seenLandscape=false, suppressAuto=false;
   const mobilePlayer=()=>navigator.maxTouchPoints>0 && Math.min(screen.width,screen.height)<=1024;
   const landscape=()=>matchMedia('(orientation: landscape)').matches;
+  const installedPlayer=()=>matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches||navigator.standalone===true;
+  const appleMobile=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const nativePlayer=()=>!installedPlayer()&&!appleMobile()&&typeof wrap.requestFullscreen==='function'&&document.fullscreenEnabled!==false;
+  let installHintTimer;
+  function showInstallHint(){
+    if(!appleMobile()||installedPlayer()||sessionStorage.getItem('pasirInstallHintV10'))return;
+    sessionStorage.setItem('pasirInstallHintV10','1');
+    const hint=document.createElement('div');hint.className='pasir-install-hint';hint.setAttribute('role','status');
+    const msg=document.createElement('span');msg.textContent='Para ver las clases sin barras del navegador, añade PASIR a la pantalla de inicio desde Compartir en Safari.';
+    const close=document.createElement('button');close.type='button';close.textContent='×';close.setAttribute('aria-label','Cerrar sugerencia');close.onclick=()=>hint.remove();
+    hint.append(msg,close);wrap.append(hint);clearTimeout(installHintTimer);installHintTimer=setTimeout(()=>hint.remove(),6500);
+  }
   function updateExpanded(){
     const on=wrap.classList.contains('pasir-expanded')||document.fullscreenElement===wrap||document.webkitFullscreenElement===wrap;
     fs.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');
@@ -3481,7 +3504,7 @@ function setupControls_(){
   function fallback(on,fromBack=false){
     wrap.classList.toggle('pasir-expanded',on);document.body.classList.toggle('pasir-expanded-body',on);
     if(on){try{if(typeof wrap.showPopover==='function'){wrap.setAttribute('popover','manual');wrap.showPopover()}}catch(e){wrap.removeAttribute('popover')}}
-    else{try{if(wrap.matches(':popover-open'))wrap.hidePopover()}catch(e){}wrap.removeAttribute('popover')}
+    else{try{if(wrap.matches(':popover-open'))wrap.hidePopover()}catch(e){}wrap.removeAttribute('popover');wrap.querySelector('.pasir-install-hint')?.remove()}
     if(on){seenLandscape=landscape();if(!expandedHistory){history.pushState({...history.state,pasirExpanded:true},'');expandedHistory=true}}
     if(!on&&expandedHistory){expandedHistory=false;if(!fromBack&&history.state?.pasirExpanded)history.back()}
     updateExpanded();
@@ -3490,7 +3513,13 @@ function setupControls_(){
   async function toggleFs(){
     if(!wrap)return;
     if(wrap.classList.contains('pasir-expanded')){suppressAuto=landscape();fallback(false);return}
-    if(mobilePlayer()){suppressAuto=false;fallback(true);return}
+    if(mobilePlayer()){
+      suppressAuto=false;
+      if(nativePlayer()){
+        try{await wrap.requestFullscreen();try{await screen.orientation?.lock?.('landscape')}catch(e){}updateExpanded();return}catch(e){}
+      }
+      fallback(true);showInstallHint();return;
+    }
     try{if(document.fullscreenElement||document.webkitFullscreenElement){if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)await document.webkitExitFullscreen();return}
     if(wrap.requestFullscreen)await wrap.requestFullscreen();else fallback(true)}catch(e){fallback(true)}
     updateExpanded();
@@ -3504,7 +3533,7 @@ function setupControls_(){
     }
     updateExpanded();
   }
-  document.addEventListener('fullscreenchange',updateExpanded);
+  document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){try{screen.orientation?.unlock?.()}catch(e){}}updateExpanded()});
   document.addEventListener('webkitfullscreenchange',updateExpanded);
   window.addEventListener('resize',orientationUpdate);
   window.visualViewport?.addEventListener('resize',orientationUpdate);
